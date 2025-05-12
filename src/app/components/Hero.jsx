@@ -5,7 +5,8 @@ export default function Hero() {
     return (
         <div className="relative overflow-hidden rounded-xl bg-amber-50">
             <div className="absolute inset-0 bg-gradient-to-r from-amber-100/80 to-transparent" />
-            <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
+            <div className="container mx-auto px-4 py-8 md:py-24 relative z-10">
+                <img src="hero.jpeg" alt="masjid" className="mb-5 rounded-md" />
                 <div className="max-w-xl">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4">Selamat Datang di Masjid At-Taqwa</h1>
                     <p className="text-lg text-gray-700 mb-8">

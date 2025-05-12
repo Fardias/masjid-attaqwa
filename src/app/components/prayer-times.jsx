@@ -13,9 +13,10 @@ export default function PrayerTimes() {
 
   return (
     <Card>
-      <CardHeader className="bg-amber-50">
+      
+      <CardHeader className="">
         <CardTitle className="flex items-center">
-          <Clock className="h-5 w-5 mr-2" />
+          <Clock className="h-5 w-5 mr-2 text-amber-600" />
           Jadwal Sholat Hari Ini
         </CardTitle>
       </CardHeader>

@@ -6,9 +6,9 @@ import Link from "next/link"
 export default function DonationCta({ className }) {
   return (
     <Card className={className}>
-      <CardHeader className="bg-amber-50">
+      <CardHeader className="">
         <CardTitle className="flex items-center">
-          <Heart className="h-5 w-5 mr-2" />
+          <Heart className="h-5 w-5 mr-2 text-amber-600" />
           Donasi untuk Masjid
         </CardTitle>
       </CardHeader>
