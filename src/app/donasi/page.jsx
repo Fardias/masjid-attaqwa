@@ -19,17 +19,19 @@ export default function DonationPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
         <div className="lg:col-span-2">
           <Tabs defaultValue="transfer" className="w-full">
-            <TabsList className="grid w-full grid-cols-3">
+            <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="transfer">Transfer Bank</TabsTrigger>
               <TabsTrigger value="qris">QRIS</TabsTrigger>
-              <TabsTrigger value="form">Form Donasi</TabsTrigger>
             </TabsList>
 
             <TabsContent value="transfer" className="mt-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Landmark className="mr-2 h-5 w-5" />
+                    <Landmark className="mr-2 h-5 w-5 text-amber-600
+                    
+                    
+                    " />
                     Transfer Bank
                   </CardTitle>
                   <CardDescription>Silakan transfer donasi ke rekening resmi Masjid At-Taqwa</CardDescription>
@@ -93,7 +95,7 @@ export default function DonationPage() {
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <CreditCard className="mr-2 h-5 w-5" />
+                    <CreditCard className="mr-2 h-5 w-5 text-amber-600" />
                     QRIS
                   </CardTitle>
                   <CardDescription>
@@ -111,7 +113,7 @@ export default function DonationPage() {
                     </div>
                   </div>
                   <p className="text-center font-medium">Masjid At-Taqwa</p>
-                  <p className="text-center text-sm text-gray-500 mt-1">
+                  <p className="text-center text-sm text-gray-500 mt-1 md:max-w-sm">
                     Kode QRIS dapat digunakan untuk pembayaran melalui GoPay, OVO, DANA, LinkAja, ShopeePay, dan
                     aplikasi mobile banking
                   </p>
@@ -125,7 +127,7 @@ export default function DonationPage() {
               </Card>
             </TabsContent>
 
-            <TabsContent value="form" className="mt-6">
+            {/* <TabsContent value="form" className="mt-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
@@ -194,13 +196,13 @@ export default function DonationPage() {
                   </form>
                 </CardContent>
               </Card>
-            </TabsContent>
+            </TabsContent> */}
           </Tabs>
         </div>
 
         <div className="lg:col-span-1">
           <Card>
-            <CardHeader className="bg-amber-50">
+            <CardHeader className="">
               <CardTitle>Program Donasi</CardTitle>
             </CardHeader>
             <CardContent className="pt-6">
@@ -240,7 +242,7 @@ export default function DonationPage() {
 
               <Separator className="my-6" />
 
-              <div className="space-y-4">
+              {/* <div className="space-y-4">
                 <h3 className="font-medium">Laporan Donasi</h3>
                 <p className="text-sm text-gray-600">
                   Masjid At-Taqwa berkomitmen untuk transparan dalam pengelolaan dana donasi. Laporan keuangan
@@ -250,7 +252,7 @@ export default function DonationPage() {
                   <CheckCircle2 className="h-4 w-4 mr-2" />
                   Diaudit oleh akuntan publik
                 </div>
-              </div>
+              </div> */}
             </CardContent>
           </Card>
         </div>

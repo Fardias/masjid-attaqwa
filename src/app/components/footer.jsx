@@ -3,13 +3,12 @@ import { ChurchIcon as Mosque, Mail, Phone, MapPin, Facebook, Twitter, Instagram
 
 export default function Footer() {
   return (
-    <footer className="bg-amber-50 border-t">
+    <footer className=" border-t">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Mosque className="h-6 w-6 text-amber-600" />
-              <span className="font-bold text-xl">Masjid At-Taqwa</span>
+              <span className="font-bold text-xl text-amber-600">Masjid At-Taqwa</span>
             </div>
             <p className="text-gray-600 mb-4">
               Masjid At-Taqwa adalah tempat ibadah dan pusat kegiatan Islam yang berlokasi di Kota Indah. Kami
@@ -37,7 +36,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-bold text-lg mb-4">Menu</h3>
+            <h3 className="font-bold text-lg mb-4 text-amber-600">Menu</h3>
             <ul className="space-y-2">
               <li>
                 <Link href="/" className="text-gray-600 hover:text-amber-600">
@@ -78,7 +77,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-bold text-lg mb-4">Jadwal Sholat</h3>
+            <h3 className="font-bold text-lg mb-4 text-amber-600">Jadwal Sholat</h3>
             <ul className="space-y-2 text-gray-600">
               <li className="flex justify-between">
                 <span>Subuh</span>
@@ -108,7 +107,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-bold text-lg mb-4">Kontak</h3>
+            <h3 className="font-bold text-lg mb-4 text-amber-600">Kontak</h3>
             <ul className="space-y-4">
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-2 text-amber-600 mt-0.5" />

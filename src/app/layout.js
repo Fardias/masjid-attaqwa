@@ -24,7 +24,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${outfit.variable} antialiased`}
       >
-        <div className="flex min-h-screen flex-col">
+        <div className="flex min-h-screen flex-col xl:px-[200px]">
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />

@@ -7,7 +7,7 @@ export default function ProfilePage() {
       <h1 className="text-4xl font-bold mb-8 text-center">Profil Masjid At-Taqwa</h1>
 
       <Tabs defaultValue="visi-misi" className="w-full">
-        <TabsList className="grid w-full grid-cols-1 md:grid-cols-3">
+        <TabsList className="grid w-full grid-cols-3 md:grid-cols-3">
           <TabsTrigger value="visi-misi">Visi dan Misi</TabsTrigger>
           <TabsTrigger value="sejarah">Sejarah</TabsTrigger>
           <TabsTrigger value="pengurus">Pengurus</TabsTrigger>
@@ -53,24 +53,10 @@ export default function ProfilePage() {
             <CardContent>
               <div className="space-y-4 text-gray-700">
                 <p>
-                  Masjid At-Taqwa didirikan pada tahun 1985 oleh sekelompok tokoh masyarakat yang peduli dengan
-                  perkembangan dakwah Islam di daerah ini. Awalnya, masjid ini hanyalah bangunan sederhana dengan
-                  kapasitas jamaah yang terbatas.
+                  ....
                 </p>
-                <p>
-                  Seiring berjalannya waktu, dengan dukungan masyarakat sekitar, Masjid At-Taqwa terus berkembang dan
-                  mengalami beberapa kali renovasi. Renovasi besar pertama dilakukan pada tahun 1995, yang memperluas
-                  area masjid dan menambah fasilitas pendukung.
-                </p>
-                <p>
-                  Pada tahun 2010, dilakukan renovasi total yang mengubah wajah Masjid At-Taqwa menjadi seperti yang
-                  kita lihat sekarang. Dengan arsitektur yang megah dan fasilitas yang lengkap, Masjid At-Taqwa kini
-                  menjadi salah satu masjid kebanggaan masyarakat.
-                </p>
-                <p>
-                  Hingga saat ini, Masjid At-Taqwa terus berperan aktif dalam pembinaan umat dan pengembangan masyarakat
-                  melalui berbagai program keagamaan, pendidikan, dan sosial.
-                </p>
+                
+                
               </div>
             </CardContent>
           </Card>
@@ -87,9 +73,9 @@ export default function ProfilePage() {
                 <div>
                   <h3 className="text-xl font-bold mb-3">Dewan Pembina</h3>
                   <ul className="list-disc pl-6 text-gray-700">
-                    <li>H. Ahmad Fauzi</li>
-                    <li>H. Muhammad Ridwan</li>
-                    <li>H. Abdul Karim</li>
+                    <li>...</li>
+                    <li>...</li>
+                    <li>...</li>
                   </ul>
                 </div>
 
@@ -97,21 +83,21 @@ export default function ProfilePage() {
                   <h3 className="text-xl font-bold mb-3">Pengurus Harian</h3>
                   <ul className="space-y-2 text-gray-700">
                     <li>
-                      <span className="font-semibold">Ketua:</span> H. Budi Santoso
+                      <span className="font-semibold">Ketua:</span> ...
                     </li>
                     <li>
-                      <span className="font-semibold">Wakil Ketua:</span> Ir. Hasan Basri
+                      <span className="font-semibold">Wakil Ketua:</span> ...
                     </li>
                     <li>
-                      <span className="font-semibold">Sekretaris:</span> Muhammad Iqbal, S.Pd
+                      <span className="font-semibold">Sekretaris:</span> ...
                     </li>
                     <li>
-                      <span className="font-semibold">Bendahara:</span> H. Rahmat Hidayat
+                      <span className="font-semibold">Bendahara:</span> ...
                     </li>
                   </ul>
                 </div>
 
-                <div>
+                {/* <div>
                   <h3 className="text-xl font-bold mb-3">Bidang-bidang</h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
                     <div>
@@ -143,7 +129,7 @@ export default function ProfilePage() {
                       </ul>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </CardContent>
           </Card>

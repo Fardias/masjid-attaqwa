@@ -5,26 +5,26 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/ta
 export default function AlbumPage() {
   // Sample album categories and images
   const albums = {
-    "kegiatan-ramadhan": {
-      title: "Kegiatan Ramadhan",
-      images: [
-        { id: 1, src: "/placeholder.svg?height=400&width=600", alt: "Buka puasa bersama" },
-        { id: 2, src: "/placeholder.svg?height=400&width=600", alt: "Sholat tarawih" },
-        { id: 3, src: "/placeholder.svg?height=400&width=600", alt: "Kajian Ramadhan" },
-        { id: 4, src: "/placeholder.svg?height=400&width=600", alt: "Pembagian takjil" },
-        { id: 5, src: "/placeholder.svg?height=400&width=600", alt: "Itikaf malam lailatul qadar" },
-        { id: 6, src: "/placeholder.svg?height=400&width=600", alt: "Sholat Idul Fitri" },
-      ],
-    },
-    "pembangunan-masjid": {
-      title: "Pembangunan Masjid",
-      images: [
-        { id: 1, src: "/placeholder.svg?height=400&width=600", alt: "Peletakan batu pertama" },
-        { id: 2, src: "/placeholder.svg?height=400&width=600", alt: "Proses pembangunan" },
-        { id: 3, src: "/placeholder.svg?height=400&width=600", alt: "Pemasangan kubah" },
-        { id: 4, src: "/placeholder.svg?height=400&width=600", alt: "Renovasi interior" },
-      ],
-    },
+    // "kegiatan-ramadhan": {
+    //   title: "Kegiatan Ramadhan",
+    //   images: [
+    //     { id: 1, src: "/placeholder.svg?height=400&width=600", alt: "Buka puasa bersama" },
+    //     { id: 2, src: "/placeholder.svg?height=400&width=600", alt: "Sholat tarawih" },
+    //     { id: 3, src: "/placeholder.svg?height=400&width=600", alt: "Kajian Ramadhan" },
+    //     { id: 4, src: "/placeholder.svg?height=400&width=600", alt: "Pembagian takjil" },
+    //     { id: 5, src: "/placeholder.svg?height=400&width=600", alt: "Itikaf malam lailatul qadar" },
+    //     { id: 6, src: "/placeholder.svg?height=400&width=600", alt: "Sholat Idul Fitri" },
+    //   ],
+    // },
+    // "pembangunan-masjid": {
+    //   title: "Pembangunan Masjid",
+    //   images: [
+    //     { id: 1, src: "/placeholder.svg?height=400&width=600", alt: "Peletakan batu pertama" },
+    //     { id: 2, src: "/placeholder.svg?height=400&width=600", alt: "Proses pembangunan" },
+    //     { id: 3, src: "/placeholder.svg?height=400&width=600", alt: "Pemasangan kubah" },
+    //     { id: 4, src: "/placeholder.svg?height=400&width=600", alt: "Renovasi interior" },
+    //   ],
+    // },
     "kegiatan-sosial": {
       title: "Kegiatan Sosial",
       images: [
@@ -51,10 +51,8 @@ export default function AlbumPage() {
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-4xl font-bold mb-8 text-center">Album Kegiatan</h1>
 
-      <Tabs defaultValue="kegiatan-ramadhan" className="w-full">
-        <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 mb-8">
-          <TabsTrigger value="kegiatan-ramadhan">Kegiatan Ramadhan</TabsTrigger>
-          <TabsTrigger value="pembangunan-masjid">Pembangunan Masjid</TabsTrigger>
+      <Tabs defaultValue="kegiatan-sosial" className="w-full">
+        <TabsList className="grid w-full grid-cols-2 mb-8">
           <TabsTrigger value="kegiatan-sosial">Kegiatan Sosial</TabsTrigger>
           <TabsTrigger value="peringatan-hari-besar">Hari Besar Islam</TabsTrigger>
         </TabsList>

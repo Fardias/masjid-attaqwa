@@ -76,21 +76,20 @@ export default function FAQPage() {
   ]
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8 text-center">Frequently Asked Questions</h1>
-
-      <div className="grid gap-8">
+    <div className="container mx-auto px-4 py-12 ">
+      <h1 className="text-4xl font-bold mb-8 text-center">Pertanyaan yang Sering Diajukan</h1>
+      <div className="grid gap-5 xl:px-[200px]">
         {faqs.map((category) => (
           <Card key={category.category}>
-            <CardHeader className="bg-amber-50">
+            <CardHeader className="xl:text-3xl text-amber-600">
               <CardTitle>{category.category}</CardTitle>
             </CardHeader>
-            <CardContent className="pt-6">
+            <CardContent className="pt-1">
               <Accordion type="single" collapsible className="w-full">
                 {category.questions.map((faq) => (
                   <AccordionItem key={faq.id} value={faq.id}>
-                    <AccordionTrigger className="text-left font-medium">{faq.question}</AccordionTrigger>
-                    <AccordionContent className="text-gray-700 whitespace-pre-line">{faq.answer}</AccordionContent>
+                    <AccordionTrigger className="text-left font-medium xl:text-xl">{faq.question}</AccordionTrigger>
+                    <AccordionContent className="text-gray-700 whitespace-pre-line xl:text-lg">{faq.answer}</AccordionContent>
                   </AccordionItem>
                 ))}
               </Accordion>

@@ -53,7 +53,7 @@ export default function ContactPage() {
                     </div>
                   </div>
 
-                  <div className="flex items-start">
+                  {/* <div className="flex items-start">
                     <Clock className="h-5 w-5 mr-3 text-amber-600 mt-0.5" />
                     <div>
                       <h3 className="font-medium mb-1">Jam Operasional Sekretariat</h3>
@@ -61,7 +61,7 @@ export default function ContactPage() {
                       <p className="text-gray-600">Sabtu: 08.00 - 12.00 WIB</p>
                       <p className="text-gray-600">Minggu & Hari Libur: Tutup</p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </CardContent>
             </Card>
