@@ -24,11 +24,13 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2 w-full">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <div className="flex justify-between items-center w-full  px-4">
+            <div className="flex justify-between items-center w-full px-4">
               <h1 className="font-bold uppercase text-amber-600
               ">Masjid At-Taqwa</h1>
               <SheetTrigger asChild>
-                <Button c variant="ghost" size="icon" className="lg:hidden bg-amber-600">
+                <Button c variant="default" size="icon" className="lg:hidden bg-amber-600 hover:opacity-90
+              ]
+                ">
                   <Menu className="h-6 w-6 text-white" />
                   <span className="sr-only">Toggle menu</span>
                 </Button>
