@@ -48,22 +48,22 @@ export default function AlbumPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8 text-center">Album Kegiatan</h1>
+    <div className="container px-4 py-12 mx-auto">
+      <h1 className="mb-8 text-4xl font-bold text-center">Album Kegiatan</h1>
 
       <Tabs defaultValue="kegiatan-sosial" className="w-full">
         <TabsList className="grid w-full grid-cols-2 mb-8">
-          <TabsTrigger value="kegiatan-sosial">Kegiatan Sosial</TabsTrigger>
-          <TabsTrigger value="peringatan-hari-besar">Hari Besar Islam</TabsTrigger>
+          <TabsTrigger value="kegiatan-sosial" className="cursor-pointer">Kegiatan Sosial</TabsTrigger>
+          <TabsTrigger value="peringatan-hari-besar" className="cursor-pointer">Hari Besar Islam</TabsTrigger>
         </TabsList>
 
         {Object.entries(albums).map(([key, album]) => (
           <TabsContent key={key} value={key} className="mt-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
               {album.images.map((image) => (
                 <Card key={image.id} className="overflow-hidden">
                   <CardContent className="p-0">
-                    <div className="relative h-64 w-full">
+                    <div className="relative w-full h-64">
                       <Image
                         src={image.src || "/placeholder.svg"}
                         alt={image.alt}

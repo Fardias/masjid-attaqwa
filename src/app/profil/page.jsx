@@ -1,16 +1,17 @@
+// Hover events
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/app/components/ui/card"
 
 export default function ProfilePage() {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8 text-center">Profil Masjid At-Taqwa</h1>
+    <div className="container px-4 py-12 mx-auto">
+      <h1 className="mb-8 text-4xl font-bold text-center">Profil Masjid At-Taqwa</h1>
 
       <Tabs defaultValue="visi-misi" className="w-full">
         <TabsList className="grid w-full grid-cols-3 md:grid-cols-3">
-          <TabsTrigger value="visi-misi">Visi dan Misi</TabsTrigger>
-          <TabsTrigger value="sejarah">Sejarah</TabsTrigger>
-          <TabsTrigger value="pengurus">Pengurus</TabsTrigger>
+          <TabsTrigger value="visi-misi" className="cursor-pointer">Visi dan Misi</TabsTrigger>
+          <TabsTrigger value="sejarah" className="cursor-pointer">Sejarah</TabsTrigger>
+          <TabsTrigger value="pengurus" className="cursor-pointer">Pengurus</TabsTrigger>
         </TabsList>
 
         <TabsContent value="visi-misi" className="mt-6">
@@ -22,7 +23,7 @@ export default function ProfilePage() {
             <CardContent>
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-2xl font-bold mb-4">Visi</h3>
+                  <h3 className="mb-4 text-2xl font-bold">Visi</h3>
                   <p className="text-gray-700">
                     Menjadikan Masjid At-Taqwa sebagai pusat ibadah, pendidikan, dan pemberdayaan umat yang berkualitas,
                     serta menjadi masjid yang makmur, mandiri, dan bermanfaat bagi masyarakat sekitar.
@@ -30,8 +31,8 @@ export default function ProfilePage() {
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-bold mb-4">Misi</h3>
-                  <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                  <h3 className="mb-4 text-2xl font-bold">Misi</h3>
+                  <ul className="pl-6 space-y-2 text-gray-700 list-disc">
                     <li>Menyelenggarakan kegiatan ibadah yang khusyuk dan istiqomah</li>
                     <li>Mengembangkan pendidikan Islam yang komprehensif untuk semua kalangan</li>
                     <li>Membangun kegiatan sosial kemasyarakatan yang bermanfaat</li>
@@ -71,8 +72,8 @@ export default function ProfilePage() {
             <CardContent>
               <div className="space-y-6">
                 <div>
-                  <h3 className="text-xl font-bold mb-3">Dewan Pembina</h3>
-                  <ul className="list-disc pl-6 text-gray-700">
+                  <h3 className="mb-3 text-xl font-bold">Dewan Pembina</h3>
+                  <ul className="pl-6 text-gray-700 list-disc">
                     <li>...</li>
                     <li>...</li>
                     <li>...</li>
@@ -80,7 +81,7 @@ export default function ProfilePage() {
                 </div>
 
                 <div>
-                  <h3 className="text-xl font-bold mb-3">Pengurus Harian</h3>
+                  <h3 className="mb-3 text-xl font-bold">Pengurus Harian</h3>
                   <ul className="space-y-2 text-gray-700">
                     <li>
                       <span className="font-semibold">Ketua:</span> ...
@@ -98,32 +99,32 @@ export default function ProfilePage() {
                 </div>
 
                 {/* <div>
-                  <h3 className="text-xl font-bold mb-3">Bidang-bidang</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700">
+                  <h3 className="mb-3 text-xl font-bold">Bidang-bidang</h3>
+                  <div className="grid grid-cols-1 gap-4 text-gray-700 md:grid-cols-2">
                     <div>
                       <h4 className="font-semibold">Bidang Ibadah & Dakwah</h4>
-                      <ul className="list-disc pl-6">
+                      <ul className="pl-6 list-disc">
                         <li>Ust. Ahmad Syafii</li>
                         <li>Ust. Zainuddin</li>
                       </ul>
                     </div>
                     <div>
                       <h4 className="font-semibold">Bidang Pendidikan</h4>
-                      <ul className="list-disc pl-6">
+                      <ul className="pl-6 list-disc">
                         <li>Drs. Mahmud Hasan</li>
                         <li>Hj. Siti Aminah, M.Pd</li>
                       </ul>
                     </div>
                     <div>
                       <h4 className="font-semibold">Bidang Sosial & Humas</h4>
-                      <ul className="list-disc pl-6">
+                      <ul className="pl-6 list-disc">
                         <li>H. Sulaiman</li>
                         <li>Ibu Fatimah</li>
                       </ul>
                     </div>
                     <div>
                       <h4 className="font-semibold">Bidang Pembangunan</h4>
-                      <ul className="list-disc pl-6">
+                      <ul className="pl-6 list-disc">
                         <li>Ir. Hadi Purnomo</li>
                         <li>H. Joko Widodo</li>
                       </ul>
