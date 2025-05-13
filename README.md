@@ -38,7 +38,6 @@ cd masjid-attaqwa
 # Install dependencies
 npm install
 
-
 # Jalankan server development
 npm run dev
 
