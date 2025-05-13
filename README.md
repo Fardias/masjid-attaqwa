@@ -1,4 +1,4 @@
-# 🕌 Website Masjid At-Taqwa
+# 🕌 Masjid At-Taqwa
 
 Ini adalah repositori untuk website resmi **Masjid At-Taqwa**, yang bertujuan memberikan informasi terkini seputar kegiatan masjid, jadwal sholat, artikel islami, hingga kemudahan berdonasi bagi jamaah.
 
