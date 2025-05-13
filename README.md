@@ -32,7 +32,7 @@ Pastikan kamu sudah menginstall `Node.js` dan `npm`.
 
 ```bash
 # Clone repositori ini
-git clone https://github.com/username/masjid-attaqwa.git
+git clone https://github.com/Fardias/masjid-attaqwa.git
 cd masjid-attaqwa
 
 # Install dependencies
