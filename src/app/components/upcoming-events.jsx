@@ -86,6 +86,15 @@ const fetchEvents = () => getUpcomingEvents()
 export default function UpcomingEvents() {
     const { data: events, error, isLoading } = useSWR('upcoming-events', fetchEvents)
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString)
+        return new Intl.DateTimeFormat("id-ID", {
+            day: "2-digit",
+            month: "long",
+            year: "numeric",
+        }).format(date)
+    }
+
     return (
         <Card>
             <CardHeader>
@@ -119,7 +128,7 @@ export default function UpcomingEvents() {
                                     </Badge>
                                 </div>
                                 <div className="space-y-2 text-gray-600">
-                                    <p><span className="font-medium">Tanggal:</span> {event.tanggal_mulai} - {event.tanggal_selesai}</p>
+                                    <p><span className="font-medium">Tanggal:</span> {formatDate(event.tanggal_mulai)}</p>
                                     <p><span className="font-medium">Waktu:</span> {event.time}</p>
                                     <p><span className="font-medium">Lokasi:</span> {event.lokasi ?? 'Masjid At-Taqwa'}</p>
                                     <p><span className="font-medium">Pemateri:</span> {event.speaker}</p>
