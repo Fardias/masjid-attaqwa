@@ -7,7 +7,6 @@ export const getUpcomingEvents = async () => {
         .order('tanggal_mulai', { ascending: true })
 
     if (error) throw error
-    console.log('Data fetched:', data) // Log data yang diambil
     return data
 }
 

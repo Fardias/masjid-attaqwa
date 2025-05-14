@@ -75,31 +75,16 @@
 //     )
 // }
 
-import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Badge } from "./ui/badge"
 import { Calendar } from "lucide-react"
 import { getUpcomingEvents } from "@/lib/services/kegiatanService"
 
+const fetchEvents = () => getUpcomingEvents()
+
 export default function UpcomingEvents() {
-    const [events, setEvents] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(null)
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await getUpcomingEvents()
-                setEvents(data)
-            } catch (err) {
-                setError(err.message)
-            } finally {
-                setLoading(false)
-            }
-        }
-
-        fetchData()
-    }, [])
+    const { data: events, error, isLoading } = useSWR('upcoming-events', fetchEvents)
 
     return (
         <Card>
@@ -110,7 +95,7 @@ export default function UpcomingEvents() {
                 </CardTitle>
             </CardHeader>
 
-            {loading && (
+            {isLoading && (
                 <div className="flex items-center justify-center p-4">
                     <p className="text-gray-500">Loading...</p>
                 </div>
@@ -118,12 +103,12 @@ export default function UpcomingEvents() {
 
             {error && (
                 <div className="flex items-center justify-center p-4">
-                    <p className="text-red-500">Error: {error}</p>
+                    <p className="text-red-500">Error: {error.message}</p>
                 </div>
             )}
 
             <CardContent className="pt-6">
-                {events.length > 0 && (
+                {events?.length > 0 ? (
                     <div className="space-y-6">
                         {events.map((event) => (
                             <div key={event.id} className="p-4 transition-colors border rounded-lg hover:border-amber-200">
@@ -134,26 +119,16 @@ export default function UpcomingEvents() {
                                     </Badge>
                                 </div>
                                 <div className="space-y-2 text-gray-600">
-                                    <p>
-                                        <span className="font-medium">Tanggal:</span> {event.tanggal_mulai} - {event.tanggal_selesai}
-                                    </p>
-                                    <p>
-                                        <span className="font-medium">Waktu:</span> {event.time}
-                                    </p>
-                                    <p>
-                                        <span className="font-medium">Lokasi:</span> {event.lokasi ?? 'Masjid At-Taqwa'}
-                                    </p>
-                                    <p>
-                                        <span className="font-medium">Pemateri:</span> {event.speaker}
-                                    </p>
+                                    <p><span className="font-medium">Tanggal:</span> {event.tanggal_mulai} - {event.tanggal_selesai}</p>
+                                    <p><span className="font-medium">Waktu:</span> {event.time}</p>
+                                    <p><span className="font-medium">Lokasi:</span> {event.lokasi ?? 'Masjid At-Taqwa'}</p>
+                                    <p><span className="font-medium">Pemateri:</span> {event.speaker}</p>
                                 </div>
                             </div>
                         ))}
                     </div>
-                )}
-
-                {!loading && !error && events.length === 0 && (
-                    <p className="text-center text-gray-500">Belum ada informasi kegiatan mendatang.</p>
+                ) : (
+                    !isLoading && <p className="text-center text-gray-500">Belum ada informasi kegiatan mendatang.</p>
                 )}
             </CardContent>
         </Card>
