@@ -24,6 +24,7 @@ Ini adalah repositori untuk website resmi **Masjid At-Taqwa**, yang bertujuan me
 - 🎨 **Tailwind CSS**
 - 🧩 **shadcn/ui**
 - 🛢️ **Supabase**
+- 🚉 **SWR**
 
 ---
 
