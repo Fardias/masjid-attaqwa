@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { Button } from "./ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
+import { Button } from "../../components/ui/button"
+import { Sheet, SheetContent, SheetTrigger } from "../../components/ui/sheet"
 import { Menu } from "lucide-react"
 
 import { usePathname } from "next/navigation"
@@ -27,18 +27,17 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container w-full lg:px-4 flex h-16 items-center mx-auto justify-between">
+      <div className="container flex items-center justify-between w-full h-16 mx-auto lg:px-4">
 
-        <div className="flex items-center gap-2 w-full">
+        <div className="flex items-center w-full gap-2">
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <div className="flex justify-between items-center w-full px-4">
-              <Link href="/" className="font-bold uppercase text-amber-600
-              ">Masjid At-Taqwa</Link>
+            <div className="flex items-center justify-between w-full px-4">
+              <Link href="/" className="font-bold uppercase text-amber-600 ">Masjid At-Taqwa</Link>
               <SheetTrigger asChild>
                 <Button c variant="default" size="icon" className="lg:hidden bg-amber-600 hover:opacity-90
               ]
                 ">
-                  <Menu className="h-6 w-6 text-white" />
+                  <Menu className="w-6 h-6 text-white" />
                   <span className="sr-only">Toggle menu</span>
                 </Button>
               </SheetTrigger>
@@ -68,7 +67,7 @@ export default function Navbar() {
 
 
                 <Link href="/donasi" onClick={() => setIsOpen(false)}>
-                  <Button className="mt-4 w-full bg-amber-600 hover:bg-amber-700">
+                  <Button className="w-full mt-4 bg-amber-600 hover:bg-amber-700">
                     Donasi Sekarang
                   </Button>
                 </Link>
@@ -80,7 +79,7 @@ export default function Navbar() {
 
         </div>
 
-        <nav className="hidden lg:flex items-center gap-6">
+        <nav className="items-center hidden gap-6 lg:flex">
           {navLinks.map((link) => {
             const isActive = pathname === link.href
 

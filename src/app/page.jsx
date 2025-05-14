@@ -7,9 +7,10 @@ import UpcomingEvents from "./components/upcoming-events";
 
 export default function page() {
   return (
-    <div className="container mx-auto px-4 py-8">
+    
+    <div className="container px-4 py-8 mx-auto">
       <Hero />
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+      <div className="grid grid-cols-1 gap-8 mt-12 md:grid-cols-3">
         <div className="md:col-span-2">
           <UpcomingEvents />
           <LatestAnnouncements className="mt-8" />

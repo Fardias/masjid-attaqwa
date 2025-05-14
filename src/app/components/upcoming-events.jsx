@@ -79,7 +79,7 @@ import useSWR from 'swr'
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Badge } from "./ui/badge"
 import { Calendar } from "lucide-react"
-import { getUpcomingEvents } from "@/lib/services/kegiatanService"
+import { getUpcomingEvents } from "../../lib/services/kegiatanService"
 
 const fetchEvents = () => getUpcomingEvents()
 

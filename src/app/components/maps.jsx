@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import dynamic from "next/dynamic"
-import { Button } from "@/app/components/ui/button"
+import { Button } from "../../components/ui/button"
 import { ExternalLink, Loader2 } from 'lucide-react'
 
 const MapWithNoSSR = dynamic(() => import("./maps-container"), {

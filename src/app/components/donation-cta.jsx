@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
-import { Button } from "./ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "../../components/ui/card"
+import { Button } from "../../components/ui/button"
 import { Heart } from "lucide-react"
 import Link from "next/link"
 
@@ -8,7 +8,7 @@ export default function DonationCta({ className }) {
     <Card className={className}>
       <CardHeader className="">
         <CardTitle className="flex items-center">
-          <Heart className="h-5 w-5 mr-2 text-amber-600" />
+          <Heart className="w-5 h-5 mr-2 text-amber-600" />
           Donasi untuk Masjid
         </CardTitle>
       </CardHeader>
@@ -18,10 +18,10 @@ export default function DonationCta({ className }) {
             Berkontribusi dalam pembangunan dan pemeliharaan Masjid At-Taqwa. Setiap donasi Anda akan digunakan untuk
             kegiatan masjid dan pemberdayaan umat.
           </p>
-          <div className="bg-amber-50/50 p-4 rounded-lg">
-            <p className="font-medium mb-2">Bank Syariah Indonesia (BSI)</p>
+          <div className="p-4 rounded-lg bg-amber-50/50">
+            <p className="mb-2 font-medium">Bank Syariah Indonesia (BSI)</p>
             <p className="text-gray-600">No. Rekening: 7654321098</p>
-            <p className="text-gray-600 mb-4">Atas Nama: Masjid At-Taqwa</p>
+            <p className="mb-4 text-gray-600">Atas Nama: Masjid At-Taqwa</p>
           </div>
           <Button className="w-full bg-amber-600 hover:bg-amber-700" asChild>
             <Link href="/donasi">Donasi Sekarang</Link>

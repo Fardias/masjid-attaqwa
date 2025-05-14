@@ -2,8 +2,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Badge } from "./ui/badge"
 import { BellRing } from "lucide-react"
 import Link from "next/link"
-import { Button } from "./ui/button"
-import { getPengumuman } from "@/lib/services/PengumumanService"
+import { Button } from "../../components/ui/button"
+import { getPengumuman } from "../../lib/services/PengumumanService"
 import useSWR from "swr"
 
 const fetchAnnouncements = () => getPengumuman()

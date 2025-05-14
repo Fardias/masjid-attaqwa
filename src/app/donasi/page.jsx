@@ -259,10 +259,10 @@
 // }
 
 "use client"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/app/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
-import { Button } from "@/app/components/ui/button"
-import { Separator } from "@/components/ui/separator"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
+import { Button } from "../../components/ui/button"
+import { Separator } from "../../components/ui/separator"
 import { Landmark, Wallet, CreditCard, Copy, Download } from "lucide-react"
 import { toast, Toaster } from "sonner"
 
