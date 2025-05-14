@@ -1,64 +1,147 @@
+// import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
+// import { Badge } from "./ui/badge"
+// import { Calendar } from "lucide-react"
+
+// export default function UpcomingEvents() {
+//     // Sample events data
+//     const events = [
+//         // {
+//         //     id: 1,
+//         //     title: "Kajian Tafsir Al-Quran",
+//         //     date: "Rabu, 15 Mei 2024",
+//         //     time: "Ba'da Maghrib - 20:30 WIB",
+//         //     location: "Ruang Utama Masjid",
+//         //     speaker: "Ustadz Ahmad Syafii",
+//         // },
+//         // {
+//         //     id: 2,
+//         //     title: "Tabligh Akbar Menyambut Ramadhan",
+//         //     date: "Ahad, 19 Mei 2024",
+//         //     time: "08:00 - 12:00 WIB",
+//         //     location: "Halaman Masjid",
+//         //     speaker: "Ustadz Dr. Abdul Somad, Lc., MA",
+//         // },
+//         // {
+//         //     id: 3,
+//         //     title: "Pelatihan Manasik Haji & Umrah",
+//         //     date: "Sabtu, 25 Mei 2024",
+//         //     time: "09:00 - 15:00 WIB",
+//         //     location: "Aula Masjid",
+//         //     speaker: "H. Muhammad Ridwan",
+//         // },
+//     ]
+
+//     return (
+//         <Card>
+//             <CardHeader className="">
+//                 <CardTitle className="flex items-center ">
+//                     <Calendar className="w-5 h-5 mr-2 text-amber-600" />
+//                     Kegiatan Mendatang
+//                 </CardTitle>
+//             </CardHeader>
+//             <CardContent className="pt-6">
+//                 {events.length > 0 ? (
+//                     <div className="space-y-6">
+//                         {events.map((event) => (
+//                             <div key={event.id} className="p-4 transition-colors border rounded-lg hover:border-amber-200">
+//                                 <div className="flex items-start justify-between mb-2">
+//                                     <h3 className="text-lg font-medium">{event.title}</h3>
+//                                     <Badge variant="outline" className="bg-amber-100 text-amber-800 hover:bg-amber-200">
+//                                         Upcoming
+//                                     </Badge>
+//                                 </div>
+//                                 <div className="space-y-2 text-gray-600">
+//                                     <p>
+//                                         <span className="font-medium">Tanggal:</span> {event.date}
+//                                     </p>
+//                                     <p>
+//                                         <span className="font-medium">Waktu:</span> {event.time}
+//                                     </p>
+//                                     <p>
+//                                         <span className="font-medium">Lokasi:</span> {event.location}
+//                                     </p>
+//                                     <p>
+//                                         <span className="font-medium">Pemateri:</span> {event.speaker}
+//                                     </p>
+//                                 </div>
+//                             </div>
+//                         ))}
+//                     </div>
+//                 ) : (
+//                     <p className="text-center text-gray-500">Belum ada informasi kegiatan mendatang.</p>
+//                 )}
+//             </CardContent>
+//         </Card>
+//     )
+// }
+
+import { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Badge } from "./ui/badge"
 import { Calendar } from "lucide-react"
+import { getUpcomingEvents } from "@/lib/services/kegiatanService"
 
 export default function UpcomingEvents() {
-    // Sample events data
-    const events = [
-        // {
-        //     id: 1,
-        //     title: "Kajian Tafsir Al-Quran",
-        //     date: "Rabu, 15 Mei 2024",
-        //     time: "Ba'da Maghrib - 20:30 WIB",
-        //     location: "Ruang Utama Masjid",
-        //     speaker: "Ustadz Ahmad Syafii",
-        // },
-        // {
-        //     id: 2,
-        //     title: "Tabligh Akbar Menyambut Ramadhan",
-        //     date: "Ahad, 19 Mei 2024",
-        //     time: "08:00 - 12:00 WIB",
-        //     location: "Halaman Masjid",
-        //     speaker: "Ustadz Dr. Abdul Somad, Lc., MA",
-        // },
-        // {
-        //     id: 3,
-        //     title: "Pelatihan Manasik Haji & Umrah",
-        //     date: "Sabtu, 25 Mei 2024",
-        //     time: "09:00 - 15:00 WIB",
-        //     location: "Aula Masjid",
-        //     speaker: "H. Muhammad Ridwan",
-        // },
-    ]
+    const [events, setEvents] = useState([])
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(null)
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await getUpcomingEvents()
+                setEvents(data)
+            } catch (err) {
+                setError(err.message)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        fetchData()
+    }, [])
 
     return (
         <Card>
-            <CardHeader className="">
-                <CardTitle className="flex items-center ">
-                    <Calendar className="h-5 w-5 mr-2 text-amber-600" />
+            <CardHeader>
+                <CardTitle className="flex items-center">
+                    <Calendar className="w-5 h-5 mr-2 text-amber-600" />
                     Kegiatan Mendatang
                 </CardTitle>
             </CardHeader>
+
+            {loading && (
+                <div className="flex items-center justify-center p-4">
+                    <p className="text-gray-500">Loading...</p>
+                </div>
+            )}
+
+            {error && (
+                <div className="flex items-center justify-center p-4">
+                    <p className="text-red-500">Error: {error}</p>
+                </div>
+            )}
+
             <CardContent className="pt-6">
-                {events.length > 0 ? (
+                {events.length > 0 && (
                     <div className="space-y-6">
                         {events.map((event) => (
-                            <div key={event.id} className="border rounded-lg p-4 hover:border-amber-200 transition-colors">
-                                <div className="flex justify-between items-start mb-2">
-                                    <h3 className="font-medium text-lg">{event.title}</h3>
+                            <div key={event.id} className="p-4 transition-colors border rounded-lg hover:border-amber-200">
+                                <div className="flex items-start justify-between mb-2">
+                                    <h3 className="text-lg font-medium">{event.judul}</h3>
                                     <Badge variant="outline" className="bg-amber-100 text-amber-800 hover:bg-amber-200">
                                         Upcoming
                                     </Badge>
                                 </div>
                                 <div className="space-y-2 text-gray-600">
                                     <p>
-                                        <span className="font-medium">Tanggal:</span> {event.date}
+                                        <span className="font-medium">Tanggal:</span> {event.tanggal_mulai} - {event.tanggal_selesai}
                                     </p>
                                     <p>
                                         <span className="font-medium">Waktu:</span> {event.time}
                                     </p>
                                     <p>
-                                        <span className="font-medium">Lokasi:</span> {event.location}
+                                        <span className="font-medium">Lokasi:</span> {event.lokasi ?? 'Masjid At-Taqwa'}
                                     </p>
                                     <p>
                                         <span className="font-medium">Pemateri:</span> {event.speaker}
@@ -67,8 +150,10 @@ export default function UpcomingEvents() {
                             </div>
                         ))}
                     </div>
-                ) : (
-                    <p className="text-gray-500 text-center">Belum ada informasi kegiatan mendatang.</p>
+                )}
+
+                {!loading && !error && events.length === 0 && (
+                    <p className="text-center text-gray-500">Belum ada informasi kegiatan mendatang.</p>
                 )}
             </CardContent>
         </Card>
