@@ -37,12 +37,12 @@ export function DashboardSidebar() {
             icon: ImageIcon,
             active: pathname.includes("/admin/dashboard/albums"),
         },
-        // {
-        //     href: "/dashboard/settings",
-        //     label: "Pengaturan",
-        //     icon: Settings,
-        //     active: pathname.includes("/dashboard/settings"),
-        // },
+        {
+            href: "/",
+            label: "Back to Website",
+            icon: Home,
+            // active: pathname.includes("/"),
+        },
     ]
 
     return (
@@ -58,7 +58,8 @@ export function DashboardSidebar() {
                 </SheetContent>
             </Sheet>
 
-            <div className="flex-col hidden w-64 h-screen border-r md:flex bg-amber-100 ">
+            {/* <div className="flex-col hidden w-64 h-screen border-r md:flex bg-amber-100 "> */}
+            <div className="fixed top-0 left-0 z-30 flex-col hidden w-64 h-screen border-r bg-amber-100 md:flex">
                 <SidebarContent routes={routes} />
             </div>
         </>
