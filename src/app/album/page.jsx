@@ -87,8 +87,6 @@
 
 
 'use client'
-
-import Image from "next/image"
 import { Card, CardContent } from "@/app/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
 import { getAllAlbums } from "@/lib/services/albumsService"
@@ -99,7 +97,7 @@ const fetchAlbums = () => getAllAlbums()
 export default function AlbumPage() {
   const { data: albums, error } = useSWR("albums", fetchAlbums)
 
-  console.log(albums)
+  // console.log(albums)
 
   if (error) return <p className="mt-[150px] text-center text-red-500">Gagal memuat album.</p>
   if (!albums) return <p className="mt-[150px] text-center text-gray-500">Memuat album...</p>

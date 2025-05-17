@@ -79,7 +79,7 @@ import useSWR from 'swr'
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Badge } from "./ui/badge"
 import { Calendar } from "lucide-react"
-import { getUpcomingEvents } from "../../lib/services/kegiatanService"
+import { getUpcomingEvents } from "../../lib/services/eventService"
 
 const fetchEvents = () => getUpcomingEvents()
 
@@ -124,14 +124,22 @@ export default function UpcomingEvents() {
                                 <div className="flex items-start justify-between mb-2">
                                     <h3 className="text-lg font-medium">{event.judul}</h3>
                                     <Badge variant="outline" className="bg-amber-100 text-amber-800 hover:bg-amber-200">
-                                        Upcoming
+                                        {event.status}
                                     </Badge>
                                 </div>
                                 <div className="space-y-2 text-gray-600">
-                                    <p><span className="font-medium">Tanggal:</span> {formatDate(event.tanggal_mulai)}</p>
-                                    <p><span className="font-medium">Waktu:</span> {event.time}</p>
-                                    <p><span className="font-medium">Lokasi:</span> {event.lokasi ?? 'Masjid At-Taqwa'}</p>
-                                    <p><span className="font-medium">Pemateri:</span> {event.speaker}</p>
+                                    <p>
+                                        <span className="font-medium">Tanggal:</span> {formatDate(event.tanggal_mulai)}
+                                    </p>
+                                    <p>
+                                        <span className="font-medium">Waktu:</span> {event.waktu?.replace(/:..$/, '')}
+                                    </p>
+                                    <p>
+                                        <span className="font-medium">Lokasi:</span> {event.lokasi ?? 'Masjid At-Taqwa'}
+                                    </p>
+                                    <p>
+                                        <span className="font-medium">Pemateri:</span> {event.speaker}
+                                    </p>
                                 </div>
                             </div>
                         ))}

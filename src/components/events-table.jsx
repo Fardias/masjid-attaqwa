@@ -1,8 +1,12 @@
+
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import useSWR from "swr"
 import { Edit, MoreHorizontal, Trash } from "lucide-react"
-import { Button } from "./ui/button"
+import { Button } from "@/components/ui/button"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -11,8 +15,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "./ui/badge"
+import { Badge } from "@/components/ui/badge"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -22,88 +25,95 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-} from "./ui/alert-dialog"
+} from "@/components/ui/alert-dialog"
 import { Input } from "@/components/ui/input"
+import { getUpcomingEvents, deleteEvent } from "@/lib/services/eventService"
+import { toast, Toaster } from "sonner"
 
-// Sample data
-const initialEvents = [
-    {
-        id: "1",
-        title: "Pengajian Rutin Mingguan",
-        date: "2025-05-18",
-        time: "19:30",
-        location: "Ruang Utama Masjid",
-        status: "upcoming",
-    },
-    {
-        id: "2",
-        title: "Buka Puasa Bersama",
-        date: "2025-05-20",
-        time: "17:45",
-        location: "Halaman Masjid",
-        status: "upcoming",
-    },
-    {
-        id: "3",
-        title: "Kajian Tafsir Al-Quran",
-        date: "2025-05-22",
-        time: "20:00",
-        location: "Ruang Utama Masjid",
-        status: "upcoming",
-    },
-    {
-        id: "4",
-        title: "Sholat Idul Fitri",
-        date: "2025-06-01",
-        time: "07:00",
-        location: "Lapangan Masjid",
-        status: "upcoming",
-    },
-    {
-        id: "5",
-        title: "Santunan Anak Yatim",
-        date: "2025-06-05",
-        time: "09:00",
-        location: "Aula Masjid",
-        status: "upcoming",
-    },
-]
+const fetcher = () => getUpcomingEvents()
 
 export function EventsTable() {
-    const [events, setEvents] = useState(initialEvents)
+    const router = useRouter()
+    const searchParams = useSearchParams()
+    const { data: events, error, mutate: refreshEvents } = useSWR("upcoming-events", fetcher)
+
+    const [searchQuery, setSearchQuery] = useState("")
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
     const [eventToDelete, setEventToDelete] = useState(null)
-    const [searchQuery, setSearchQuery] = useState("")
 
-    const handleDelete = (id) => {
-        setEventToDelete(id)
-        setIsDeleteDialogOpen(true)
-    }
+    
+    useEffect(() => {
+        const status = searchParams.get("status")
+        if (status === "created") {
+            toast.success("Event baru berhasil ditambahkan!", {
+                duration: 5000,
+            })
+            
+            const url = new URL(window.location.href)
+            url.searchParams.delete("status")
+            window.history.replaceState({}, "", url)
+        } else if (status === "updated") {
+            toast.success("Event berhasil diperbarui!", {
+                duration: 5000,
+            })
+            
+            const url = new URL(window.location.href)
+            url.searchParams.delete("status")
+            window.history.replaceState({}, "", url)
+        }
+    }, [searchParams])
 
-    const confirmDelete = () => {
-        if (eventToDelete) {
-            setEvents(events.filter((event) => event.id !== eventToDelete))
-            setIsDeleteDialogOpen(false)
+    const filteredEvents = (events || []).filter(
+        (event) =>
+            (event.judul ?? "").toLowerCase().includes(searchQuery.toLowerCase()) ||
+            (event.lokasi ?? "").toLowerCase().includes(searchQuery.toLowerCase()),
+    )
+
+    const handleDelete = async () => {
+        if (!eventToDelete) return
+
+        try {
+            await deleteEvent(eventToDelete)
+            
+            refreshEvents()
+            toast.success("Event berhasil dihapus!")
             setEventToDelete(null)
+            setIsDeleteDialogOpen(false)
+        } catch (error) {
+            console.error("Error deleting event:", error)
+            toast.error("Gagal menghapus event. Silakan coba lagi.")
         }
     }
 
-    const filteredEvents = events.filter(
-        (event) =>
-            event.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            event.location.toLowerCase().includes(searchQuery.toLowerCase()),
-    )
+    const handleEdit = (eventId) => {
+        router.push(`/admin/dashboard/events/edit/${eventId}`)
+    }
+
+    const getStatusBadgeVariant = (status) => {
+        switch (status) {
+            case "upcoming":
+                return "bg-amber-50 text-amber-700 border-amber-200"
+            case "ongoing":
+                return "bg-green-50 text-green-700 border-green-200"
+            case "completed":
+                return "bg-gray-50 text-gray-700 border-gray-200"
+            default:
+                return "bg-amber-50 text-amber-700 border-amber-200"
+        }
+    }
+
+    if (error) return <p className="mt-6 text-center text-red-500">Gagal memuat event.</p>
+    if (!events) return <p className="mt-6 text-center text-gray-500">Memuat event...</p>
 
     return (
         <div className="space-y-4">
-            <div className="flex items-center">
-                <Input
-                    placeholder="Cari event..."
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="max-w-sm"
-                />
-            </div>
+            <Toaster position="top-center" />
+            <Input
+                placeholder="Cari event..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="max-w-sm"
+            />
 
             <div className="border rounded-md">
                 <Table>
@@ -127,37 +137,42 @@ export function EventsTable() {
                         ) : (
                             filteredEvents.map((event) => (
                                 <TableRow key={event.id}>
-                                    <TableCell className="font-medium">{event.title}</TableCell>
+                                    <TableCell>{event.judul}</TableCell>
                                     <TableCell>
-                                        {new Date(event.date).toLocaleDateString("id-ID", {
+                                        {new Date(event.tanggal_mulai).toLocaleDateString("id-ID", {
                                             day: "numeric",
                                             month: "long",
                                             year: "numeric",
                                         })}
                                     </TableCell>
-                                    <TableCell>{event.time}</TableCell>
-                                    <TableCell>{event.location}</TableCell>
+                                    <TableCell>{event.waktu}</TableCell>
+                                    <TableCell>{event.lokasi ?? "Masjid At-Taqwa"}</TableCell>
                                     <TableCell>
-                                        <Badge variant="outline" className="bg-amber-50 text-amber-700 border-amber-200">
-                                            Upcoming
+                                        <Badge variant="outline" className={getStatusBadgeVariant(event.status)}>
+                                            {event.status}
                                         </Badge>
                                     </TableCell>
-                                    <TableCell className="text-right">
+                                    <TableCell className="text-right ">
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
-                                                <Button variant="ghost" size="icon">
+                                                <Button variant="ghost" size="icon" className={"cursor-pointer"}>
                                                     <MoreHorizontal className="w-4 h-4" />
-                                                    <span className="sr-only">Menu</span>
                                                 </Button>
                                             </DropdownMenuTrigger>
                                             <DropdownMenuContent align="end">
                                                 <DropdownMenuLabel>Aksi</DropdownMenuLabel>
                                                 <DropdownMenuSeparator />
-                                                <DropdownMenuItem>
+                                                <DropdownMenuItem onClick={() => handleEdit(event.id)} className={"cursor-pointer"}>
                                                     <Edit className="w-4 h-4 mr-2" />
                                                     Edit
                                                 </DropdownMenuItem>
-                                                <DropdownMenuItem onClick={() => handleDelete(event.id)} className="text-red-600">
+                                                <DropdownMenuItem
+                                                    onClick={() => {
+                                                        setEventToDelete(event.id)
+                                                        setIsDeleteDialogOpen(true)
+                                                    }}
+                                                    className="text-red-600 cursor-pointer"
+                                                >
                                                     <Trash className="w-4 h-4 mr-2" />
                                                     Hapus
                                                 </DropdownMenuItem>
@@ -176,12 +191,12 @@ export function EventsTable() {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Tindakan ini tidak dapat dibatalkan. Event ini akan dihapus secara permanen dari server.
+                            Tindakan ini tidak dapat dibatalkan. Event ini akan dihapus dari database secara permanen.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                         <AlertDialogCancel>Batal</AlertDialogCancel>
-                        <AlertDialogAction onClick={confirmDelete} className="bg-red-600 hover:bg-red-700">
+                        <AlertDialogAction onClick={handleDelete} className="bg-red-600 hover:bg-red-700">
                             Hapus
                         </AlertDialogAction>
                     </AlertDialogFooter>

@@ -12,7 +12,7 @@ export default function EventsPage() {
                 <div className="flex items-center justify-between">
                     <h2 className="text-3xl font-bold tracking-tight">Upcoming Events</h2>
                     <Link href="/admin/dashboard/events/new">
-                        <Button>
+                        <Button className={'cursor-pointer'}>
                             <Plus className="w-4 h-4 mr-2" />
                             Tambah Event
                         </Button>
