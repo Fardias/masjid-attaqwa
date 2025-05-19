@@ -120,7 +120,7 @@ export default function UpcomingEvents() {
                 {events?.length > 0 ? (
                     <div className="space-y-6">
                         {events.map((event) => (
-                            <div key={event.id} className="p-4 transition-colors border rounded-lg hover:border-amber-200">
+                            <div key={event.id} className="p-4 transition-colors border rounded-lg">
                                 <div className="flex items-start justify-between mb-2">
                                     <h3 className="text-lg font-medium">{event.judul}</h3>
                                     <Badge variant="outline" className="bg-amber-100 text-amber-800 hover:bg-amber-200">
@@ -137,9 +137,11 @@ export default function UpcomingEvents() {
                                     <p>
                                         <span className="font-medium">Lokasi:</span> {event.lokasi ?? 'Masjid At-Taqwa'}
                                     </p>
-                                    <p>
-                                        <span className="font-medium">Pemateri:</span> {event.speaker}
-                                    </p>
+                                    {event.speaker && (
+                                        <p>
+                                            <span className="font-medium">Pemateri:</span> {event.speaker}
+                                        </p>
+                                    )}
                                 </div>
                             </div>
                         ))}

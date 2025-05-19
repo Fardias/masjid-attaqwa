@@ -156,8 +156,8 @@ export function EventForm({ initialData = null, isEditing = false }) {
                                         <FormLabel>Waktu</FormLabel>
                                         <FormControl>
                                             <div className="relative">
-                                                <Input type="time" {...field} />
-                                                <Clock className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground" />
+                                                <Input type="time" className="[&::-webkit-calendar-picker-indicator]:hidden [&::-webkit-inner-spin-button]:hidden [&::-webkit-outer-spin-button]:hidden" {...field} />
+                                                <Clock className="absolute right-3 top-2.5 h-4 w-4 text-muted-foreground pointer-events-none" />
                                             </div>
                                         </FormControl>
                                         <FormMessage />

@@ -73,7 +73,7 @@ function SidebarContent({ routes }) {
         <>
             <div className="px-3 py-4 border-b">
                 <div className="flex items-center justify-center mb-6">
-                    <h1 className="text-2xl font-bold text-amber-600">Masjid At-Taqwa</h1>
+                    <Link href="/" className="text-2xl font-bold text-amber-600">Masjid At-Taqwa</Link>
                 </div>
                 <nav className="space-y-1">
                     {routes.map((route) => (
