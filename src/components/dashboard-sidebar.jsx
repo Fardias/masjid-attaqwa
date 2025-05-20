@@ -21,7 +21,7 @@ export function DashboardSidebar() {
         },
         {
             href: "/admin/dashboard/events",
-            label: "Upcoming Events",
+            label: "Acara Mendatang",
             icon: Calendar,
             active: pathname.includes("/admin/dashboard/events"),
         },

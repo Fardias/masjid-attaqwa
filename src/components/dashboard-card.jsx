@@ -8,7 +8,7 @@ export function DashboardCards() {
             <Link href="/dashboard/events">
                 <Card className="transition-shadow hover:shadow-md">
                     <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                        <CardTitle className="text-xl font-bold">Upcoming Events</CardTitle>
+                        <CardTitle className="text-xl font-bold">Acara Mendatang</CardTitle>
                         <Calendar className="w-5 h-5 text-amber-600" />
                     </CardHeader>
                     <CardContent>

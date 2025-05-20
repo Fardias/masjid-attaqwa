@@ -3,7 +3,6 @@ import { createServerClient} from "@supabase/ssr";
 import {  NextResponse } from "next/server";
 
 export const createClient = () => {
-    // Create an unmodified response
     let supabaseResponse = NextResponse.next({
         request: {
             headers: request.headers,

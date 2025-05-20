@@ -26,51 +26,19 @@ import {
     AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { Input } from "@/components/ui/input"
+import useSWR from "swr"
+import { getPengumuman } from "@/lib/services/PengumumanService"
 
-// Sample data
-const initialAnnouncements = [
-    {
-        id: "1",
-        title: "Jadwal Sholat Ramadhan",
-        date: "2025-05-15",
-        status: "active",
-        author: "Ustadz Ahmad",
-    },
-    {
-        id: "2",
-        title: "Pengumpulan Zakat Fitrah",
-        date: "2025-05-18",
-        status: "active",
-        author: "Panitia Zakat",
-    },
-    {
-        id: "3",
-        title: "Renovasi Tempat Wudhu",
-        date: "2025-05-10",
-        status: "active",
-        author: "Pengurus Masjid",
-    },
-    {
-        id: "4",
-        title: "Jadwal Imam Tarawih",
-        date: "2025-05-05",
-        status: "inactive",
-        author: "Sekretaris Masjid",
-    },
-    {
-        id: "5",
-        title: "Pemberitahuan Libur Idul Fitri",
-        date: "2025-04-28",
-        status: "inactive",
-        author: "Ketua DKM",
-    },
-]
+const fetchAnnouncements = () =>  getPengumuman()
 
 export function AnnouncementsTable() {
-    const [announcements, setAnnouncements] = useState(initialAnnouncements)
+    const { data: announcements, error, mutate: refreshAnnouncements } = useSWR("announcements", fetchAnnouncements)
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
     const [announcementToDelete, setAnnouncementToDelete] = useState(null)
     const [searchQuery, setSearchQuery] = useState("")
+
+    if (error) return <div>Error loading announcements</div>
+    if (!announcements) return <div>Loading...</div>
 
     const handleDelete = (id) => {
         setAnnouncementToDelete(id)
@@ -79,20 +47,16 @@ export function AnnouncementsTable() {
 
     const confirmDelete = () => {
         if (announcementToDelete) {
-            setAnnouncements(announcements.filter((announcement) => announcement.id !== announcementToDelete))
+            // Update to use refreshAnnouncements instead of setAnnouncements
+            refreshAnnouncements()
             setIsDeleteDialogOpen(false)
             setAnnouncementToDelete(null)
         }
     }
 
     const toggleStatus = (id) => {
-        setAnnouncements(
-            announcements.map((announcement) =>
-                announcement.id === id
-                    ? { ...announcement, status: announcement.status === "active" ? "inactive" : "active" }
-                    : announcement,
-            ),
-        )
+        // Update to use refreshAnnouncements instead of setAnnouncements
+        refreshAnnouncements()
     }
 
     const filteredAnnouncements = announcements.filter(
