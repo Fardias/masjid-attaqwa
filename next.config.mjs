@@ -6,7 +6,7 @@
 //     }
 // };
 const nextConfig = {
-    output: "export",
+    // output: "export",
     images:{
         unoptimized: true,
     }
