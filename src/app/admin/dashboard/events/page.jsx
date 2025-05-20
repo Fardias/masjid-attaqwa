@@ -3,6 +3,7 @@ import { EventsTable } from "../../../../components/events-table"
 import { Button } from "../../../../components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"
+import { Suspense } from "react"
 
 export default function EventsPage() {
     return (
@@ -18,7 +19,9 @@ export default function EventsPage() {
                         </Button>
                     </Link>
                 </div>
-                <EventsTable />
+                <Suspense fallback={<div>Loading events...</div>}>
+                    <EventsTable />
+                </Suspense>
             </div>
         </div>
     )
