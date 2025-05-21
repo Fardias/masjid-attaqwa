@@ -27,11 +27,13 @@ import {
 } from "@/components/ui/alert-dialog"
 import { Input } from "@/components/ui/input"
 import useSWR from "swr"
-import { getPengumuman } from "@/lib/services/PengumumanService"
+import { deletePengumuman, getPengumuman, updatePengumuman } from "@/lib/services/PengumumanService"
+import { useRouter } from "next/navigation"
 
 const fetchAnnouncements = () =>  getPengumuman()
 
 export function AnnouncementsTable() {
+    const router = useRouter()
     const { data: announcements, error, mutate: refreshAnnouncements } = useSWR("announcements", fetchAnnouncements)
     const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
     const [announcementToDelete, setAnnouncementToDelete] = useState(null)
@@ -41,6 +43,7 @@ export function AnnouncementsTable() {
     if (!announcements) return <div>Loading...</div>
 
     const handleDelete = (id) => {
+        deletePengumuman(id)
         setAnnouncementToDelete(id)
         setIsDeleteDialogOpen(true)
     }
@@ -55,14 +58,21 @@ export function AnnouncementsTable() {
     }
 
     const toggleStatus = (id) => {
-        // Update to use refreshAnnouncements instead of setAnnouncements
+        // console.log(id)
+        updatePengumuman(id, { status: "active" })
         refreshAnnouncements()
+    }
+
+    const handleUpdate = (e) => {
+        const { id } = e
+        console.log(id)
+        
+        router.push(`/admin/dashboard/announcements/edit/${id}`)
     }
 
     const filteredAnnouncements = announcements.filter(
         (announcement) =>
-            announcement.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            announcement.author.toLowerCase().includes(searchQuery.toLowerCase()),
+            announcement.title.toLowerCase().includes(searchQuery.toLowerCase())
     )
 
     return (
@@ -82,8 +92,8 @@ export function AnnouncementsTable() {
                         <TableRow>
                             <TableHead>Judul Pengumuman</TableHead>
                             <TableHead>Tanggal</TableHead>
-                            <TableHead>Penulis</TableHead>
-                            <TableHead>Status</TableHead>
+                            <TableHead>Isi Pengumuman</TableHead>
+                            {/* <TableHead>Status</TableHead> */}
                             <TableHead className="text-right">Aksi</TableHead>
                         </TableRow>
                     </TableHeader>
@@ -105,8 +115,12 @@ export function AnnouncementsTable() {
                                             year: "numeric",
                                         })}
                                     </TableCell>
-                                    <TableCell>{announcement.author}</TableCell>
-                                    <TableCell>
+                                    <TableCell className="max-w-[300px]">
+                                        <div className="whitespace-normal break-words">
+                                            {announcement.excerpt}
+                                        </div>
+                                    </TableCell>
+                                    {/* <TableCell>
                                         <Badge
                                             variant="outline"
                                             className={cn(
@@ -117,7 +131,7 @@ export function AnnouncementsTable() {
                                         >
                                             {announcement.status === "active" ? "Aktif" : "Tidak Aktif"}
                                         </Badge>
-                                    </TableCell>
+                                    </TableCell> */}
                                     <TableCell className="text-right">
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
@@ -129,10 +143,10 @@ export function AnnouncementsTable() {
                                             <DropdownMenuContent align="end">
                                                 <DropdownMenuLabel>Aksi</DropdownMenuLabel>
                                                 <DropdownMenuSeparator />
-                                                <DropdownMenuItem onClick={() => toggleStatus(announcement.id)}>
+                                                {/* <DropdownMenuItem onClick={() => toggleStatus(announcement)}>
                                                     {announcement.status === "active" ? "Nonaktifkan" : "Aktifkan"}
-                                                </DropdownMenuItem>
-                                                <DropdownMenuItem>
+                                                </DropdownMenuItem> */}
+                                                <DropdownMenuItem onClick={()=> handleUpdate(announcement)}>
                                                     <Edit className="w-4 h-4 mr-2" />
                                                     Edit
                                                 </DropdownMenuItem>

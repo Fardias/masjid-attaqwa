@@ -3,29 +3,17 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CalendarIcon } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+  Card, CardContent, CardDescription, CardHeader, CardTitle
 } from "@/components/ui/card";
 import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+  Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+  Popover, PopoverContent, PopoverTrigger
 } from "@/components/ui/popover";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
@@ -33,36 +21,40 @@ import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { useForm } from "react-hook-form";
 import { valibotResolver } from "@hookform/resolvers/valibot";
-import { minLength, object, string, date, boolean } from "valibot";
-import { Switch } from "@/components/ui/switch";
-import { addPengumuman } from "@/lib/services/PengumumanService";
+import { minLength, object, string, date } from "valibot";
+import { addPengumuman, updatePengumuman } from "@/lib/services/PengumumanService";
+import { mutate } from "swr";
+import { toast, Toaster } from "sonner";
 
 const formSchema = object({
   title: string([minLength(3, "Judul harus minimal 3 karakter.")]),
   date: date("Tanggal pengumuman diperlukan."),
   excerpt: string([minLength(10, "Konten harus minimal 10 karakter.")]),
   category: string([minLength(3, "Kategori harus minimal 3 karakter.")]),
-  //   author: string([minLength(3, "Nama penulis harus minimal 3 karakter.")]),
-  //   isActive: boolean(),
 });
 
-export function AnnouncementForm() {
+export function AnnouncementForm({ initialData = null, isEditing = false }) {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const processedInitialData = initialData
+    ? {
+        ...initialData,
+        date: initialData.date instanceof Date ? initialData.date : new Date(initialData.date),
+      }
+    : {
+        title: "",
+        date: new Date(),
+        excerpt: "",
+        category: "",
+      };
+
   const form = useForm({
     resolver: valibotResolver(formSchema),
-    defaultValues: {
-      title: "",
-      date: new Date(),
-      excerpt: "",
-      category: "",
-      //   author: "",
-      //   isActive: true,
-    },
+    defaultValues: processedInitialData,
   });
 
-  function onSubmit(values) {
+  async function onSubmit(values) {
     setIsSubmitting(true);
 
     const formattedValues = {
@@ -70,25 +62,34 @@ export function AnnouncementForm() {
       date: format(values.date, "yyyy-MM-dd"),
     };
 
-    console.log(formattedValues);
-    addPengumuman(formattedValues);
-    setIsSubmitting(false);
-    // router.push("/admin/dashboard/announcements");
-
-    // setTimeout(() => {
-    //     console.log(values)
-    //     setIsSubmitting(false)
-    //     router.push("/admin/dashboard/announcements")
-    // }, 1000)
+    try {
+      if (isEditing && initialData) {
+        await updatePengumuman(initialData.id, formattedValues);
+        mutate(`announcement-${initialData.id}`);
+        toast.success("Pengumuman berhasil diperbarui!");
+        router.push("/admin/dashboard/announcements?status=updated");
+      } else {
+        await addPengumuman(formattedValues);
+        mutate("all-announcements");
+        toast.success("Pengumuman berhasil ditambahkan!");
+        router.push("/admin/dashboard/announcements?status=created");
+      }
+    } catch (error) {
+      toast.error("Terjadi kesalahan. Silakan coba lagi.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
     <Card>
+      <Toaster position="top-center" />
       <CardHeader>
-        <CardTitle>Detail Pengumuman</CardTitle>
+        <CardTitle>{isEditing ? "Edit Pengumuman" : "Detail Pengumuman"}</CardTitle>
         <CardDescription>
-          Masukkan informasi lengkap tentang pengumuman yang akan
-          dipublikasikan.
+          {isEditing
+            ? "Ubah informasi pengumuman yang sudah ada."
+            : "Masukkan informasi lengkap tentang pengumuman yang akan dipublikasikan."}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -119,17 +120,10 @@ export function AnnouncementForm() {
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
-                            variant={"outline"}
-                            className={cn(
-                              "pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
+                            variant="outline"
+                            className={cn("pl-3 text-left font-normal", !field.value && "text-muted-foreground")}
                           >
-                            {field.value ? (
-                              format(field.value, "PPP", { locale: id })
-                            ) : (
-                              <span>Pilih tanggal</span>
-                            )}
+                            {field.value ? format(field.value, "PPP", { locale: id }) : <span>Pilih tanggal</span>}
                             <CalendarIcon className="w-4 h-4 ml-auto opacity-50" />
                           </Button>
                         </FormControl>
@@ -150,41 +144,26 @@ export function AnnouncementForm() {
 
               <FormField
                 control={form.control}
-                name="category" 
+                name="category"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Kategori</FormLabel>
                     <FormControl>
                       <select
                         {...field}
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       >
                         <option value="" disabled>Pilih kategori</option>
-                        <option value="ibadah">Ibadah</option>
-                        <option value="kajian">Kajian</option>
-                        <option value="sosial">Sosial</option>
-                        <option value="pendidikan">Pendidikan</option>
+                        <option value="Ibadah">Ibadah</option>
+                        <option value="Kajian">Kajian</option>
+                        <option value="Sosial">Sosial</option>
+                        <option value="Pendidikan">Pendidikan</option>
                       </select>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-
-              {/* 
-              <FormField
-                control={form.control}
-                name="author"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Penulis</FormLabel>
-                    <FormControl>
-                      <Input placeholder="Masukkan nama penulis" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              /> */}
             </div>
 
             <FormField
@@ -201,47 +180,19 @@ export function AnnouncementForm() {
                     />
                   </FormControl>
                   <FormDescription>
-                    Berikan informasi lengkap tentang pengumuman yang akan
-                    dipublikasikan.
+                    Berikan informasi lengkap tentang pengumuman yang akan dipublikasikan.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            {/* <FormField
-              control={form.control}
-              name="isActive"
-              render={({ field }) => (
-                <FormItem className="flex flex-row items-center justify-between p-4 border rounded-lg">
-                  <div className="space-y-0.5">
-                    <FormLabel className="text-base">
-                      Status Pengumuman
-                    </FormLabel>
-                    <FormDescription>
-                      Pengumuman akan langsung dipublikasikan jika status aktif.
-                    </FormDescription>
-                  </div>
-                  <FormControl>
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            /> */}
-
             <div className="flex justify-end space-x-4">
-              <Button
-                variant="outline"
-                type="button"
-                onClick={() => router.back()}
-              >
+              <Button variant="outline" type="button" onClick={() => router.back()}>
                 Batal
               </Button>
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Menyimpan..." : "Simpan Pengumuman"}
+                {isSubmitting ? "Menyimpan..." : isEditing ? "Update Pengumuman" : "Simpan Pengumuman"}
               </Button>
             </div>
           </form>

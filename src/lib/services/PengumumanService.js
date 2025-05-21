@@ -10,9 +10,18 @@ export const getPengumuman = async () => {
   return data;
 };
 
-export const addPengumuman = async (pengumuman) => {
+export const getPengumumanById = async (id) => {
+  const { data, error } = await supabase
+    .from("latest_announcements")
+    .select("*")
+    .eq("id", id)
+    .single();
 
-  console.log("Add Pengumuman : ",pengumuman);
+  if (error) throw error;
+  return data;
+};
+export const addPengumuman = async (pengumuman) => {
+  console.log("Add Pengumuman : ", pengumuman);
 
   const { data, error } = await supabase
     .from("latest_announcements")
