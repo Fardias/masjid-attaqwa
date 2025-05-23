@@ -12,8 +12,8 @@ export default function AlbumsPage() {
             <div className="flex-1 p-4 pt-6 space-y-4 md:p-8">
                 <div className="flex items-center justify-between">
                     <h2 className="text-3xl font-bold tracking-tight">Album Foto</h2>
-                    <Link href="/admin/dashboard/albums/new">
-                        <Button>
+                    <Link href="/admin/dashboard/albums/new" >
+                        <Button className="cursor-pointer">
                             <Plus className="w-4 h-4 mr-2" />
                             Tambah Album
                         </Button>
@@ -23,17 +23,17 @@ export default function AlbumsPage() {
                 <Tabs defaultValue="all" className="w-full">
                     <TabsList>
                         <TabsTrigger value="all">Semua</TabsTrigger>
-                        <TabsTrigger value="social">Kegiatan Sosial</TabsTrigger>
-                        <TabsTrigger value="islamic">Hari Besar Islam</TabsTrigger>
+                        <TabsTrigger value="social_activities">Kegiatan Sosial</TabsTrigger>
+                        <TabsTrigger value="islamic_holidays">Hari Besar Islam</TabsTrigger>
                     </TabsList>
                     <TabsContent value="all">
                         <AlbumsGrid filter="all" />
                     </TabsContent>
-                    <TabsContent value="social">
-                        <AlbumsGrid filter="social" />
+                    <TabsContent value="social_activities">
+                        <AlbumsGrid filter="social_activities" />
                     </TabsContent>
-                    <TabsContent value="islamic">
-                        <AlbumsGrid filter="islamic" />
+                    <TabsContent value="islamic_holidays">
+                        <AlbumsGrid filter="islamic_holidays" />
                     </TabsContent>
                 </Tabs>
             </div>

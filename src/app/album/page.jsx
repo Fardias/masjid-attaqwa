@@ -97,7 +97,6 @@ const fetchAlbums = () => getAllAlbums()
 export default function AlbumPage() {
   const { data: albums, error } = useSWR("albums", fetchAlbums)
 
-  // console.log(albums)
 
   if (error) return <p className="mt-[150px] text-center text-red-500">Gagal memuat album.</p>
   if (!albums) return <p className="mt-[150px] text-center text-gray-500">Memuat album...</p>
@@ -123,7 +122,7 @@ export default function AlbumPage() {
                 <CardContent className="p-0">
                   <div className="relative w-full h-64">
                     {/* <Image
-                      src={album.image_url || "/placeholder.svg?height=400&width=600"}
+                      src={album.images_url || "/placeholder.svg?height=400&width=600"}
                       alt={album.title}
                       fill
                       className="object-cover transition-all hover:scale-105"
@@ -146,7 +145,7 @@ export default function AlbumPage() {
                 <CardContent className="p-0">
                   <div className="relative w-full h-64">
                     {/* <Image
-                      src={album.image_url || "/placeholder.svg?height=400&width=600"}
+                      src={album.images_url || "/placeholder.svg?height=400&width=600"}
                       alt={album.title}
                       fill
                       className="object-cover transition-all hover:scale-105"

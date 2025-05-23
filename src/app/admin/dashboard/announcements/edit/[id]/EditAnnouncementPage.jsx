@@ -16,11 +16,6 @@ export default function EditAnnouncementPageClient({ params }) {
     isLoading,
   } = useSWR(id ? `announcement-${id}` : null, () => getPengumumanById(id));
 
-  console.log('Event : ', event)
-  console.log("Error : ", error)
-  console.log("IsLoading : ", isLoading)
-  console.log("ID : ", id)
-
   if (isLoading)
     return <div className="p-8 text-center">Loading event data...</div>;
   if (error)

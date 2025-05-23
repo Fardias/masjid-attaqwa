@@ -2,9 +2,16 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import {
+  Edit,
+  MoreHorizontal,
+  Trash,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardFooter } from "@/app/components/ui/card";
+import useEmblaCarousel from "embla-carousel-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,62 +33,50 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
-import { getAllAlbums } from "@/lib/services/albumsService";
+import { deleteAlbum, getAllAlbums } from "@/lib/services/albumsService";
 import useSWR from "swr";
 
-// Sample data
-// const albums = [
-//     {
-//         id: "1",
-//         title: "Santunan Anak Yatim",
-//         date: "2025-04-15",
-//         category: "social",
-//         imageCount: 24,
-//         thumbnail: "/placeholder.svg?height=400&width=600",
-//     },
-//     {
-//         id: "2",
-//         title: "Perayaan Maulid Nabi",
-//         date: "2025-03-20",
-//         category: "islamic",
-//         imageCount: 36,
-//         thumbnail: "/placeholder.svg?height=400&width=600",
-//     },
-//     {
-//         id: "3",
-//         title: "Bakti Sosial Banjir",
-//         date: "2025-02-10",
-//         category: "social",
-//         imageCount: 18,
-//         thumbnail: "/placeholder.svg?height=400&width=600",
-//     },
-//     {
-//         id: "4",
-//         title: "Sholat Idul Adha",
-//         date: "2025-01-05",
-//         category: "islamic",
-//         imageCount: 42,
-//         thumbnail: "/placeholder.svg?height=400&width=600",
-//     },
-//     {
-//         id: "5",
-//         title: "Pembagian Sembako",
-//         date: "2024-12-28",
-//         category: "social",
-//         imageCount: 30,
-//         thumbnail: "/placeholder.svg?height=400&width=600",
-//     },
-//     {
-//         id: "6",
-//         title: "Isra Mi'raj",
-//         date: "2024-11-15",
-//         category: "islamic",
-//         imageCount: 27,
-//         thumbnail: "/placeholder.svg?height=400&width=600",
-//     },
-// ]
-
 const fetchImages = () => getAllAlbums();
+
+function AlbumCarousel({ images }) {
+  const [emblaRef, emblaApi] = useEmblaCarousel();
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const scrollPrev = () => emblaApi && emblaApi.scrollPrev();
+  const scrollNext = () => emblaApi && emblaApi.scrollNext();
+
+  return (
+    <div className="relative">
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex">
+          {images?.map((image, index) => (
+            <div key={index} className="relative flex-[0_0_100%] aspect-[4/3]">
+              <Image
+                src={image || "/images/placeholder.jpg"}
+                alt={`Image ${index + 1}`}
+                fill
+                className="object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+      {images?.length > 1 && (
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+          {images.map((_, index) => (
+            <div
+              key={index}
+              className={cn(
+                "w-2 h-2 rounded-full",
+                index === selectedIndex ? "bg-white" : "bg-white/50"
+              )}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function AlbumsGrid({ filter = "all" }) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -94,18 +89,27 @@ export function AlbumsGrid({ filter = "all" }) {
     mutate: refreshAlbums,
   } = useSWR("albums", fetchImages);
 
-  console.log(albums);
-
-  // if (error) return <div>Error loading albums</div>
-  // if (!albums) return <div>Loading...</div>
-
-  const handleDelete = (id) => {
-    setAlbumToDelete(id);
+  const handleDelete = (album) => {
+    setAlbumToDelete(album);
     setIsDeleteDialogOpen(true);
   };
 
-  const confirmDelete = () => {
+  const confirmDelete = async () => {
     if (albumToDelete) {
+      await deleteAlbum(albumToDelete.id);
+
+      if (Array.isArray(albumToDelete.images_url)) {
+        for (const imgPath of albumToDelete.images_url) {
+          const filename = imgPath.split("/").pop();
+
+          await fetch("/api/deleteImages", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ filename }),
+          });
+        }
+      }
+
       refreshAlbums();
       setIsDeleteDialogOpen(false);
       setAlbumToDelete(null);
@@ -146,31 +150,24 @@ export function AlbumsGrid({ filter = "all" }) {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredAlbums.map((album) => (
             <Card key={album.id} className="overflow-hidden">
-              <div className="relative aspect-video">
-                <Image
-                  src={album.image_url}
-                  alt={album.title}
-                  fill
-                  className="object-cover"
-                />
-                <Badge
-                  className={cn(
-                    "absolute top-2 right-2",
-                    album.category === "social_activities"
-                      ? "bg-amber-500"
-                      : "bg-amber-600"
-                  )}
-                >
-                  {album.category === "social_activities"
-                    ? "Kegiatan Sosial"
-                    : "Hari Besar Islam"}
-                </Badge>
-              </div>
+              <AlbumCarousel images={album.images_url} />
+              <Badge
+                className={cn(
+                  "absolute top-2 right-2 z-10",
+                  album.category === "social_activities"
+                    ? "bg-amber-500"
+                    : "bg-amber-600"
+                )}
+              >
+                {album.category === "social_activities"
+                  ? "Kegiatan Sosial"
+                  : "Hari Besar Islam"}
+              </Badge>
               <CardContent className="p-4">
-                <h3 className="text-lg font-semibold truncate">
+                <h3 className="text-lg font-semibold truncate mb-1">
                   {album.title}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-muted-foreground mb-1">
                   {new Date(album.date).toLocaleDateString("id-ID", {
                     day: "numeric",
                     month: "long",
@@ -198,7 +195,7 @@ export function AlbumsGrid({ filter = "all" }) {
                       Edit
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                      onClick={() => handleDelete(album.id)}
+                      onClick={() => handleDelete(album)}
                       className="text-red-600"
                     >
                       <Trash className="w-4 h-4 mr-2" />

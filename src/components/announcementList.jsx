@@ -24,8 +24,6 @@ export default function AnnouncementList() {
         }).format(date)
     }
     
-    console.log("Announcements:", announcements)
-
     if (isLoading) return <p className="text-center text-gray-500">Memuat pengumuman...</p>
     if (error) return <p className="text-center text-red-500">Gagal memuat pengumuman</p>
 

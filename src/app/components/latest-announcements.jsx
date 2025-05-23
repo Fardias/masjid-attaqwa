@@ -41,7 +41,9 @@ export default function LatestAnnouncements({ className }) {
                     </Badge>
                   </div>
                   <p className="mb-2 text-sm text-gray-600">{formatDate(announcement.date)}</p>
-                  <p className="mb-3 text-gray-600">{announcement.excerpt}</p>
+                  <p className="mb-3 text-gray-600 whitespace-normal break-words">
+                    {announcement.excerpt}
+                  </p>
                   <Link
                     href={`/pengumuman#${announcement.id}`}
                     className="text-sm font-medium text-amber-600 hover:text-amber-700"

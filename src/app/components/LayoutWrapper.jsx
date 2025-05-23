@@ -7,7 +7,6 @@ import Footer from "./footer"
 export default function LayoutWrapper({ children }) {
     const pathname = usePathname()
     const isAdminPage = pathname.startsWith("/admin/dashboard")
-    // console.log("isAdminPage", isAdminPage)
 
     return (
         <>

@@ -6,7 +6,7 @@ import { CalendarIcon, ImagePlus, X } from "lucide-react"
 import { Button } from "./ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 import { Textarea } from "@/components/ui/textarea"
@@ -18,12 +18,15 @@ import { valibotResolver } from "@hookform/resolvers/valibot"
 import { minLength, object, string, date, enum_ } from "valibot"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Image from "next/image"
+import { uploadAlbum } from "@/lib/services/albumsService"
+
+const MAX_FILE_SIZE_MB = 5
 
 const formSchema = object({
     title: string([minLength(3, "Judul harus minimal 3 karakter.")]),
     date: date("Tanggal album diperlukan."),
     description: string([minLength(10, "Deskripsi harus minimal 10 karakter.")]),
-    category: enum_(["social", "islamic"], "Kategori harus dipilih."),
+    category: enum_(["social_activities", "islamic_holidays"], "Kategori harus dipilih."),
 })
 
 export function AlbumForm() {
@@ -38,30 +41,73 @@ export function AlbumForm() {
             title: "",
             date: new Date(),
             description: "",
-            category: undefined,
+            category: "",
         },
     })
 
-    function onSubmit(values) {
+    const onSubmit = async (values) => {
         setIsSubmitting(true)
 
-        // Simulasi pengiriman data ke server
-        setTimeout(() => {
-            console.log({
-                ...values,
-                images: uploadedImages,
-            })
-            setIsSubmitting(false)
-            router.push("/dashboard/albums")
-        }, 1000)
-    }
-
-    const handleImageUpload = (e) => {
-        if (e.target.files && e.target.files.length > 0) {
-            const newImages = Array.from(e.target.files).map((file) => URL.createObjectURL(file))
-            setUploadedImages([...uploadedImages, ...newImages])
+        const formattedDate = new Date(values.date).toISOString().split('T')[0];
+    
+        const { error } = await uploadAlbum({
+            title: values.title,
+            date: formattedDate,
+            description: values.description,
+            category: values.category,
+            images_url: uploadedImages,
+        })
+    
+        setIsSubmitting(false)
+        if (!error) {
+            router.push("/admin/dashboard/albums")
+        } else {
+            console.error(error)
+            alert("Gagal menyimpan album")
         }
     }
+    
+
+    // const handleImageUpload = (e) => {
+    //     if (e.target.files) {
+    //         const files = Array.from(e.target.files)
+    //         const validImages = files.filter(file => file.size <= MAX_FILE_SIZE_MB * 1024 * 1024)
+
+    //         if (validImages.length < files.length) {
+    //             alert("Beberapa file melebihi 5MB dan tidak diunggah.")
+    //         }
+
+    //         const newImages = validImages.map(file => URL.createObjectURL(file))
+    //         setUploadedImages(prev => [...prev, ...newImages])
+    //     }
+    // }
+
+    const handleImageUpload = async (e) => {
+        const files = Array.from(e.target.files || [])
+
+        for (const file of files) {
+            if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+                alert(`${file.name} melebihi 5MB dan tidak diunggah.`)
+                continue
+            }
+    
+            const formData = new FormData()
+            formData.append("file", file)
+    
+            const res = await fetch("/api/uploadImages", {
+                method: "POST",
+                body: formData,
+            })
+    
+            const data = await res.json()
+            if (res.ok) {
+                setUploadedImages(prev => [...prev, data.path]) 
+            } else {
+                alert("Upload gagal: " + data.error)
+            }
+        }
+    }
+    
 
     const handleDragOver = (e) => {
         e.preventDefault()
@@ -76,16 +122,21 @@ export function AlbumForm() {
         e.preventDefault()
         setIsDragging(false)
 
-        if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-            const newImages = Array.from(e.dataTransfer.files).map((file) => URL.createObjectURL(file))
-            setUploadedImages([...uploadedImages, ...newImages])
+        if (e.dataTransfer.files) {
+            const files = Array.from(e.dataTransfer.files)
+            const validImages = files.filter(file => file.size <= MAX_FILE_SIZE_MB * 1024 * 1024)
+
+            if (validImages.length < files.length) {
+                alert("Beberapa file melebihi 5MB dan tidak diunggah.")
+            }
+
+            const newImages = validImages.map(file => URL.createObjectURL(file))
+            setUploadedImages(prev => [...prev, ...newImages])
         }
     }
 
     const removeImage = (index) => {
-        const newImages = [...uploadedImages]
-        newImages.splice(index, 1)
-        setUploadedImages(newImages)
+        setUploadedImages(prev => prev.filter((_, i) => i !== index))
     }
 
     return (
@@ -152,8 +203,8 @@ export function AlbumForm() {
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
-                                                <SelectItem value="social">Kegiatan Sosial</SelectItem>
-                                                <SelectItem value="islamic">Hari Besar Islam</SelectItem>
+                                                <SelectItem value="social_activities">Kegiatan Sosial</SelectItem>
+                                                <SelectItem value="islamic_holidays">Hari Besar Islam</SelectItem>
                                             </SelectContent>
                                         </Select>
                                         <FormMessage />
@@ -171,7 +222,6 @@ export function AlbumForm() {
                                     <FormControl>
                                         <Textarea placeholder="Masukkan deskripsi album" className="min-h-24" {...field} />
                                     </FormControl>
-                                    <FormDescription>Berikan informasi tentang album foto ini.</FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -230,10 +280,10 @@ export function AlbumForm() {
                         </div>
 
                         <div className="flex justify-end space-x-4">
-                            <Button variant="outline" type="button" onClick={() => router.back()}>
+                            <Button variant="outline" type="button" onClick={() => router.back()} className="cursor-pointer">
                                 Batal
                             </Button>
-                            <Button type="submit" disabled={isSubmitting}>
+                            <Button type="submit" disabled={isSubmitting} className="cursor-pointer">
                                 {isSubmitting ? "Menyimpan..." : "Simpan Album"}
                             </Button>
                         </div>

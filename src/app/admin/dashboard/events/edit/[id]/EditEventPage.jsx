@@ -12,10 +12,6 @@ export default function EditEventPageClient({ params }) {
 
     const { data: event, error, isLoading } = useSWR(id ? `event-${id}` : null, () => getEventById(id))
 
-    // console.log('Event : ', event)
-    // console.log("Error : ", error)
-    // console.log("IsLoading : ", isLoading)
-    // console.log("ID : ", id)
 
     if (isLoading) return <div className="p-8 text-center">Loading event data...</div>
     if (error) return <div className="p-8 text-center text-red-500">Failed to load event data</div>

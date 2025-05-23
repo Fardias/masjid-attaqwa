@@ -58,15 +58,12 @@ export function AnnouncementsTable() {
     }
 
     const toggleStatus = (id) => {
-        // console.log(id)
         updatePengumuman(id, { status: "active" })
         refreshAnnouncements()
     }
 
     const handleUpdate = (e) => {
         const { id } = e
-        console.log(id)
-        
         router.push(`/admin/dashboard/announcements/edit/${id}`)
     }
 

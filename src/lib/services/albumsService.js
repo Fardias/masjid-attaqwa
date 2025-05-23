@@ -32,10 +32,10 @@ export const getAlbumById = async (id) => {
     return data
 }
 
-export const createAlbum = async ({ category, title, image_url }) => {
+export const uploadAlbum = async ({ category, title, date, description, images_url }) => {
     const { data, error } = await supabase
         .from("albums")
-        .insert([{ category, title, image_url }])
+        .insert([{ category, title, date, description, images_url }])
         .select()
         .single()
 
