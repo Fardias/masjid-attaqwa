@@ -30,7 +30,7 @@ export default function AnnouncementList() {
     return (
         <>
             {announcements?.length > 0 ? (
-                <div className="grid gap-6">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {announcements.map((announcement) => (
                         <Card key={announcement.id} className="overflow-hidden">
                             <CardHeader className="bg-amber-50">

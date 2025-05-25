@@ -19,6 +19,7 @@ import { minLength, object, string, date, enum_ } from "valibot"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Image from "next/image"
 import { uploadAlbum } from "@/lib/services/albumsService"
+import { uploadToCloudinary } from "@/lib/cloudinary"
 
 const MAX_FILE_SIZE_MB = 5
 
@@ -68,20 +69,6 @@ export function AlbumForm() {
     }
     
 
-    // const handleImageUpload = (e) => {
-    //     if (e.target.files) {
-    //         const files = Array.from(e.target.files)
-    //         const validImages = files.filter(file => file.size <= MAX_FILE_SIZE_MB * 1024 * 1024)
-
-    //         if (validImages.length < files.length) {
-    //             alert("Beberapa file melebihi 5MB dan tidak diunggah.")
-    //         }
-
-    //         const newImages = validImages.map(file => URL.createObjectURL(file))
-    //         setUploadedImages(prev => [...prev, ...newImages])
-    //     }
-    // }
-
     const handleImageUpload = async (e) => {
         const files = Array.from(e.target.files || [])
 
@@ -91,19 +78,12 @@ export function AlbumForm() {
                 continue
             }
     
-            const formData = new FormData()
-            formData.append("file", file)
-    
-            const res = await fetch("/api/uploadImages", {
-                method: "POST",
-                body: formData,
-            })
-    
-            const data = await res.json()
-            if (res.ok) {
-                setUploadedImages(prev => [...prev, data.path]) 
-            } else {
-                alert("Upload gagal: " + data.error)
+            try {
+                const imageUrl = await uploadToCloudinary(file)
+                setUploadedImages(prev => [...prev, imageUrl])
+            } catch (error) {
+                console.error('Error uploading image:', error)
+                alert("Upload gagal: " + error.message)
             }
         }
     }
@@ -118,7 +98,7 @@ export function AlbumForm() {
         setIsDragging(false)
     }
 
-    const handleDrop = (e) => {
+    const handleDrop = async (e) => {
         e.preventDefault()
         setIsDragging(false)
 
@@ -130,8 +110,15 @@ export function AlbumForm() {
                 alert("Beberapa file melebihi 5MB dan tidak diunggah.")
             }
 
-            const newImages = validImages.map(file => URL.createObjectURL(file))
-            setUploadedImages(prev => [...prev, ...newImages])
+            for (const file of validImages) {
+                try {
+                    const imageUrl = await uploadToCloudinary(file)
+                    setUploadedImages(prev => [...prev, imageUrl])
+                } catch (error) {
+                    console.error('Error uploading image:', error)
+                    alert("Upload gagal: " + error.message)
+                }
+            }
         }
     }
 

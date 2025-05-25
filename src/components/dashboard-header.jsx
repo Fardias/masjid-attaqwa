@@ -1,6 +1,7 @@
 "use client"
 
-import { Bell, User } from "lucide-react"
+import { useRouter } from "next/navigation"
+import { Bell, User, LogOut } from "lucide-react"
 import { Button } from "./ui/button"
 import {
     DropdownMenu,
@@ -11,8 +12,16 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "./ui/avatar"
+import { deleteCookie } from 'cookies-next'
 
 export function DashboardHeader() {
+    const router = useRouter()
+
+    const handleLogout = () => {
+        deleteCookie('isAdmin')
+        router.push('/admin/login')
+    }
+
     return (
         <header className="sticky top-0 z-30 flex items-center h-16 gap-4 px-4 border-b bg-background md:px-6">
             <div className="flex items-center gap-4 ml-auto">
@@ -39,9 +48,16 @@ export function DashboardHeader() {
                         </DropdownMenuItem>
                         <DropdownMenuItem>Pengaturan</DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>Keluar</DropdownMenuItem>
+                        <DropdownMenuItem>
+                            <LogOut className="w-4 h-4 mr-2" />
+                            <span>Keluar</span>
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
+                <Button variant="ghost" onClick={handleLogout} className="gap-2">
+                    <LogOut className="w-4 h-4" />
+                    Logout
+                </Button>
             </div>
         </header>
     )
