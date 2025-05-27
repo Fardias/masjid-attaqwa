@@ -53,13 +53,13 @@ export function DashboardSidebar() {
                         <Menu className="w-5 h-5" />
                     </Button>
                 </SheetTrigger>
-                <SheetContent side="left" className="p-0 bg-amber-50 ">
+                <SheetContent side="left" className="p-0 bg-white">
                     <SidebarContent routes={routes} />
                 </SheetContent>
             </Sheet>
 
             {/* <div className="flex-col hidden w-64 h-screen border-r md:flex bg-amber-100 "> */}
-            <div className="fixed top-0 left-0 z-30 flex-col hidden w-64 h-screen border-r bg-amber-100 md:flex">
+            <div className="fixed top-0 left-0 z-30 flex-col hidden w-64 h-screen border-r bg-white md:flex">
                 <SidebarContent routes={routes} />
             </div>
         </>
