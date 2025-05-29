@@ -21,6 +21,7 @@ import { addEvent, updateEvent } from "@/lib/services/eventService"
 import { mutate } from "swr"
 import { format as formatDate } from "date-fns"
 import { toast, Toaster } from "sonner"
+import { uploadToCloudinary } from "@/lib/cloudinary"
 
 const formSchema = object({
     judul: string([minLength(3, "Judul harus minimal 3 karakter.")]),
@@ -29,13 +30,13 @@ const formSchema = object({
     lokasi: string([minLength(3, "Lokasi harus minimal 3 karakter.")]),
     deskripsi: string([minLength(10, "Deskripsi harus minimal 10 karakter.")]),
     status: enum_(["upcoming", "ongoing", "completed"], "Status event diperlukan."),
-    image: string([minLength(1, "Gambar event diperlukan.")]),
+    images_url: string([minLength(1, "Gambar event diperlukan.")]),
 })
 
 export function EventForm({ initialData = null, isEditing = false }) {
     const router = useRouter()
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const [imagePreview, setImagePreview] = useState(initialData?.image || "")
+    const [imagePreview, setImagePreview] = useState(initialData?.images_url || "")
     const [isUploading, setIsUploading] = useState(false)
 
     const processedInitialData = initialData
@@ -51,7 +52,7 @@ export function EventForm({ initialData = null, isEditing = false }) {
             lokasi: "",
             deskripsi: "",
             status: "upcoming",
-            image: "",
+            images_url: "",
         }
 
     const form = useForm({
@@ -60,25 +61,19 @@ export function EventForm({ initialData = null, isEditing = false }) {
     })
 
     const handleImageUpload = async (file) => {
+        if (file.size > 5 * 1024 * 1024) {
+            toast.error("Ukuran file melebihi 5MB")
+            return
+        }
+
         try {
             setIsUploading(true)
-            const formData = new FormData()
-            formData.append('file', file)
-
-            const response = await fetch('/api/cloudinary', {
-                method: 'POST',
-                body: formData,
-            })
-
-            if (!response.ok) {
-                throw new Error('Upload failed')
-            }
-
-            const data = await response.json()
-            setImagePreview(data.secure_url)
-            form.setValue("image", data.secure_url)
+            const imageUrl = await uploadToCloudinary(file)
+            setImagePreview(imageUrl)
+            form.setValue("images_url", imageUrl)
             setIsUploading(false)
         } catch (error) {
+            console.error("Upload error:", error)
             setIsUploading(false)
             toast.error("Gagal mengupload gambar. Silakan coba lagi.")
         }
@@ -86,14 +81,14 @@ export function EventForm({ initialData = null, isEditing = false }) {
 
     const handleImageDelete = async () => {
         try {
-            if (initialData?.image) {
-                const publicId = initialData.image.split('/').pop().split('.')[0]
+            if (initialData?.images_url) {
+                const publicId = initialData.images_url.split('/').pop().split('.')[0]
                 await fetch(`/api/cloudinary?publicId=${publicId}`, {
                     method: 'DELETE',
                 })
             }
             setImagePreview("")
-            form.setValue("image", "")
+            form.setValue("images_url", "")
         } catch (error) {
             toast.error("Gagal menghapus gambar. Silakan coba lagi.")
         }
@@ -110,8 +105,8 @@ export function EventForm({ initialData = null, isEditing = false }) {
         try {
             if (isEditing && initialData) {
                 // If there's a new image and old image exists, delete the old one
-                if (values.image !== initialData.image && initialData.image) {
-                    const publicId = initialData.image.split('/').pop().split('.')[0]
+                if (values.images_url !== initialData.images_url && initialData.images_url) {
+                    const publicId = initialData.images_url.split('/').pop().split('.')[0]
                     await fetch(`/api/cloudinary?publicId=${publicId}`, {
                         method: 'DELETE',
                     })
@@ -273,7 +268,7 @@ export function EventForm({ initialData = null, isEditing = false }) {
 
                         <FormField
                             control={form.control}
-                            name="image"
+                            name="images_url"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Gambar Event</FormLabel>
