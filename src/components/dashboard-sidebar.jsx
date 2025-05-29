@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Calendar, Home, ImageIcon, Megaphone, Menu, Moon, Settings, Sun } from "lucide-react"
 import { Button } from "./ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 

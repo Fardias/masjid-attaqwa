@@ -1,4 +1,4 @@
-import { getPengumuman } from "@/lib/services/PengumumanService"
+import { getPengumuman } from "../../../../../../lib/services/PengumumanService"
 import EditAnnouncementPageClient from "./EditAnnouncementPage"
 
 export async function generateStaticParams() {

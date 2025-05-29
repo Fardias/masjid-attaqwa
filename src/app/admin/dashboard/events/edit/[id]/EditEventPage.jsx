@@ -2,8 +2,8 @@
 
 import { useRouter } from "next/navigation"
 import useSWR from "swr"
-import { getEventById } from "@/lib/services/eventService"
-import { EventForm } from "@/components/event-form"
+import { getEventById } from "../../../../../../lib/services/eventService"
+import { EventForm } from "../../../../../../components/event-form"
 
 export default function EditEventPageClient({ params }) {
     const router = useRouter()

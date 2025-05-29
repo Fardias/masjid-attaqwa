@@ -1,5 +1,5 @@
-import { DashboardHeader } from "@/components/dashboard-header"
-import { AnnouncementForm } from "@/components/announcement-form"
+import { DashboardHeader } from "../../../../../components/dashboard-header"
+import { AnnouncementForm } from "../../../../../components/announcement-form"
 
 export default function NewAnnouncementPage() {
     return (

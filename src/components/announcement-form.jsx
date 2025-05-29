@@ -3,26 +3,26 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { CalendarIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { Button } from "../components/ui/button";
+import { Calendar } from "../components/ui/calendar";
 import {
   Card, CardContent, CardDescription, CardHeader, CardTitle
-} from "@/components/ui/card";
+} from "../components/ui/card";
 import {
   Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from "../components/ui/form";
+import { Input } from "../components/ui/input";
 import {
   Popover, PopoverContent, PopoverTrigger
-} from "@/components/ui/popover";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib/utils";
+} from "../components/ui/popover";
+import { Textarea } from "../components/ui/textarea";
+import { cn } from "../lib/utils";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
 import { useForm } from "react-hook-form";
 import { valibotResolver } from "@hookform/resolvers/valibot";
 import { minLength, object, string, date } from "valibot";
-import { addPengumuman, updatePengumuman } from "@/lib/services/PengumumanService";
+import { addPengumuman, updatePengumuman } from "../lib/services/PengumumanService";
 import { mutate } from "swr";
 import { toast, Toaster } from "sonner";
 
@@ -151,7 +151,7 @@ export function AnnouncementForm({ initialData = null, isEditing = false }) {
                     <FormControl>
                       <select
                         {...field}
-                        className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        className="flex w-full h-10 px-3 py-2 text-sm border rounded-md border-input bg-background ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       >
                         <option value="" disabled>Pilih kategori</option>
                         <option value="Ibadah">Ibadah</option>

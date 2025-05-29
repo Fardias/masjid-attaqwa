@@ -1,8 +1,8 @@
 'use client'
 import Image from "next/image"
-import { Card, CardContent } from "@/app/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
-import { getAllAlbums } from "@/lib/services/albumsService"
+import { Card, CardContent } from "../../components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs"
+import { getAllAlbums } from "../../lib/services/albumsService"
 import useSWR from "swr"
 
 const fetchAlbums = () => getAllAlbums()
@@ -42,7 +42,7 @@ export default function AlbumPage() {
                   </div>
                   <div className="p-4 bg-amber-50">
                     <p className="text-gray-700">{album.title}</p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="mt-1 text-sm text-gray-500">
                       {new Date(album.date).toLocaleDateString("id-ID", {
                         day: "numeric",
                         month: "long",
@@ -72,7 +72,7 @@ export default function AlbumPage() {
                   </div>
                   <div className="p-4 bg-amber-50">
                     <p className="text-gray-700">{album.title}</p>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="mt-1 text-sm text-gray-500">
                       {new Date(album.date).toLocaleDateString("id-ID", {
                         day: "numeric",
                         month: "long",

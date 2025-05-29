@@ -4,7 +4,7 @@ import useSWR from "swr"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/app/components/ui/card"
 import { Badge } from "@/app/components/ui/badge"
 import { CalendarIcon } from "lucide-react"
-import { getPengumuman } from "@/lib/services/PengumumanService"
+import { getPengumuman } from "../lib/services/PengumumanService"
 
 const fetchAnnounce = () => getPengumuman()
 

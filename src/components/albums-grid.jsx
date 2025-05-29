@@ -9,8 +9,8 @@ import {
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
-import { Button } from "./ui/button";
-import { Card, CardContent, CardFooter } from "@/app/components/ui/card";
+import { Button } from "../components/ui/button";
+import { Card, CardContent, CardFooter } from "../components/ui/card";
 import useEmblaCarousel from "embla-carousel-react";
 import {
   DropdownMenu,
@@ -19,8 +19,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
+} from "../components/ui/dropdown-menu";
+import { Badge } from "../components/ui/badge";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -30,10 +30,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Input } from "@/components/ui/input";
+} from "../components/ui/alert-dialog";
+import { Input } from "../components/ui/input";
 import { cn } from "@/lib/utils";
-import { deleteAlbum, getAllAlbums } from "@/lib/services/albumsService";
+import { deleteAlbum, getAllAlbums } from "../lib/services/albumsService";
 import useSWR from "swr";
 
 const fetchImages = () => getAllAlbums();
@@ -62,7 +62,7 @@ function AlbumCarousel({ images }) {
         </div>
       </div>
       {images?.length > 1 && (
-        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+        <div className="absolute flex gap-1 -translate-x-1/2 bottom-2 left-1/2">
           {images.map((_, index) => (
             <div
               key={index}
@@ -164,10 +164,10 @@ export function AlbumsGrid({ filter = "all" }) {
                   : "Hari Besar Islam"}
               </Badge>
               <CardContent className="p-4">
-                <h3 className="text-lg font-semibold truncate mb-1">
+                <h3 className="mb-1 text-lg font-semibold truncate">
                   {album.title}
                 </h3>
-                <p className="text-sm text-muted-foreground mb-1">
+                <p className="mb-1 text-sm text-muted-foreground">
                   {new Date(album.date).toLocaleDateString("id-ID", {
                     day: "numeric",
                     month: "long",

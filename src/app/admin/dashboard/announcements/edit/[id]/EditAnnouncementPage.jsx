@@ -1,7 +1,7 @@
 "use client";
 
-import { AnnouncementForm } from "@/components/announcement-form";
-import { getPengumumanById } from "@/lib/services/PengumumanService";
+import { AnnouncementForm } from "../../../../../../components/announcement-form";
+import { getPengumumanById } from "../../../../../../lib/services/PengumumanService";
 import { useRouter } from "next/navigation";
 import useSWR from "swr";
 
