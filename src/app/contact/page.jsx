@@ -24,9 +24,6 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
-    phone: "",
-    subject: "",
     message: "",
   })
 
@@ -81,9 +78,6 @@ export default function ContactPage() {
       // Reset form
       setFormData({
         name: "",
-        email: "",
-        phone: "",
-        subject: "",
         message: "",
       })
     } catch (error) {
@@ -213,7 +207,7 @@ export default function ContactPage() {
                       required
                     />
                   </div>
-                  <div className="space-y-2">
+                  {/* <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
                     <Input
                       id="email"
@@ -245,7 +239,7 @@ export default function ContactPage() {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                  />
+                  /> */}
                 </div>
 
                 <div className="space-y-2">

@@ -28,10 +28,10 @@ export async function POST(request) {
     }
 
     const body = await request.json()
-    const { name, email, phone, subject, message } = body
+    const { name, message } = body
 
     // Validate required fields
-    if (!name || !email || !phone || !subject || !message) {
+    if (!name  || !message) {
       return NextResponse.json(
         { error: 'Semua field harus diisi' },
         { status: 400 }
@@ -42,9 +42,6 @@ export async function POST(request) {
     const row = [
       new Date().toISOString(), // Timestamp
       name,
-      email,
-      phone,
-      subject,
       message,
     ]
 
