@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { CalendarIcon, Clock } from "lucide-react"
+import { CalendarIcon, Clock, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Calendar } from "@/components/ui/calendar"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -29,11 +29,14 @@ const formSchema = object({
     lokasi: string([minLength(3, "Lokasi harus minimal 3 karakter.")]),
     deskripsi: string([minLength(10, "Deskripsi harus minimal 10 karakter.")]),
     status: enum_(["upcoming", "ongoing", "completed"], "Status event diperlukan."),
+    image: string([minLength(1, "Gambar event diperlukan.")]),
 })
 
 export function EventForm({ initialData = null, isEditing = false }) {
     const router = useRouter()
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [imagePreview, setImagePreview] = useState(initialData?.image || "")
+    const [isUploading, setIsUploading] = useState(false)
 
     const processedInitialData = initialData
         ? {
@@ -48,12 +51,53 @@ export function EventForm({ initialData = null, isEditing = false }) {
             lokasi: "",
             deskripsi: "",
             status: "upcoming",
+            image: "",
         }
 
     const form = useForm({
         resolver: valibotResolver(formSchema),
         defaultValues: processedInitialData,
     })
+
+    const handleImageUpload = async (file) => {
+        try {
+            setIsUploading(true)
+            const formData = new FormData()
+            formData.append('file', file)
+
+            const response = await fetch('/api/cloudinary', {
+                method: 'POST',
+                body: formData,
+            })
+
+            if (!response.ok) {
+                throw new Error('Upload failed')
+            }
+
+            const data = await response.json()
+            setImagePreview(data.secure_url)
+            form.setValue("image", data.secure_url)
+            setIsUploading(false)
+        } catch (error) {
+            setIsUploading(false)
+            toast.error("Gagal mengupload gambar. Silakan coba lagi.")
+        }
+    }
+
+    const handleImageDelete = async () => {
+        try {
+            if (initialData?.image) {
+                const publicId = initialData.image.split('/').pop().split('.')[0]
+                await fetch(`/api/cloudinary?publicId=${publicId}`, {
+                    method: 'DELETE',
+                })
+            }
+            setImagePreview("")
+            form.setValue("image", "")
+        } catch (error) {
+            toast.error("Gagal menghapus gambar. Silakan coba lagi.")
+        }
+    }
 
     async function onSubmit(values) {
         setIsSubmitting(true)
@@ -65,6 +109,13 @@ export function EventForm({ initialData = null, isEditing = false }) {
 
         try {
             if (isEditing && initialData) {
+                // If there's a new image and old image exists, delete the old one
+                if (values.image !== initialData.image && initialData.image) {
+                    const publicId = initialData.image.split('/').pop().split('.')[0]
+                    await fetch(`/api/cloudinary?publicId=${publicId}`, {
+                        method: 'DELETE',
+                    })
+                }
                 await updateEvent(initialData.id, formattedValues)
                 mutate(`event-${initialData.id}`)
                 mutate("upcoming-events")
@@ -215,6 +266,55 @@ export function EventForm({ initialData = null, isEditing = false }) {
                                         <Textarea placeholder="Masukkan deskripsi lengkap tentang event" className="min-h-32" {...field} />
                                     </FormControl>
                                     <FormDescription>Berikan informasi lengkap tentang event yang akan diadakan.</FormDescription>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+
+                        <FormField
+                            control={form.control}
+                            name="image"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Gambar Event</FormLabel>
+                                    <FormControl>
+                                        <div className="space-y-4">
+                                            <Input 
+                                                type="file" 
+                                                accept="image/*"
+                                                onChange={(e) => {
+                                                    const file = e.target.files[0];
+                                                    if (file) {
+                                                        handleImageUpload(file);
+                                                    }
+                                                }}
+                                                disabled={isUploading}
+                                            />
+                                            {imagePreview && (
+                                                <div className="relative">
+                                                    <img 
+                                                        src={imagePreview} 
+                                                        alt="Preview" 
+                                                        className="w-32 h-32 object-cover rounded-lg"
+                                                    />
+                                                    <Button
+                                                        type="button"
+                                                        variant="destructive"
+                                                        size="sm"
+                                                        className="absolute -top-2 -right-2"
+                                                        onClick={handleImageDelete}
+                                                    >
+                                                        <X className="h-4 w-4" />
+                                                    </Button>
+                                                </div>
+                                            )}
+                                        </div>
+                                    </FormControl>
+                                    {isUploading && (
+                                        <p className="text-sm text-muted-foreground mt-2">
+                                            Mengupload gambar...
+                                        </p>
+                                    )}
                                     <FormMessage />
                                 </FormItem>
                             )}
