@@ -107,6 +107,7 @@ export async function POST(request) {
         },
         { status: 500 }
       )
+      
     }
   } catch (error) {
     console.error('Error submitting feedback:', {
