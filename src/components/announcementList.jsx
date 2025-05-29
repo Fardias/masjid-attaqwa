@@ -33,7 +33,7 @@ export default function AnnouncementList() {
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                     {announcements.map((announcement) => (
                         <Card key={announcement.id} className="overflow-hidden">
-                            <CardHeader className="bg-amber-50">
+                            <CardHeader className="">
                                 <div className="flex items-start justify-between">
                                     <div>
                                         <CardTitle>{announcement.title}</CardTitle>
@@ -42,7 +42,7 @@ export default function AnnouncementList() {
                                             {formatDate(announcement.tanggal_mulai)}
                                         </CardDescription>
                                     </div>
-                                    <Badge variant="outline" className="bg-amber-100 text-amber-800 hover:bg-amber-200">
+                                    <Badge variant="outline" className="bg-amber-100 text-amber-800">
                                         {announcement.category}
                                     </Badge>
                                 </div>
@@ -50,9 +50,7 @@ export default function AnnouncementList() {
                             <CardContent className="pt-6">
                                 <p className="text-gray-700 whitespace-pre-line">{announcement.excerpt}</p>
                             </CardContent>
-                            <CardFooter className="flex justify-end border-t bg-amber-50/50">
-                                <p className="text-sm text-gray-500">Diumumkan oleh Pengurus Masjid At-Taqwa</p>
-                            </CardFooter>
+                         
                         </Card>
                     ))}
                 </div>
