@@ -91,7 +91,14 @@ export default function UpcomingEvents() {
                         {events.map((event) => (
                             <div key={event.id} id={`event-${event.id}`} className="p-4 transition-colors border rounded-lg bg-white">
                                 <div className="flex flex-row items-start justify-between mb-2">
-                                    <img src="file.svg" alt="" className='w-10 h-10'/>
+                                    {event.images_url ? (
+                                        
+                                        <img 
+                                            src={event.images_url} 
+                                            alt={event.judul} 
+                                            className="w-16 h-16 object-cover rounded-lg"
+                                        />
+                                    ) : null}
                                     <h3 className={`text-lg font-medium transition-all ${fullscreenId === event.id ? "text-[150px]" : "text-base"}`}>{event.judul}</h3>
                                     <Badge variant="outline" className="bg-amber-100 text-amber-800 hover:bg-amber-200 ">
                                         {event.status}

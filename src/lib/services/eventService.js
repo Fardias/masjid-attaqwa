@@ -14,7 +14,7 @@ export const getUpcomingEvents = async () => {
 
 
 export const addEvent = async (event) => {
-    if (!event?.judul || !event?.tanggal_mulai || !event?.waktu || !event?.lokasi) {
+    if (!event?.judul || !event?.tanggal_mulai || !event?.waktu || !event?.lokasi ) {
         throw new Error("Semua field wajib diisi: judul, tanggal_mulai, waktu, lokasi")
     }
 
@@ -54,6 +54,8 @@ export async function updateEvent(id, eventData) {
             waktu: eventData.waktu,
             lokasi: eventData.lokasi,
             deskripsi: eventData.deskripsi,
+            images_url: eventData.images_url,
+            pemateri: eventData.pemateri,
         })
         .eq("id", id)
         .select()
