@@ -26,8 +26,6 @@
 //     )
 // }
 
-
-
 "use client"
 
 import { Button } from "../../components/ui/button"
@@ -97,7 +95,38 @@ export default function Hero() {
         setImageLoaded(loadedImages.has(currentImageIndex))
     }, [currentImageIndex, loadedImages])
 
-    if (isLoading) return <div>Loading...</div>
+    if (isLoading)
+        return (
+            <div className="relative overflow-hidden rounded-xl">
+                <div className="container relative z-10 flex flex-col px-4 py-8 mx-auto md:flex-row md:items-start md:justify-between md:gap-8 xl:items-start">
+                    {/* Image Skeleton */}
+                    <div className="relative w-full mb-5 md:mb-0 md:w-auto">
+                        <div className="relative overflow-hidden rounded-md w-full max-w-[700px] mx-auto md:mx-0 shadow-lg">
+                            <div className="bg-gray-200 animate-pulse w-full aspect-[7/3] md:w-[300px] md:h-[250px] xl:w-[300px] xl:h-[250px] 2xl:w-[700px] 2xl:h-[300px]"></div>
+                        </div>
+                    </div>
+
+                    {/* Content Skeleton */}
+                    <div className="w-full max-w-xl">
+                        {/* Title Skeleton */}
+                        <div className="w-full h-12 mb-4 bg-gray-200 rounded-md md:h-10 xl:h-14 animate-pulse md:w-3/4"></div>
+
+                        {/* Paragraph Skeleton */}
+                        <div className="mb-8 space-y-3 md:mt-5">
+                            <div className="w-full h-5 bg-gray-200 rounded-md animate-pulse"></div>
+                            <div className="w-5/6 h-5 bg-gray-200 rounded-md animate-pulse"></div>
+                            <div className="w-4/6 h-5 bg-gray-200 rounded-md animate-pulse"></div>
+                        </div>
+
+                        {/* Buttons Skeleton */}
+                        <div className="flex flex-col gap-4 sm:flex-row">
+                            <div className="w-full h-10 bg-gray-200 rounded-md animate-pulse sm:w-32"></div>
+                            <div className="w-full h-10 bg-gray-200 rounded-md animate-pulse sm:w-40"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
     if (error) return <div>Failed to load banner</div>
 
     return (
