@@ -38,6 +38,12 @@ export function DashboardSidebar() {
             active: pathname.includes("/admin/dashboard/albums"),
         },
         {
+            href: "/admin/dashboard/edit-banner",
+            label: "Banner Masjid",
+            icon: ImageIcon,
+            active: pathname.includes("/admin/dashboard/edit-banner"),
+        },
+        {
             href: "/",
             label: "Back to Website",
             icon: Home,
@@ -59,7 +65,7 @@ export function DashboardSidebar() {
             </Sheet>
 
             {/* <div className="flex-col hidden w-64 h-screen border-r md:flex bg-amber-100 "> */}
-            <div className="fixed top-0 left-0 z-30 flex-col hidden w-64 h-screen border-r bg-white md:flex">
+            <div className="fixed top-0 left-0 z-30 flex-col hidden w-64 h-screen bg-white border-r md:flex">
                 <SidebarContent routes={routes} />
             </div>
         </>
