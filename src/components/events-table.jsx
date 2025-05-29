@@ -4,8 +4,8 @@ import { useState, useEffect } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import useSWR from "swr"
 import { Edit, MoreHorizontal, Trash } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
+import { Button } from "../components/ui/button"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -13,8 +13,8 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Badge } from "@/components/ui/badge"
+} from "../components/ui/dropdown-menu"
+import { Badge } from "../components/ui/badge"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -24,9 +24,9 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { Input } from "@/components/ui/input"
-import { getUpcomingEvents, deleteEvent } from "@/lib/services/eventService"
+} from "../components/ui/alert-dialog"
+import { Input } from "../components/ui/input"
+import { getUpcomingEvents, deleteEvent } from "../lib/services/eventService"
 import { toast, Toaster } from "sonner"
 
 const fetcher = () => getUpcomingEvents()

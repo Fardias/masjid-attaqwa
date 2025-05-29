@@ -3,15 +3,6 @@
 import { useRouter } from "next/navigation"
 import { Bell, User, LogOut } from "lucide-react"
 import { Button } from "./ui/button"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Avatar, AvatarFallback } from "./ui/avatar"
 import { deleteCookie } from 'cookies-next'
 
 export function DashboardHeader() {

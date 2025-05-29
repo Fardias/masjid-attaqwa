@@ -1,6 +1,6 @@
-import { DashboardHeader } from "@/components/dashboard-header"
-import { AnnouncementsTable } from "@/components/announcements-table"
-import { Button } from "@/components/ui/button"
+import { DashboardHeader } from "../../../../components/dashboard-header"
+import { AnnouncementsTable } from "../../../../components/announcements-table"
+import { Button } from "../../../../components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"
 

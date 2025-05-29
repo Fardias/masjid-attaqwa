@@ -12,9 +12,9 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Badge } from "@/components/ui/badge"
+} from "../components/ui/dropdown-menu"
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table"
+import { Badge } from "../components/ui/badge"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -24,10 +24,10 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { Input } from "@/components/ui/input"
+} from "../components/ui/alert-dialog"
+import { Input } from "../components/ui/input"
 import useSWR from "swr"
-import { deletePengumuman, getPengumuman, updatePengumuman } from "@/lib/services/PengumumanService"
+import { deletePengumuman, getPengumuman, updatePengumuman } from "../lib/services/PengumumanService"
 import { useRouter } from "next/navigation"
 
 const fetchAnnouncements = () =>  getPengumuman()
@@ -113,7 +113,7 @@ export function AnnouncementsTable() {
                                         })}
                                     </TableCell>
                                     <TableCell className="max-w-[300px]">
-                                        <div className="whitespace-normal break-words">
+                                        <div className="break-words whitespace-normal">
                                             {announcement.excerpt}
                                         </div>
                                     </TableCell>

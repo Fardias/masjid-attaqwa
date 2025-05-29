@@ -1,11 +1,12 @@
 'use client'
 
 import { Calendar, ImageIcon, Megaphone } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import Link from "next/link"
-import { getPengumuman } from "@/lib/services/PengumumanService"
-import { getUpcomingEvents } from "@/lib/services/eventService"
-import { getAllAlbums } from "@/lib/services/albumsService"
+import { getPengumuman } from "../lib/services/PengumumanService"
+import { getUpcomingEvents } from "../lib/services/eventService"
+import { getAllAlbums } from "../lib/services/albumsService"
+
 import useSWR from "swr"
 
 export function DashboardCards() {

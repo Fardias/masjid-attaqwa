@@ -1,4 +1,4 @@
-import { getUpcomingEvents } from "@/lib/services/eventService"
+import { getUpcomingEvents } from "../../../../../../lib/services/eventService"
 import EditEventPageClient from "./EditEventPage"
 
 export async function generateStaticParams() {

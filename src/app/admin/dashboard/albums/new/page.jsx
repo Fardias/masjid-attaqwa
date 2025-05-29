@@ -1,5 +1,5 @@
-import { DashboardHeader } from "@/components/dashboard-header"
-import { AlbumForm } from "@/components/album-form"
+import { DashboardHeader } from "../../../../../components/dashboard-header"
+import { AlbumForm } from "../../../../../components/album-form"
 
 export default function NewAlbumPage() {
     return (

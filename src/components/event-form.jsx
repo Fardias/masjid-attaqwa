@@ -3,21 +3,21 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { CalendarIcon, Clock, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Textarea } from "@/components/ui/textarea"
+import { Button } from "../components/ui/button"
+import { Calendar } from "../components/ui/calendar"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../components/ui/card"
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../components/ui/form"
+import { Input } from "../components/ui/input"
+import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select"
+import { Textarea } from "../components/ui/textarea"
 import { cn } from "@/lib/utils"
 import { format } from "date-fns"
 import { id } from "date-fns/locale"
 import { useForm } from "react-hook-form"
 import { valibotResolver } from "@hookform/resolvers/valibot"
 import { minLength, object, string, date, enum_ } from "valibot"
-import { addEvent, updateEvent } from "@/lib/services/eventService"
+import { addEvent, updateEvent } from "../lib/services/eventService"
 import { mutate } from "swr"
 import { format as formatDate } from "date-fns"
 import { toast, Toaster } from "sonner"
@@ -290,7 +290,7 @@ export function EventForm({ initialData = null, isEditing = false }) {
                                                     <img 
                                                         src={imagePreview} 
                                                         alt="Preview" 
-                                                        className="w-32 h-32 object-cover rounded-lg"
+                                                        className="object-cover w-32 h-32 rounded-lg"
                                                     />
                                                     <Button
                                                         type="button"
@@ -299,14 +299,14 @@ export function EventForm({ initialData = null, isEditing = false }) {
                                                         className="absolute -top-2 -right-2"
                                                         onClick={handleImageDelete}
                                                     >
-                                                        <X className="h-4 w-4" />
+                                                        <X className="w-4 h-4" />
                                                     </Button>
                                                 </div>
                                             )}
                                         </div>
                                     </FormControl>
                                     {isUploading && (
-                                        <p className="text-sm text-muted-foreground mt-2">
+                                        <p className="mt-2 text-sm text-muted-foreground">
                                             Mengupload gambar...
                                         </p>
                                     )}

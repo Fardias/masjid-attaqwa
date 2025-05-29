@@ -1,9 +1,9 @@
-import { DashboardHeader } from "@/components/dashboard-header"
-import { AlbumsGrid } from "@/components/albums-grid"
-import { Button } from "@/components/ui/button"
+import { DashboardHeader } from "../../../../components/dashboard-header"
+import { AlbumsGrid } from "../../../../components/albums-grid"
+import { Button } from "../../../../components/ui/button"
 import { Plus } from "lucide-react"
 import Link from "next/link"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../components/ui/tabs"
 
 export default function AlbumsPage() {
     return (
