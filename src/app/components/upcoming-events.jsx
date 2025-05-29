@@ -75,7 +75,7 @@ export default function UpcomingEvents() {
 
             {isLoading && (
                 <div className="flex items-center justify-center p-4">
-                    <p className="text-gray-500">Loading...</p>
+                    <p className="text-gray-500">Loading guys...</p>
                 </div>
             )}
 
