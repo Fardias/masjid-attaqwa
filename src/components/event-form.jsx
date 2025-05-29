@@ -136,11 +136,11 @@ export function EventForm({ initialData = null, isEditing = false }) {
         <Card>
             <Toaster position="top-center" />
             <CardHeader>
-                <CardTitle>{isEditing ? "Edit Event" : "Detail Event"}</CardTitle>
+                <CardTitle>{isEditing ? "Edit Acara" : "Detail Acara"}</CardTitle>
                 <CardDescription>
                     {isEditing
-                        ? "Ubah informasi event yang sudah ada."
-                        : "Masukkan informasi lengkap tentang event yang akan diadakan."}
+                        ? "Ubah informasi acara yang sudah ada."
+                        : "Masukkan informasi lengkap tentang acara yang akan diadakan."}
                 </CardDescription>
             </CardHeader>
             <CardContent>
@@ -151,9 +151,9 @@ export function EventForm({ initialData = null, isEditing = false }) {
                             name="judul"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Judul Event</FormLabel>
+                                    <FormLabel>Judul Acara</FormLabel>
                                     <FormControl>
-                                        <Input placeholder="Masukkan judul event" {...field} />
+                                        <Input placeholder="Masukkan judul acara" {...field} />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
@@ -220,7 +220,7 @@ export function EventForm({ initialData = null, isEditing = false }) {
                                     <FormItem>
                                         <FormLabel>Lokasi</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Masukkan lokasi event" {...field} />
+                                            <Input placeholder="Masukkan lokasi acara" {...field} />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -236,7 +236,7 @@ export function EventForm({ initialData = null, isEditing = false }) {
                                         <Select onValueChange={field.onChange} defaultValue={field.value}>
                                             <FormControl>
                                                 <SelectTrigger>
-                                                    <SelectValue placeholder="Pilih status event" />
+                                                    <SelectValue placeholder="Pilih status acara" />
                                                 </SelectTrigger>
                                             </FormControl>
                                             <SelectContent>
@@ -258,9 +258,9 @@ export function EventForm({ initialData = null, isEditing = false }) {
                                 <FormItem>
                                     <FormLabel>Deskripsi</FormLabel>
                                     <FormControl>
-                                        <Textarea placeholder="Masukkan deskripsi lengkap tentang event" className="min-h-32" {...field} />
+                                        <Textarea placeholder="Masukkan deskripsi lengkap tentang acara" className="min-h-32" {...field} />
                                     </FormControl>
-                                    <FormDescription>Berikan informasi lengkap tentang event yang akan diadakan.</FormDescription>
+                                    <FormDescription>Berikan informasi lengkap tentang acara yang akan diadakan.</FormDescription>
                                     <FormMessage />
                                 </FormItem>
                             )}
@@ -271,7 +271,7 @@ export function EventForm({ initialData = null, isEditing = false }) {
                             name="images_url"
                             render={({ field }) => (
                                 <FormItem>
-                                    <FormLabel>Gambar Event</FormLabel>
+                                    <FormLabel>Gambar Acara</FormLabel>
                                     <FormControl>
                                         <div className="space-y-4">
                                             <Input 
@@ -320,7 +320,7 @@ export function EventForm({ initialData = null, isEditing = false }) {
                                 Batal
                             </Button>
                             <Button className={"cursor-pointer"} type="submit" disabled={isSubmitting}>
-                                {isSubmitting ? "Menyimpan..." : isEditing ? "Update Event" : "Simpan Event"}
+                                {isSubmitting ? "Menyimpan..." : isEditing ? "Update Acara" : "Simpan Acara"}
                             </Button>
                         </div>
                     </form>
