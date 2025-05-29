@@ -101,14 +101,14 @@ export function EventsTable() {
         }
     }
 
-    if (error) return <p className="mt-6 text-center text-red-500">Gagal memuat event.</p>
-    if (!events) return <p className="mt-6 text-center text-gray-500">Memuat event...</p>
+    if (error) return <p className="mt-6 text-center text-red-500">Gagal memuat acara.</p>
+    if (!events) return <p className="mt-6 text-center text-gray-500">Memuat acara...</p>
 
     return (
         <div className="space-y-4">
             <Toaster position="top-center" />
             <Input
-                placeholder="Cari event..."
+                placeholder="Cari acara..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="max-w-sm"
@@ -130,7 +130,7 @@ export function EventsTable() {
                         {filteredEvents.length === 0 ? (
                             <TableRow>
                                 <TableCell colSpan={6} className="py-8 text-center text-muted-foreground">
-                                    Tidak ada event yang ditemukan
+                                    Tidak ada acara yang ditemukan
                                 </TableCell>
                             </TableRow>
                         ) : (
@@ -190,7 +190,7 @@ export function EventsTable() {
                     <AlertDialogHeader>
                         <AlertDialogTitle>Apakah Anda yakin?</AlertDialogTitle>
                         <AlertDialogDescription>
-                            Tindakan ini tidak dapat dibatalkan. Event ini akan dihapus dari database secara permanen.
+                            Tindakan ini tidak dapat dibatalkan. Acara ini akan dihapus dari database secara permanen.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
