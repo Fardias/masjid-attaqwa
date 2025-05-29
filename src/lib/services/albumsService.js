@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase/supabaseClient'
+import { supabase } from '../supabase/supabaseClient'
 
 export const getAllAlbums = async () => {
     const { data, error } = await supabase

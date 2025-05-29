@@ -1,4 +1,4 @@
-import { supabase } from '@/lib/supabase/supabaseClient'
+import { supabase } from '../supabase/supabaseClient'
 import { format } from "date-fns"
 
 
