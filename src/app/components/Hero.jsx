@@ -50,7 +50,6 @@ export default function Hero() {
         if (banner) {
             setImages(banner.images_url || [])
             setHasMultipleImages(Array.isArray(banner.images_url) && banner.images_url.length > 1)
-            // Reset loaded images when banner data changes
             setLoadedImages(new Set())
             setImageLoaded(false)
         }
@@ -90,7 +89,6 @@ export default function Hero() {
         }
     }
 
-    // Update imageLoaded state when currentImageIndex changes
     useEffect(() => {
         setImageLoaded(loadedImages.has(currentImageIndex))
     }, [currentImageIndex, loadedImages])
@@ -99,19 +97,14 @@ export default function Hero() {
         return (
             <div className="relative overflow-hidden rounded-xl">
                 <div className="container relative z-10 flex flex-col px-4 py-8 mx-auto md:flex-row md:items-start md:justify-between md:gap-8 xl:items-start">
-                    {/* Image Skeleton */}
                     <div className="relative w-full mb-5 md:mb-0 md:w-auto">
                         <div className="relative overflow-hidden rounded-md w-full max-w-[700px] mx-auto md:mx-0 shadow-lg">
                             <div className="bg-gray-200 animate-pulse w-full aspect-[7/3] md:w-[300px] md:h-[250px] xl:w-[300px] xl:h-[250px] 2xl:w-[700px] 2xl:h-[300px]"></div>
                         </div>
                     </div>
 
-                    {/* Content Skeleton */}
                     <div className="w-full max-w-xl">
-                        {/* Title Skeleton */}
                         <div className="w-full h-12 mb-4 bg-gray-200 rounded-md md:h-10 xl:h-14 animate-pulse md:w-3/4"></div>
-
-                        {/* Paragraph Skeleton */}
                         <div className="mb-8 space-y-3 md:mt-5">
                             <div className="w-full h-5 bg-gray-200 rounded-md animate-pulse"></div>
                             <div className="w-5/6 h-5 bg-gray-200 rounded-md animate-pulse"></div>
@@ -132,16 +125,13 @@ export default function Hero() {
     return (
         <div className="relative overflow-hidden rounded-xl">
             <div className="container relative z-10 flex flex-col px-4 py-8 mx-auto md:flex-row md:items-start md:justify-between md:gap-8 xl:items-start">
-                {/* Image Container with Carousel */}
                 {images.length > 0 && (
                     <div
                         className="relative w-full mb-5 md:mb-0 group md:w-auto"
                         onMouseEnter={() => setIsPaused(true)}
                         onMouseLeave={() => setIsPaused(false)}
                     >
-                        {/* Main Image Container - Auto height to preserve aspect ratio */}
                         <div className="relative overflow-hidden rounded-md w-full max-w-[700px] mx-auto md:mx-0 shadow-lg transition-shadow duration-300 group-hover:shadow-xl">
-                            {/* Skeleton Loader */}
                             {!imageLoaded && (
                                 <div className="absolute inset-0 bg-gray-200 animate-pulse z-10 min-h-[250px]">
                                     <div className="w-full h-full bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200 animate-pulse">
@@ -152,9 +142,7 @@ export default function Hero() {
                                 </div>
                             )}
 
-                            {/* Image Stack for Slide Animation */}
                             <div className="relative w-full">
-                                {/* Current Image */}
                                 <div
                                     className={`relative transition-transform duration-1000 ease-out ${isTransitioning ? "-translate-x-full" : "translate-x-0"
                                         }`}
@@ -176,7 +164,6 @@ export default function Hero() {
                                     />
                                 </div>
 
-                                {/* Next Image (for slide transition) */}
                                 {hasMultipleImages && (
                                     <div
                                         className={`absolute top-0 left-0 w-full transition-transform duration-1000 ease-out ${isTransitioning ? "translate-x-0" : "translate-x-full"
@@ -200,8 +187,6 @@ export default function Hero() {
                                 )}
                             </div>
 
-                            {/* Overlay Gradient for better text readability */}
-                            {/* Preload next images for smoother transitions */}
                             {hasMultipleImages &&
                                 images.map((src, index) => {
                                     if (index === currentImageIndex || index === nextImageIndex) return null
@@ -220,7 +205,6 @@ export default function Hero() {
                                 })}
                         </div>
 
-                        {/* Animated Border */}
                         <div className="absolute inset-0 transition-opacity duration-300 border-2 border-transparent rounded-md opacity-0 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 group-hover:opacity-100 -z-10 blur-sm"></div>
                     </div>
                 )}
@@ -247,7 +231,6 @@ export default function Hero() {
                 </div>
             </div>
 
-            {/* Custom CSS for animations */}
             <style jsx>{`
         @keyframes kenBurns {
             0% {
