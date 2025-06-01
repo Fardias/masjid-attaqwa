@@ -140,7 +140,7 @@ export default function ContactPage() {
                     <div>
                       <h3 className="mb-1 font-medium">Alamat</h3>
                       <p className="text-gray-600">
-                        Jl. Masjid Raya No. 123, Kelurahan Sejahtera, Kecamatan Bahagia, Kota Indah, 12345
+                      Perumahan Jl. Utama Puri Bintaro Hijau, Pondok Aren, South Tangerang City, Banten 15224
                       </p>
                       <a
                         href={getDirectionsUrl()}
@@ -157,19 +157,19 @@ export default function ContactPage() {
                     <Phone className="h-5 w-5 mr-3 text-amber-600 mt-0.5" />
                     <div>
                       <h3 className="mb-1 font-medium">Telepon</h3>
-                      <p className="text-gray-600">(021) 1234-5678</p>
-                      <p className="text-gray-600">+62 812-3456-7890 (WhatsApp)</p>
+                      <p className="text-gray-600">-</p>
+                      <p className="text-gray-600">- (WhatsApp)</p>
                     </div>
                   </div>
 
-                  <div className="flex items-start">
+                  {/* {/* <div className="flex items-start">
                     <Mail className="h-5 w-5 mr-3 text-amber-600 mt-0.5" />
                     <div>
                       <h3 className="mb-1 font-medium">Email</h3>
                       <p className="text-gray-600">info@masjidattaqwa.org</p>
                       <p className="text-gray-600">admin@masjidattaqwa.org</p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
               </CardContent>
             </Card>
@@ -180,7 +180,7 @@ export default function ContactPage() {
                 <CardDescription>Peta lokasi Masjid At-Taqwa</CardDescription>
               </CardHeader>
               <CardContent className="p-0">
-                <div className="h-[400px]">
+                <div className="h-[400px] z-[-100]">
                   <Maps />
                 </div>
               </CardContent>

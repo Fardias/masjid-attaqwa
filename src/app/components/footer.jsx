@@ -17,7 +17,7 @@ export default function Footer() {
               berkomitmen untuk menyediakan lingkungan yang nyaman bagi jamaah untuk beribadah dan mengembangkan diri
               dalam nilai-nilai Islam.
             </p>
-            <div className="flex space-x-4 pt-2">
+            {/* <div className="flex space-x-4 pt-2">
               <Link href="#" className="text-gray-600 hover:text-amber-600 transition-colors">
                 <Facebook className="w-5 h-5" />
                 <span className="sr-only">Facebook</span>
@@ -34,7 +34,7 @@ export default function Footer() {
                 <Youtube className="w-5 h-5" />
                 <span className="sr-only">Youtube</span>
               </Link>
-            </div>
+            </div> */}
           </div>
 
           {/* Menu Section */}
@@ -99,17 +99,17 @@ export default function Footer() {
               <li className="flex items-start">
                 <MapPin className="h-5 w-5 mr-2 text-amber-600 mt-0.5 flex-shrink-0" />
                 <span className="text-gray-600">
-                  Jl. Masjid Raya No. 123, Kelurahan Sejahtera, Kecamatan Bahagia, Kota Indah, 12345
+                Perumahan Jl. Utama Puri Bintaro Hijau, Pondok Aren, South Tangerang City, Banten 15224
                 </span>
               </li>
               <li className="flex items-center">
                 <Phone className="w-5 h-5 mr-2 text-amber-600 flex-shrink-0" />
-                <span className="text-gray-600">(021) 1234-5678</span>
+                <span className="text-gray-600">-</span>
               </li>
-              <li className="flex items-center">
+              {/* <li className="flex items-center">
                 <Mail className="w-5 h-5 mr-2 text-amber-600 flex-shrink-0" />
                 <span className="text-gray-600">info@masjidattaqwa.org</span>
-              </li>
+              </li> */}
             </ul>
           </div>
         </div>
