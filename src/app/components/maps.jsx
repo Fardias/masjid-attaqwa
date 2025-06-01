@@ -40,7 +40,7 @@ export default function Maps({
 
     if (!isMounted) {
         return (
-            <div className="flex items-center justify-center w-full h-[400px] bg-slate-100 rounded-xl">
+            <div className="flex items-center justify-center w-full h-[400px] bg-slate-100 rounded-xl ">
                 <div className="flex flex-col items-center gap-2">
                     <Loader2 className="w-8 h-8 animate-spin text-primary" />
                     <p className="text-sm text-muted-foreground">Loading map...</p>
@@ -50,8 +50,8 @@ export default function Maps({
     }
 
     return (
-            <div className="p-1 overflow-hidden rounded-xl">  
-                <div style={{ height }} className="relative overflow-hidden rounded-lg">
+            <div className="p-1 overflow-hidden rounded-xl ">  
+                <div style={{ height }} className="relative overflow-hidden rounded-lg z-[10]">
                     <MapWithNoSSR location={location} zoom={zoom} />
 
                     {showGoogleMapsLink && (
