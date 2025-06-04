@@ -205,7 +205,7 @@ export default function Hero() {
                                 })}
                         </div>
 
-                        <div className="absolute inset-0 transition-opacity duration-300 border-2 border-transparent rounded-md opacity-0 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 group-hover:opacity-100 -z-10 blur-sm"></div>
+                        {/* <div className="absolute inset-0 transition-opacity duration-300 border-2 border-transparent rounded-md opacity-0 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 group-hover:opacity-100 -z-10 blur-sm"></div> */}
                     </div>
                 )}
 

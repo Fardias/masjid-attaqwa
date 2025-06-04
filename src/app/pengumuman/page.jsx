@@ -91,7 +91,7 @@
 
 // app/pengumuman/page.jsx
 
-import AnnouncementList from "@/components/announcementList"
+import AnnouncementList from "../../components/announcementList"
 
 export default function AnnouncementsPage() {
   return (
