@@ -1,19 +1,26 @@
 "use client"
 
 import { usePathname } from "next/navigation"
-import Navbar from "./navbar"
-import Footer from "./footer"
+import Navbar from "./navbar" // Pastikan path ini benar
+import Footer from "./footer" // Pastikan path ini benar
 
 export default function LayoutWrapper({ children }) {
     const pathname = usePathname()
-    const isAdminPage = pathname.startsWith("/admin/dashboard")
+    // Modifikasi kondisi: sekarang mengecek apakah path dimulai dengan /admin/
+    const isAdminAreaPage = pathname.startsWith("/admin/")
 
     return (
         <>
-            <div className={`flex min-h-screen flex-col ${!isAdminPage ? "xl:px-[200px]" : ""}`}>
-                {!isAdminPage && <Navbar />}
+            {/* 
+              Div wrapper utama. Padding horizontal xl:px-[200px] hanya diterapkan
+              jika BUKAN halaman di area admin.
+            */}
+            <div className={`flex min-h-screen flex-col ${!isAdminAreaPage ? "xl:px-[200px]" : ""}`}>
+                {/* Navbar hanya ditampilkan jika BUKAN halaman di area admin */}
+                {!isAdminAreaPage && <Navbar />}
                 <main className="flex-1">{children}</main>
-                {!isAdminPage && <Footer />}
+                {/* Footer hanya ditampilkan jika BUKAN halaman di area admin */}
+                {!isAdminAreaPage && <Footer />}
             </div>
         </>
     )

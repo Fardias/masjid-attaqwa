@@ -135,16 +135,16 @@ export default function UpcomingEvents() {
                     id={`event-${event.id}`}
                     className={`transition-all duration-200
                       ${isFullscreen
-                        ? 'bg-black text-white fixed inset-0 z-50 flex flex-row p-2 sm:p-3 md:p-4' // flex-row, padding overall
-                        : 'bg-white border rounded-lg shadow-sm hover:shadow-md w-full md:w-80 md:flex-shrink-0 h-full relative flex flex-col' // Added flex-col for normal view
+                        ? 'bg-black text-white fixed inset-0 z-50 flex flex-row p-0 overflow-hidden' // p-0 for parent fullscreen
+                        : 'bg-white border rounded-lg shadow-sm hover:shadow-md w-full md:w-80 md:flex-shrink-0 h-full relative flex flex-col'
                       }`}
                   >
                     {/* Image Container (Left Pane in Fullscreen) */}
                     <div
                       className={`
                         ${isFullscreen
-                          ? 'w-5/12 h-full flex-shrink-0' // Kiri: 5/12 width, full height
-                          : 'w-full h-64 flex-shrink-0' // Normal: full width, fixed height
+                          ? 'w-5/12 h-full flex-shrink-0 p-2 sm:p-3 md:p-4' // Padding for image pane
+                          : 'w-full h-64 flex-shrink-0'
                         }`}
                     >
                       {event.images_url ? (
@@ -164,88 +164,119 @@ export default function UpcomingEvents() {
                     <div
                       className={`flex
                         ${isFullscreen
-                          ? 'w-7/12 h-full flex-col pl-2 sm:pl-3 md:pl-4' // Kanan: 7/12 width, full height, flex-col, padding left for spacing
-                          : 'flex-col flex-grow p-4 space-y-3' // Normal: flex-col, grow, padding
+                          // MODIFIED: Right pane is flex-col to stack text area and button area. No horizontal padding here.
+                          ? 'w-7/12 h-full flex-col'
+                          : 'flex-col flex-grow p-4 space-y-3' // Normal view
                         }`}
                     >
-                      {/* Top Text Block (Title, Badge) - flex-shrink-0 for fullscreen text layout */}
-                      <div className={isFullscreen ? 'flex-shrink-0' : ''}>
-                        <h3
-                          className={`font-semibold transition-all ${isFullscreen
-                              ? 'text-xl sm:text-2xl md:text-[2rem] leading-tight text-gray-100 line-clamp-2 sm:line-clamp-3' // Ukuran judul disesuaikan untuk kolom sempit
-                              : 'text-lg text-gray-900 line-clamp-2'
-                            }`}
-                        >
-                          {event.judul}
-                        </h3>
-                        <div className={`flex items-center ${isFullscreen ? 'mt-1 sm:mt-1.5' : 'mt-0'}`}>
-                          <Badge
-                            variant="outline"
-                            className={`text-xs ${isFullscreen
-                                ? 'bg-amber-600 text-amber-50 hover:bg-amber-500 sm:text-sm px-2 py-0.5'
-                                : 'bg-amber-100 text-amber-800 hover:bg-amber-200'
-                              }`}
-                          >
-                            {event.status}
-                          </Badge>
-                        </div>
-                      </div>
-
-                      {/* Middle Text Block (Details) - flex-grow in fullscreen text layout */}
+                      {/* Area for Centered & Scrollable Text Content */}
                       <div
                         className={`
                           ${isFullscreen
-                            ? 'flex-grow min-h-0 overflow-hidden py-1 sm:py-2 space-y-1 sm:space-y-1.5' // flex-grow, min-h-0, overflow-hidden, padding vertical
-                            : 'space-y-2 flex-grow' // Normal
+                            // MODIFIED: This div centers the inner text wrapper. It takes available vertical space.
+                            // Padding is applied here for the text area.
+                            ? 'flex-grow flex justify-center items-center overflow-hidden px-2 sm:px-3 md:px-4 pt-2 sm:pt-3 md:pt-4'
+                            // For normal view, this outer div acts as the main content wrapper itself
+                            : 'flex flex-col flex-grow space-y-3'
                           }`}
                       >
-                        {[
-                          { label: 'Tanggal', value: formatDate(event.tanggal_mulai) },
-                          { label: 'Waktu', value: formatTime(event.waktu) },
-                          { label: 'Lokasi', value: event.lokasi ?? 'Masjid At-Taqwa' },
-                          event.speaker && { label: 'Pemateri', value: event.speaker },
-                        ]
-                          .filter(Boolean)
-                          .map((item) => (
-                            <div
-                              key={item.label}
-                              className={`transition-all ${ // Removed flex flex-col here, handled by parent
-                                isFullscreen
-                                  ? 'text-base sm:text-lg md:text-[1.1rem] leading-snug' // Ukuran detail disesuaikan, md:text-[1.1rem] ~17.5px
-                                  : 'text-sm text-gray-600 flex flex-col'
-                                }`}
-                            >
-                              <p className={isFullscreen ? 'flex items-baseline' : ''}>
-                                <span className={`font-semibold ${isFullscreen ? 'text-gray-400 w-[70px] sm:w-[85px] flex-shrink-0' : 'text-gray-900'}`}> {/* Lebar label disesuaikan */}
-                                  {item.label}:
-                                </span>
-                                <span className={isFullscreen ? 'text-gray-200 ml-1.5' : 'block'}>
-                                  {item.value}
-                                </span>
-                              </p>
-                            </div>
-                          ))}
-                      </div>
-
-                      {/* Bottom Button - flex-shrink-0 for fullscreen text layout */}
-                      <div className={`pt-1 ${isFullscreen ? 'flex-shrink-0 sm:pt-2' : 'mt-auto'}`}>
-                        <Button
-                          onClick={() => toggleFullScreen(event.id)}
-                          variant="outline"
-                          size={isFullscreen ? 'sm' : 'sm'} // Ukuran tombol bisa 'md' jika ingin lebih besar di fullscreen
-                          className={`w-full flex items-center justify-center gap-2 transition-colors ${isFullscreen
-                              ? 'bg-gray-700 hover:bg-gray-600 text-white border-gray-500 text-xs sm:text-sm py-2 sm:py-2.5'
-                              : 'bg-white hover:bg-amber-50 text-amber-700 border-amber-200 hover:border-amber-300'
+                        {/* Inner Scrollable Text Wrapper (or normal content wrapper) */}
+                        <div
+                          className={`
+                            ${isFullscreen
+                              ? 'w-full max-h-full overflow-y-auto flex flex-col space-y-2 sm:space-y-3 md:space-y-4 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800'
+                              // For normal view, its parent handles flex-col, flex-grow and space-y
+                              : 'contents' // Use 'contents' to make this div not affect layout for normal view, its children become direct children of parent
                             }`}
                         >
-                          {isFullscreen ? (
-                            <><Minimize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Keluar</> // Teks tombol disingkat
-                          ) : (
-                            <><Maximize2 className="w-4 h-4" /> Fullscreen</>
+                          {/* Top Text Block (Title, Badge) */}
+                          <div className={isFullscreen ? 'flex-shrink-0' : ''}>
+                            <h3
+                              className={`font-semibold transition-all ${isFullscreen
+                                ? 'text-xl sm:text-2xl md:text-[2rem] leading-tight text-gray-100 line-clamp-3 sm:line-clamp-4'
+                                : 'text-lg text-gray-900 line-clamp-2'
+                                }`}
+                            >
+                              {event.judul}
+                            </h3>
+                            <div className={`flex items-center ${isFullscreen ? 'mt-1 sm:mt-1.5 md:mt-2' : 'mt-0'}`}>
+                              <Badge
+                                variant="outline"
+                                className={`text-xs ${isFullscreen
+                                  ? 'bg-amber-600 text-amber-50 hover:bg-amber-500 sm:text-sm px-2 py-0.5'
+                                  : 'bg-amber-100 text-amber-800 hover:bg-amber-200'
+                                  }`}
+                              >
+                                {event.status}
+                              </Badge>
+                            </div>
+                          </div>
+
+                          {/* Middle Text Block (Details) */}
+                          <div
+                            className={`
+                              ${isFullscreen
+                                ? 'space-y-1 sm:space-y-1.5'
+                                : `space-y-2 ${!isFullscreen ? 'flex-grow' : ''}` // flex-grow only in normal view
+                              }`}
+                          >
+                            {[
+                              { label: 'Tanggal', value: formatDate(event.tanggal_mulai) },
+                              { label: 'Waktu', value: formatTime(event.waktu) },
+                              { label: 'Lokasi', value: event.lokasi ?? 'Masjid At-Taqwa' },
+                              event.speaker && { label: 'Pemateri', value: event.speaker },
+                            ]
+                              .filter(Boolean)
+                              .map((item) => (
+                                <div
+                                  key={item.label}
+                                  className={`transition-all ${isFullscreen
+                                    ? 'text-base sm:text-lg md:text-[1.1rem] leading-snug'
+                                    : 'text-sm text-gray-600 flex flex-col'
+                                    }`}
+                                >
+                                  <p className={isFullscreen ? 'flex items-baseline' : ''}>
+                                    <span className={`font-semibold ${isFullscreen ? 'text-gray-400 w-[70px] sm:w-[85px] md:w-[95px] flex-shrink-0' : 'text-gray-900'}`}>
+                                      {item.label} :
+                                    </span>
+                                    <span className={isFullscreen ? 'text-gray-200 ml-1.5 sm:ml-2' : 'block'}>
+                                      {item.value}
+                                    </span>
+                                  </p>
+                                </div>
+                              ))}
+                          </div>
+
+                          {/* Maximize Button for Normal View */}
+                          {!isFullscreen && (
+                            <div className="pt-1 mt-auto"> {/* mt-auto pushes it to bottom in normal view */}
+                              <Button
+                                onClick={() => toggleFullScreen(event.id)}
+                                variant="outline"
+                                size="sm"
+                                className="flex items-center justify-center w-full gap-2 transition-colors bg-white hover:bg-amber-50 text-amber-700 border-amber-200 hover:border-amber-300"
+                              >
+                                <Maximize2 className="w-4 h-4" /> Fullscreen
+                              </Button>
+                            </div>
                           )}
-                        </Button>
-                      </div>
-                    </div>
+                        </div> {/* End of Inner Scrollable Text Wrapper / Normal Content Wrapper */}
+                      </div> {/* End of Area for Centered & Scrollable Text Content / Normal Main Content Area */}
+
+                      {/* Bottom Button Area (Only in Fullscreen) */}
+                      {isFullscreen && (
+                        <div className="flex-shrink-0 px-2 pt-1 pb-2 sm:px-3 md:px-4 sm:pb-3 md:pb-4 sm:pt-2"> {/* Padding for button area */}
+                          <Button
+                            onClick={() => toggleFullScreen(event.id)}
+                            variant="outline"
+                            size={'sm'}
+                            className={'w-full flex items-center justify-center gap-2 transition-colors bg-gray-700 hover:bg-gray-600 text-white border-gray-500 text-xs sm:text-sm py-2 sm:py-2.5'}
+                          >
+                            <Minimize2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Keluar
+                          </Button>
+                        </div>
+                      )}
+                    </div> {/* End of Content Container (Right Pane) */}
                   </div>
                 );
               })}
