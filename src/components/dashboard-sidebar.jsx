@@ -2,11 +2,11 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Calendar, Home, ImageIcon, Megaphone, Menu, Moon, Settings, Sun } from "lucide-react"
+import { Calendar, Home, ImageIcon, Megaphone, Menu, Moon, Settings, Sun, User, Users2 } from "lucide-react"
 import { Button } from "./ui/button"
 import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet"
 import { useTheme } from "next-themes"
-import { cn } from "@/lib/utils"
+import { cn } from "../lib/utils"
 
 export function DashboardSidebar() {
     const pathname = usePathname()
@@ -42,6 +42,12 @@ export function DashboardSidebar() {
             label: "Banner Masjid",
             icon: ImageIcon,
             active: pathname.includes("/admin/dashboard/edit-banner"),
+        },
+        {
+            href: "/admin/dashboard/pengurus",
+            label: "Pengurus Masjid",
+            icon: Users2,
+            active: pathname.includes("/admin/dashboard/pengurus"),
         },
         {
             href: "/",

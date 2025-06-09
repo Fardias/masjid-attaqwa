@@ -1,7 +1,5 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-
 import { useState } from "react"
 import { Edit, MoreHorizontal, Trash } from "lucide-react"
 import { Button } from "./ui/button"
@@ -14,7 +12,6 @@ import {
     DropdownMenuTrigger,
 } from "../components/ui/dropdown-menu"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../components/ui/table"
-import { Badge } from "../components/ui/badge"
 import {
     AlertDialog,
     AlertDialogAction,

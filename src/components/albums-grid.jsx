@@ -32,7 +32,7 @@ import {
   AlertDialogTitle,
 } from "../components/ui/alert-dialog";
 import { Input } from "../components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from "../lib/utils";
 import { deleteAlbum, getAllAlbums } from "../lib/services/albumsService";
 import useSWR from "swr";
 
