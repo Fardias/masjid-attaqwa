@@ -28,7 +28,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/app/admin/dashboard/pengurus/new/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]

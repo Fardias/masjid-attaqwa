@@ -1,11 +1,9 @@
 'use client'
-import React from "react"
+import React, { useState } from "react"
 import Link from "next/link"
-import { Plus } from "lucide-react"
-import useSWR from "swr"
-
+import { Pencil, Plus, Trash2 } from "lucide-react"
+import useSWR, { mutate } from "swr"
 import { DashboardHeader } from "../../../../components/dashboard-header"
-
 import { Button } from "../../../../components/ui/button"
 import {
     Table,
@@ -15,8 +13,19 @@ import {
     TableBody,
     TableCell,
 } from "../../../../components/ui/table"
-
-import { getPengurus } from "../../../../lib/services/pengurusService"
+import { getPengurus, deletePengurus } from "../../../../lib/services/pengurusService"
+import {
+    AlertDialog,
+    AlertDialogTrigger,
+    AlertDialogContent,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogCancel,
+    AlertDialogAction,
+} from "../../../../components/ui/alert-dialog"
+import { toast } from "sonner"
 
 const fetchPengurusMasjid = () => getPengurus()
 
@@ -34,8 +43,24 @@ export default function PengurusPage() {
         }
     )
 
+    const [selectedId, setSelectedId] = useState(null)
+
     function capitalizeWords(str) {
         return str.replace(/\b\w/g, (char) => char.toUpperCase())
+    }
+
+    const sortedPengurusMasjid = pengurusMasjid
+        ? [...pengurusMasjid].sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime())
+        : []
+
+    async function onDeletePengurus(id) {
+        try {
+            await deletePengurus(id)
+            mutate("pengurusMasjid")
+            toast.success("Pengurus berhasil dihapus.")
+        } catch (error) {
+            toast.error("Gagal menghapus pengurus. Silakan coba lagi.")
+        }
     }
 
     return (
@@ -44,7 +69,7 @@ export default function PengurusPage() {
             <div className="flex-1 p-4 pt-6 space-y-6 md:p-8">
                 <div className="flex items-center justify-between">
                     <h2 className="text-3xl font-bold tracking-tight">Pengurus Masjid</h2>
-                    <Link href="/admin/dashboard/announcements/new">
+                    <Link href="/admin/dashboard/pengurus/new">
                         <Button>
                             <Plus className="w-4 h-4 mr-2" />
                             Tambah Pengurus
@@ -60,7 +85,7 @@ export default function PengurusPage() {
                             <p className="text-sm text-gray-500">Memuat data...</p>
                         ) : error ? (
                             <p className="text-sm text-red-500">Terjadi kesalahan saat mengambil data.</p>
-                        ) : pengurusMasjid?.length === 0 ? (
+                        ) : sortedPengurusMasjid.length === 0 ? (
                             <p className="text-sm text-gray-500">Tidak ada data pengurus.</p>
                         ) : (
                             <Table>
@@ -69,14 +94,57 @@ export default function PengurusPage() {
                                         <TableHead className="w-12 text-center">No</TableHead>
                                         <TableHead>Nama</TableHead>
                                         <TableHead>Jabatan</TableHead>
+                                        <TableHead className="pr-4 text-right">Aksi</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {pengurusMasjid.map((pengurus, idx) => (
+                                    {sortedPengurusMasjid.map((pengurus, idx) => (
                                         <TableRow key={pengurus.id}>
                                             <TableCell className="text-center">{idx + 1}</TableCell>
-                                            <TableCell className="font-medium">{capitalizeWords(pengurus.nama)}</TableCell>
+                                            <TableCell className="font-medium">
+                                                {capitalizeWords(pengurus.nama)}
+                                            </TableCell>
                                             <TableCell>{capitalizeWords(pengurus.role)}</TableCell>
+                                            <TableCell className="flex justify-end gap-2 pr-4">
+                                                <Link href={`/admin/dashboard/pengurus/edit/${pengurus.id}`}>
+                                                    <Button size="sm" variant="secondary" className="gap-1">
+                                                        <Pencil className="w-4 h-4" />
+                                                        Edit
+                                                    </Button>
+                                                </Link>
+                                                <AlertDialog>
+                                                    <AlertDialogTrigger asChild>
+                                                        <Button
+                                                            size="sm"
+                                                            variant="destructive"
+                                                            className="gap-1"
+                                                            onClick={() => setSelectedId(pengurus.id)}
+                                                        >
+                                                            <Trash2 className="w-4 h-4" />
+                                                            Hapus
+                                                        </Button>
+                                                    </AlertDialogTrigger>
+                                                    <AlertDialogContent>
+                                                        <AlertDialogHeader>
+                                                            <AlertDialogTitle>Hapus Pengurus?</AlertDialogTitle>
+                                                            <AlertDialogDescription>
+                                                                Tindakan ini akan menghapus pengurus secara permanen. Apakah Anda yakin?
+                                                            </AlertDialogDescription>
+                                                        </AlertDialogHeader>
+                                                        <AlertDialogFooter>
+                                                            <AlertDialogCancel>Batal</AlertDialogCancel>
+                                                            <AlertDialogAction
+                                                                onClick={() => {
+                                                                    if (selectedId) onDeletePengurus(selectedId)
+                                                                }}
+                                                                className="text-white bg-red-600 hover:bg-red-700"
+                                                            >
+                                                                Hapus
+                                                            </AlertDialogAction>
+                                                        </AlertDialogFooter>
+                                                    </AlertDialogContent>
+                                                </AlertDialog>
+                                            </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

@@ -10,6 +10,17 @@ export const getPengurus = async () => {
     return data
 }
 
+export const getPengurusById = async (id) => {
+    const { data, error } = await supabase
+        .from("pengurus")
+        .select("*")
+        .eq("id", id)
+        .single()
+
+    if (error) throw error
+    return data
+}
+
 
 export const addPengurus = async (pengurus) => {
     const { data, error } = await supabase
