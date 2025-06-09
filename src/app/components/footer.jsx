@@ -17,20 +17,20 @@ export default function Footer() {
               berkomitmen untuk menyediakan lingkungan yang nyaman bagi jamaah untuk beribadah dan mengembangkan diri
               dalam nilai-nilai Islam.
             </p>
-            {/* <div className="flex space-x-4 pt-2">
-              <Link href="#" className="text-gray-600 hover:text-amber-600 transition-colors">
+            {/* <div className="flex pt-2 space-x-4">
+              <Link href="#" className="text-gray-600 transition-colors hover:text-amber-600">
                 <Facebook className="w-5 h-5" />
                 <span className="sr-only">Facebook</span>
               </Link>
-              <Link href="#" className="text-gray-600 hover:text-amber-600 transition-colors">
+              <Link href="#" className="text-gray-600 transition-colors hover:text-amber-600">
                 <Twitter className="w-5 h-5" />
                 <span className="sr-only">Twitter</span>
               </Link>
-              <Link href="#" className="text-gray-600 hover:text-amber-600 transition-colors">
+              <Link href="#" className="text-gray-600 transition-colors hover:text-amber-600">
                 <Instagram className="w-5 h-5" />
                 <span className="sr-only">Instagram</span>
               </Link>
-              <Link href="#" className="text-gray-600 hover:text-amber-600 transition-colors">
+              <Link href="#" className="text-gray-600 transition-colors hover:text-amber-600">
                 <Youtube className="w-5 h-5" />
                 <span className="sr-only">Youtube</span>
               </Link>
@@ -42,42 +42,42 @@ export default function Footer() {
             <h3 className="text-lg font-bold text-amber-600">Menu</h3>
             <ul className="grid grid-cols-2 gap-2">
               <li>
-                <Link href="/" className="text-gray-600 hover:text-amber-600 transition-colors">
+                <Link href="/" className="text-gray-600 transition-colors hover:text-amber-600">
                   Beranda
                 </Link>
               </li>
               <li>
-                <Link href="/profil" className="text-gray-600 hover:text-amber-600 transition-colors">
+                <Link href="/profil" className="text-gray-600 transition-colors hover:text-amber-600">
                   Profil
                 </Link>
               </li>
               <li>
-                <Link href="/pengumuman" className="text-gray-600 hover:text-amber-600 transition-colors">
+                <Link href="/pengumuman" className="text-gray-600 transition-colors hover:text-amber-600">
                   Pengumuman
                 </Link>
               </li>
               <li>
-                <Link href="/album" className="text-gray-600 hover:text-amber-600 transition-colors">
+                <Link href="/album" className="text-gray-600 transition-colors hover:text-amber-600">
                   Album
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="text-gray-600 hover:text-amber-600 transition-colors">
+                <Link href="/faq" className="text-gray-600 transition-colors hover:text-amber-600">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="/donasi" className="text-gray-600 hover:text-amber-600 transition-colors">
+                <Link href="/donasi" className="text-gray-600 transition-colors hover:text-amber-600">
                   Donasi Online
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="text-gray-600 hover:text-amber-600 transition-colors">
+                <Link href="/contact" className="text-gray-600 transition-colors hover:text-amber-600">
                   Contact
                 </Link>
               </li>
               <li>
-                <Link href="/admin/dashboard" className="text-gray-600 hover:text-amber-600 transition-colors">
+                <Link href="/admin/dashboard" className="text-gray-600 transition-colors hover:text-amber-600">
                   Admin
                 </Link>
               </li>
@@ -103,11 +103,11 @@ export default function Footer() {
                 </span>
               </li>
               <li className="flex items-center">
-                <Phone className="w-5 h-5 mr-2 text-amber-600 flex-shrink-0" />
-                <span className="text-gray-600">-</span>
+                <Phone className="flex-shrink-0 w-5 h-5 mr-2 text-amber-600" />
+                <span className="text-gray-600">0812-9023-188</span>
               </li>
               {/* <li className="flex items-center">
-                <Mail className="w-5 h-5 mr-2 text-amber-600 flex-shrink-0" />
+                <Mail className="flex-shrink-0 w-5 h-5 mr-2 text-amber-600" />
                 <span className="text-gray-600">info@masjidattaqwa.org</span>
               </li> */}
             </ul>

@@ -157,7 +157,7 @@ export default function ContactPage() {
                     <Phone className="h-5 w-5 mr-3 text-amber-600 mt-0.5" />
                     <div>
                       <h3 className="mb-1 font-medium">Telepon</h3>
-                      <p className="text-gray-600">-</p>
+                      <p className="text-gray-600">0812-9023-188</p>
                       <p className="text-gray-600">- (WhatsApp)</p>
                     </div>
                   </div>
