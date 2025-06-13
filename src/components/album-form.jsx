@@ -10,7 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../components/ui/input"
 import { Popover, PopoverContent, PopoverTrigger } from "../components/ui/popover"
 import { Textarea } from "../components/ui/textarea"
-import { cn } from "@/lib/utils"
+import { cn } from "../lib/utils"
 import { format } from "date-fns"
 import { id } from "date-fns/locale"
 import { useForm } from "react-hook-form"
@@ -19,7 +19,7 @@ import { minLength, object, string, date, enum_ } from "valibot"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select"
 import Image from "next/image"
 import { uploadAlbum } from "../lib/services/albumsService"
-import { uploadToCloudinary } from "@/lib/cloudinary"
+import { uploadToCloudinary } from "../lib/cloudinary"
 
 const MAX_FILE_SIZE_MB = 5
 

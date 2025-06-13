@@ -12,7 +12,7 @@ export default function page() {
     "@type": "Mosque",
     "name": "Masjid At-Taqwa",
     "description": "Masjid At-Taqwa adalah pusat kegiatan islami yang menyediakan berbagai program keagamaan, kajian, dan kegiatan sosial untuk masyarakat.",
-    "url": "https://masjid-attaqwa.com",
+    "url": "https://masjidattaqwa-bph.com",
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "ID"
@@ -36,10 +36,10 @@ export default function page() {
       "opens": "04:00",
       "closes": "22:00"
     },
-    "sameAs": [
-      "https://facebook.com/masjid-at-taqwa",
-      "https://instagram.com/masjid-at-taqwa"
-    ]
+    // "sameAs": [
+    //   "https://facebook.com/masjid-at-taqwa",
+    //   "https://instagram.com/masjid-at-taqwa"
+    // ]
   }
 
   return (
