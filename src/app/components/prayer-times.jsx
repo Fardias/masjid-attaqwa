@@ -2,12 +2,29 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Clock } from "lucide-react"
 import useSWR from 'swr'
 import { format } from 'date-fns'
+import { useState, useEffect } from 'react'
 
 const fetcher = (...args) => fetch(...args).then(res => res.json())
 
 export default function PrayerTimes() {
   const currentDate = format(new Date(), 'yyyy/MM')
   const { data, error, isLoading } = useSWR(`https://api.myquran.com/v2/sholat/jadwal/1107/${currentDate}`, fetcher)
+  const [currentTime, setCurrentTime] = useState('')
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date()
+      const hours = now.getHours().toString().padStart(2, '0')
+      const minutes = now.getMinutes().toString().padStart(2, '0')
+      const seconds = now.getSeconds().toString().padStart(2, '0')
+      setCurrentTime(`${hours}:${minutes}:${seconds}`)
+    }
+
+    updateTime() // Initial call
+    const interval = setInterval(updateTime, 1000)
+
+    return () => clearInterval(interval) // Cleanup on unmount
+  }, [])
 
   if (isLoading) {
     return (
@@ -75,7 +92,11 @@ export default function PrayerTimes() {
           Jadwal Sholat Hari Ini
         </CardTitle>
       </CardHeader>
-      <CardContent className="pt-6">
+      <CardContent className="">
+        <div className="text-center mb-3 p-3 rounded-lg bg-amber-100/50">
+          <p className="text-sm text-gray-500">Waktu Saat Ini</p>
+          <p className="text-xl font-semibold text-amber-600">{currentTime} WIB</p>
+        </div>
         <div className="space-y-4">
           {prayerTimes.map((prayer) => (
             <div key={prayer.name} className="flex justify-between items-center p-3 rounded-lg bg-amber-50/50">
