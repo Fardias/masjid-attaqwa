@@ -18,11 +18,11 @@ export default function DonationCta({ className }) {
             Berkontribusi dalam pembangunan dan pemeliharaan Masjid At-Taqwa. Setiap donasi Anda akan digunakan untuk
             kegiatan masjid dan pemberdayaan umat.
           </p>
-          <div className="p-4 rounded-lg bg-amber-50/50">
+          {/* <div className="p-4 rounded-lg bg-amber-50/50">
             <p className="mb-2 font-medium">Bank Syariah Indonesia (BSI)</p>
             <p className="text-gray-600">No. Rekening: 7654321098</p>
             <p className="mb-4 text-gray-600">Atas Nama: Masjid At-Taqwa</p>
-          </div>
+          </div> */}
           <Button className="w-full bg-amber-600 hover:bg-amber-700" asChild>
             <Link href="/donasi">Donasi Sekarang</Link>
           </Button>

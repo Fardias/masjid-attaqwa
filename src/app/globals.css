@@ -4,7 +4,7 @@
 /* Removed @custom-variant as it is not a standard CSS at-rule */
 
 :root {
-  --font-outfit: 'Outfit', sans-serif;
+  --font-outfit: "Outfit", sans-serif;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
@@ -37,6 +37,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --scrollbar-thumb: #f59e0b;
+  --scrollbar-track: #fef3c7;
 }
 body {
   font-family: var(--font-outfit);
@@ -206,7 +208,7 @@ body {
   border-color: #10b981 !important;
 }
 
-.swal2-icon.swal2-success [class^='swal2-success-line'] {
+.swal2-icon.swal2-success [class^="swal2-success-line"] {
   background-color: #10b981 !important;
 }
 
@@ -215,6 +217,32 @@ body {
   border-color: #ef4444 !important;
 }
 
-.swal2-icon.swal2-error [class^='swal2-x-mark-line'] {
+.swal2-icon.swal2-error [class^="swal2-x-mark-line"] {
   background-color: #ef4444 !important;
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #e68a00;
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
