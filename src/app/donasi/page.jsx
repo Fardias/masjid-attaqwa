@@ -153,7 +153,7 @@ export default function DonationPage() {
                 <CardFooter className="flex flex-col items-start pt-6 border-t">
                   <p className="mb-2 text-sm text-gray-500">
                     Setelah melakukan transfer, mohon konfirmasi dengan mengirimkan bukti transfer ke nomor WhatsApp:
-                    +62 --
+                    0812-9023-188
                   </p>
                   {/* <p className="text-sm text-gray-500">Atau email ke: donasi@masjidattaqwa.org</p> */}
                 </CardFooter>
