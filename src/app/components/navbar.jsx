@@ -16,7 +16,7 @@ export default function Navbar() {
     { name: "Profil", href: "/profil" },
     { name: "Pengumuman", href: "/pengumuman" },
     { name: "Album", href: "/album" },
-    { name: "FAQ", href: "/faq" },
+    // { name: "FAQ", href: "/faq" },
     { name: "Contact", href: "/contact" },
   ]
 

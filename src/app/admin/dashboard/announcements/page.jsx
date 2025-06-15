@@ -11,8 +11,8 @@ export default function AnnouncementsPage() {
             <div className="flex-1 p-4 pt-6 space-y-4 md:p-8">
                 <div className="flex items-center justify-between">
                     <h2 className="text-3xl font-bold tracking-tight">Pengumuman</h2>
-                    <Link href="/admin/dashboard/announcements/new">
-                        <Button>
+                    <Link  href="/admin/dashboard/announcements/new">
+                        <Button className="cursor-pointer">
                             <Plus className="w-4 h-4 mr-2" />
                             Tambah Pengumuman
                         </Button>

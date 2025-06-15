@@ -11,7 +11,7 @@ export default function FAQPage() {
           id: "q1",
           question: "Apa saja fasilitas yang tersedia di Masjid At-Taqwa?",
           answer:
-            "Masjid At-Taqwa memiliki berbagai fasilitas seperti ruang sholat utama, ruang wudhu terpisah untuk pria dan wanita, toilet, perpustakaan, ruang serba guna, tempat penitipan sepatu/sandal, dan area parkir yang luas.",
+            "Masjid At-Taqwa memiliki berbagai fasilitas seperti ruang sholat utama",
         },
         {
           id: "q2",
@@ -57,20 +57,20 @@ export default function FAQPage() {
           id: "q7",
           question: "Bagaimana cara berdonasi untuk Masjid At-Taqwa?",
           answer:
-            "Anda dapat berdonasi melalui beberapa cara: \n1. Langsung ke kotak amal yang tersedia di masjid \n2. Transfer bank ke rekening resmi masjid \n3. Melalui platform donasi online di website resmi masjid \n4. Melalui QR code yang tersedia di masjid",
+            "Anda dapat berdonasi melalui beberapa cara: \n1. Langsung ke kotak amal yang tersedia di masjid  \n2. Melalui QR code yang tersedia di masjid",
         },
-        {
-          id: "q8",
-          question: "Apakah donasi ke Masjid At-Taqwa mendapatkan laporan penggunaan dana?",
-          answer:
-            "Ya, Masjid At-Taqwa secara rutin mempublikasikan laporan keuangan termasuk pemasukan dari donasi dan penggunaannya. Laporan ini ditempel di papan pengumuman masjid dan juga dapat diakses melalui website resmi masjid.",
-        },
-        {
-          id: "q9",
-          question: "Apakah Masjid At-Taqwa menerima donasi dalam bentuk barang?",
-          answer:
-            "Ya, Masjid At-Taqwa menerima donasi dalam bentuk barang seperti perlengkapan ibadah, buku-buku Islam, dan kebutuhan masjid lainnya. Untuk donasi barang, silakan menghubungi pengurus masjid terlebih dahulu untuk konfirmasi kebutuhan.",
-        },
+        // {
+        //   id: "q8",
+        //   question: "Apakah donasi ke Masjid At-Taqwa mendapatkan laporan penggunaan dana?",
+        //   answer:
+        //     "Ya, Masjid At-Taqwa secara rutin mempublikasikan laporan keuangan termasuk pemasukan dari donasi dan penggunaannya. Laporan ini ditempel di papan pengumuman masjid dan juga dapat diakses melalui website resmi masjid.",
+        // },
+        // {
+        //   id: "q9",
+        //   question: "Apakah Masjid At-Taqwa menerima donasi dalam bentuk barang?",
+        //   answer:
+        //     "Ya, Masjid At-Taqwa menerima donasi dalam bentuk barang seperti perlengkapan ibadah, buku-buku Islam, dan kebutuhan masjid lainnya. Untuk donasi barang, silakan menghubungi pengurus masjid terlebih dahulu untuk konfirmasi kebutuhan.",
+        // },
       ],
     },
   ]

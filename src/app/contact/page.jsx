@@ -82,7 +82,7 @@ export default function ContactPage() {
       })
     } catch (error) {
       console.error('Form submission error:', error)
-      
+
       // Show error alert
       await Swal.fire({
         title: 'Gagal!',
@@ -140,7 +140,7 @@ export default function ContactPage() {
                     <div>
                       <h3 className="mb-1 font-medium">Alamat</h3>
                       <p className="text-gray-600">
-                      Perumahan Jl. Utama Puri Bintaro Hijau, Pondok Aren, South Tangerang City, Banten 15224
+                        Perumahan Jl. Utama Puri Bintaro Hijau, Pondok Aren, South Tangerang City, Banten 15224
                       </p>
                       <a
                         href={getDirectionsUrl()}
@@ -157,9 +157,16 @@ export default function ContactPage() {
                     <Phone className="h-5 w-5 mr-3 text-amber-600 mt-0.5" />
                     <div>
                       <h3 className="mb-1 font-medium">Telepon</h3>
-                      <p className="text-gray-600">0812-9023-188</p>
-                      <p className="text-gray-600">- (WhatsApp)</p>
+                      <a
+                        href="https://wa.me/628129023188"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline"
+                      >
+                        0812-9023-188 - (WhatsApp)
+                      </a>
                     </div>
+
                   </div>
 
                   {/* {/* <div className="flex items-start">

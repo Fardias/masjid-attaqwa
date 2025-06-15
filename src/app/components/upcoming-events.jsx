@@ -111,7 +111,7 @@ export default function UpcomingEvents() {
           Acara Mendatang
         </CardTitle>
       </CardHeader>
-      <CardContent className="pt-6">
+      <CardContent className="pt-1">
         {isLoading && <p className="p-4 text-center text-gray-500">Memuat acara...</p>}
         {error && <p className="p-4 text-center text-red-500">Gagal memuat acara. Silakan coba lagi nanti.</p>}
         {events?.length > 0 ? (
@@ -284,8 +284,8 @@ export default function UpcomingEvents() {
           </div>
         ) : (
           !isLoading && (
-            <div className="py-8 text-center">
-              <Calendar className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+            <div className="text-center pb-4">
+              {/* <Calendar className="w-12 h-12 mx-auto mb-4 text-gray-400" /> */}
               <p className="text-gray-500">Tidak ada acara mendatang</p>
             </div>
           )

@@ -98,6 +98,7 @@ export default function PrayerTimes() {
           <p className="text-xl font-semibold text-amber-600">{currentTime} WIB</p>
         </div>
         <div className="space-y-4">
+          <p className="text-center mb-4">- Kota Tangerang Selatan -</p>
           {prayerTimes.map((prayer) => (
             <div key={prayer.name} className="flex justify-between items-center p-3 rounded-lg bg-amber-50/50">
               <span className="font-medium">{prayer.name}</span>

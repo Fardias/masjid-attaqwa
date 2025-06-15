@@ -28,7 +28,7 @@ export default function LatestAnnouncements({ className }) {
           Pengumuman Terbaru
         </CardTitle>
       </CardHeader>
-      <CardContent className="pt-6">
+      <CardContent className="pt-1">
         {announcements && announcements.length > 0 ? (
           <>
             <div className="space-y-6">
@@ -60,7 +60,7 @@ export default function LatestAnnouncements({ className }) {
             </div>
           </>
         ) : (
-          <p className="text-center text-gray-600">Tidak ada pengumuman terbaru</p>
+          <p className="text-center pb-4 text-gray-500">Tidak ada pengumuman terbaru</p>
         )}
       </CardContent>
     </Card>
