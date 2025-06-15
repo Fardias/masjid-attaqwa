@@ -26,7 +26,7 @@ export function DashboardCards() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl font-bold">{countEvent.length}</div>
-                        <p className="text-xs text-muted-foreground">3 event dalam 7 hari ke depan</p>
+                        {/* <p className="text-xs text-muted-foreground">3 event dalam 7 hari ke depan</p> */}
                     </CardContent>
                 </Card>
             </Link>
@@ -39,7 +39,7 @@ export function DashboardCards() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl font-bold">{countPengumuman.length}</div>
-                        <p className="text-xs text-muted-foreground">2 pengumuman aktif saat ini</p>
+                        {/* <p className="text-xs text-muted-foreground">2 pengumuman aktif saat ini</p> */}
                     </CardContent>
                 </Card>
             </Link>
@@ -52,7 +52,7 @@ export function DashboardCards() {
                     </CardHeader>
                     <CardContent>
                         <div className="text-3xl font-bold">{countAlbum.length}</div>
-                        <p className="text-xs text-muted-foreground">10 album kegiatan sosial, 14 album hari besar</p>
+                        {/* <p className="text-xs text-muted-foreground">10 album kegiatan sosial, 14 album hari besar</p> */}
                     </CardContent>
                 </Card>
             </Link>

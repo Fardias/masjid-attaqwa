@@ -129,7 +129,7 @@ export function AnnouncementsTable() {
                                     <TableCell className="text-right">
                                         <DropdownMenu>
                                             <DropdownMenuTrigger asChild>
-                                                <Button variant="ghost" size="icon">
+                                                <Button className="cursor-pointer" variant="ghost" size="icon">
                                                     <MoreHorizontal className="w-4 h-4" />
                                                     <span className="sr-only">Menu</span>
                                                 </Button>

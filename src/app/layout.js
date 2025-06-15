@@ -24,15 +24,15 @@ export const metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://masjid-at-taqwa.com'),
+  metadataBase: new URL('https://masjidattaqwa-pbh.com/'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
-    title: 'Masjid At-Taqwa - Pusat Kegiatan Islami',
+    title: 'Masjid At-Taqwa Puri Bintaro Hijau - Pusat Kegiatan Islami',
     description: 'Masjid At-Taqwa adalah pusat kegiatan islami yang menyediakan berbagai program keagamaan, kajian, dan kegiatan sosial untuk masyarakat.',
-    url: 'https://masjid-at-taqwa.com',
-    siteName: 'Masjid At-Taqwa',
+    url: 'https://masjidattaqwa-pbh.com/',
+    siteName: 'Masjid At-Taqwa pbh',
     images: [
       {
         url: '/images/masjid-og.jpg',
@@ -61,20 +61,20 @@ export const metadata = {
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-site-verification',
-  },
+  // verification: {
+  //   google: 'your-google-site-verification',
+  // },
 }
 
 export default function RootLayout({ children }) {
   return (
     <html lang="id" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#ffffff" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="format-detection" content="telephone=no" />
+        <link rel="icon" type="image/png" href="images/logo.png"/>
       </head>
       <body className={`${outfit.variable} antialiased`}>
         <LayoutWrapper>{children}</LayoutWrapper>

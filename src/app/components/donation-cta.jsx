@@ -12,7 +12,7 @@ export default function DonationCta({ className }) {
           Donasi untuk Masjid
         </CardTitle>
       </CardHeader>
-      <CardContent className="pt-6">
+      <CardContent className="pt-1">
         <div className="space-y-4">
           <p className="text-gray-600">
             Berkontribusi dalam pembangunan dan pemeliharaan Masjid At-Taqwa. Setiap donasi Anda akan digunakan untuk

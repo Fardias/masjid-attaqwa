@@ -71,17 +71,17 @@ export default function DonationPage() {
 
       <div className="grid max-w-6xl grid-cols-1 gap-8 mx-auto lg:grid-cols-3">
         <div className="lg:col-span-2">
-          <Tabs defaultValue="transfer" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="transfer" className="cursor-pointer">
+          <Tabs defaultValue="qris" className="w-full">
+            <TabsList className="grid w-full grid-cols-1">
+              {/* <TabsTrigger value="transfer" className="cursor-pointer">
                 Transfer Bank
-              </TabsTrigger>
+              </TabsTrigger> */}
               <TabsTrigger value="qris" className="cursor-pointer">
                 QRIS
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="transfer" className="mt-6">
+            {/* <TabsContent value="transfer" className="mt-6">
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
@@ -92,43 +92,6 @@ export default function DonationPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-6">
-                    {/* <div className="p-4 rounded-lg bg-amber-50">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-medium">Bank Syariah Indonesia (BSI)</p>
-                          <p className="text-gray-600">No. Rekening: 7654321098</p>
-                          <p className="text-gray-600">Atas Nama: Masjid At-Taqwa</p>
-                        </div>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="flex items-center gap-1 cursor-pointer"
-                          onClick={() => copyToClipboard("7654321098", "BSI")}
-                        >
-                          <Copy className="w-4 h-4" />
-                          Salin
-                        </Button>
-                      </div>
-                    </div>
-
-                    <div className="p-4 rounded-lg bg-amber-50">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-medium">Bank Mandiri</p>
-                          <p className="text-gray-600">No. Rekening: 1234567890</p>
-                          <p className="text-gray-600">Atas Nama: Masjid At-Taqwa</p>
-                        </div>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="flex items-center gap-1 cursor-pointer"
-                          onClick={() => copyToClipboard("1234567890", "Mandiri")}
-                        >
-                          <Copy className="w-4 h-4" />
-                          Salin
-                        </Button>
-                      </div>
-                    </div> */}
 
                     <div className="p-4 rounded-lg bg-amber-50">
                       <div className="flex items-center justify-between">
@@ -155,10 +118,10 @@ export default function DonationPage() {
                     Setelah melakukan transfer, mohon konfirmasi dengan mengirimkan bukti transfer ke nomor WhatsApp:
                     0812-9023-188
                   </p>
-                  {/* <p className="text-sm text-gray-500">Atau email ke: donasi@masjidattaqwa.org</p> */}
+                 
                 </CardFooter>
               </Card>
-            </TabsContent>
+            </TabsContent> */}
 
             <TabsContent value="qris" className="mt-6">
               <Card>
