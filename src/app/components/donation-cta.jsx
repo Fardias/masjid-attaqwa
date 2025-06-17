@@ -16,7 +16,7 @@ export default function DonationCta({ className }) {
         <div className="space-y-4">
           <p className="text-gray-600">
             Berkontribusi dalam pembangunan dan pemeliharaan Masjid At-Taqwa. Setiap donasi Anda akan digunakan untuk
-            kegiatan masjid dan pemberdayaan umat.
+            kegiatan masjid.
           </p>
           {/* <div className="p-4 rounded-lg bg-amber-50/50">
             <p className="mb-2 font-medium">Bank Syariah Indonesia (BSI)</p>
