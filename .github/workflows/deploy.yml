@@ -36,6 +36,22 @@ jobs:
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
 
+      - name: 📝 Create .env file
+        run: |
+          cat > .env << EOF
+          CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}
+          GOOGLE_CLIENT_EMAIL=${{ secrets.GOOGLE_CLIENT_EMAIL }}
+          GOOGLE_PRIVATE_KEY=${{ secrets.GOOGLE_PRIVATE_KEY }}
+          GOOGLE_SHEET_ID=${{ secrets.GOOGLE_SHEET_ID }}
+          NEXT_PUBLIC_ADMIN_PASSWORD=${{ secrets.NEXT_PUBLIC_ADMIN_PASSWORD }}
+          NEXT_PUBLIC_ADMIN_USERNAME=${{ secrets.NEXT_PUBLIC_ADMIN_USERNAME }}
+          NEXT_PUBLIC_CLOUDINARY_API_KEY=${{ secrets.NEXT_PUBLIC_CLOUDINARY_API_KEY }}
+          NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }}
+          NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=${{ secrets.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          EOF
+
       - name: 📤 Copy Files via SCP
         uses: appleboy/scp-action@v0.1.4
         with:
@@ -43,7 +59,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 45022
-          source: ".next,public,package.json,package-lock.json,src"
+          source: ".next,public,package.json,package-lock.json,src,.env"
           target: ${{ secrets.REMOTE_PATH }}
 
       - name: 🚀 SSH to Remote Server & Restart App
@@ -55,6 +71,20 @@ jobs:
           port: 45022
           script: |
             cd ${{ secrets.REMOTE_PATH }}
-            pm2 restart masjidattaqwa-pbh || \
-              pm2 start npm --name "masjidattaqwa-pbh" -- run start
+            
+            echo "=== Installing dependencies ==="
+            npm install --production --legacy-peer-deps
+            
+            echo "=== Finding Node.js path ==="
+            NODE_PATH=$(which node)
+            echo "Node.js path: $NODE_PATH"
+            
+            echo "=== Stopping existing PM2 process ==="
+            pm2 stop masjidattaqwa-pbh || echo "Process not running"
+            pm2 delete masjidattaqwa-pbh || echo "Process not found"
+            
+            echo "=== Starting with direct node path ==="
+            pm2 start $NODE_PATH --name "masjidattaqwa-pbh" -- ./node_modules/.bin/next start
+            
             pm2 save
+            pm2 list
