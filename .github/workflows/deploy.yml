@@ -1,90 +1,133 @@
-name: 🚀 Deploy Next.js ke Jagoan Hosting via SSH
+# name: 🚀 Emergency Fix - Deploy Next.js Lightweight
 
-on:
-  push:
-    branches:
-      - master
+# on:
+#   push:
+#     branches:
+#       - master
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: 📥 Checkout Repository
-        uses: actions/checkout@v3
+#     steps:
+#       - name: 📥 Checkout Repository
+#         uses: actions/checkout@v3
 
-      - name: 🧱 Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
+#       - name: 🧱 Setup Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: 18
 
-      - name: 📦 Install Dependencies
-        run: npm install --legacy-peer-deps
+#       - name: 📦 Install Dependencies
+#         run: npm install --legacy-peer-deps
 
-      - name: 🏗️ Build Next.js
-        run: npm run build
-        env:
-          CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
-          GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
-          GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
-          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
-          NEXT_PUBLIC_ADMIN_PASSWORD: ${{ secrets.NEXT_PUBLIC_ADMIN_PASSWORD }}
-          NEXT_PUBLIC_ADMIN_USERNAME: ${{ secrets.NEXT_PUBLIC_ADMIN_USERNAME }}
-          NEXT_PUBLIC_CLOUDINARY_API_KEY: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_API_KEY }}
-          NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }}
-          NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+#       - name: 🏗️ Build Next.js
+#         run: npm run build
+#         env:
+#           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
+#           GOOGLE_CLIENT_EMAIL: ${{ secrets.GOOGLE_CLIENT_EMAIL }}
+#           GOOGLE_PRIVATE_KEY: ${{ secrets.GOOGLE_PRIVATE_KEY }}
+#           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
+#           NEXT_PUBLIC_ADMIN_PASSWORD: ${{ secrets.NEXT_PUBLIC_ADMIN_PASSWORD }}
+#           NEXT_PUBLIC_ADMIN_USERNAME: ${{ secrets.NEXT_PUBLIC_ADMIN_USERNAME }}
+#           NEXT_PUBLIC_CLOUDINARY_API_KEY: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_API_KEY }}
+#           NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }}
+#           NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET }}
+#           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+#           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
 
-      - name: 📝 Create .env file
-        run: |
-          cat > .env << EOF
-          CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}
-          GOOGLE_CLIENT_EMAIL=${{ secrets.GOOGLE_CLIENT_EMAIL }}
-          GOOGLE_PRIVATE_KEY=${{ secrets.GOOGLE_PRIVATE_KEY }}
-          GOOGLE_SHEET_ID=${{ secrets.GOOGLE_SHEET_ID }}
-          NEXT_PUBLIC_ADMIN_PASSWORD=${{ secrets.NEXT_PUBLIC_ADMIN_PASSWORD }}
-          NEXT_PUBLIC_ADMIN_USERNAME=${{ secrets.NEXT_PUBLIC_ADMIN_USERNAME }}
-          NEXT_PUBLIC_CLOUDINARY_API_KEY=${{ secrets.NEXT_PUBLIC_CLOUDINARY_API_KEY }}
-          NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }}
-          NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=${{ secrets.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
-          EOF
+#       - name: 📝 Create .env file
+#         run: |
+#           cat > .env << EOF
+#           CLOUDINARY_API_SECRET=${{ secrets.CLOUDINARY_API_SECRET }}
+#           GOOGLE_CLIENT_EMAIL=${{ secrets.GOOGLE_CLIENT_EMAIL }}
+#           GOOGLE_PRIVATE_KEY=${{ secrets.GOOGLE_PRIVATE_KEY }}
+#           GOOGLE_SHEET_ID=${{ secrets.GOOGLE_SHEET_ID }}
+#           NEXT_PUBLIC_ADMIN_PASSWORD=${{ secrets.NEXT_PUBLIC_ADMIN_PASSWORD }}
+#           NEXT_PUBLIC_ADMIN_USERNAME=${{ secrets.NEXT_PUBLIC_ADMIN_USERNAME }}
+#           NEXT_PUBLIC_CLOUDINARY_API_KEY=${{ secrets.NEXT_PUBLIC_CLOUDINARY_API_KEY }}
+#           NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }}
+#           NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=${{ secrets.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET }}
+#           NEXT_PUBLIC_SUPABASE_ANON_KEY=${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+#           NEXT_PUBLIC_SUPABASE_URL=${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+#           EOF
 
-      - name: 📤 Copy Files via SCP
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 45022
-          source: ".next,public,package.json,package-lock.json,src,.env"
-          target: ${{ secrets.REMOTE_PATH }}
+#       - name: 📝 Create lightweight start script
+#         run: |
+#           cat > start.sh << 'EOF'
+#           #!/bin/bash
+#           cd $1
+          
+#           # Kill any existing process
+#           pkill -f "next start" || true
+#           pkill -f "masjidattaqwa" || true
+          
+#           # Start with memory limit and background
+#           NODE_OPTIONS="--max-old-space-size=256" nohup npm start > app.log 2>&1 &
+          
+#           # Save PID
+#           echo $! > app.pid
+          
+#           echo "App started with PID: $(cat app.pid)"
+#           echo "Log: tail -f app.log"
+#           EOF
+#           chmod +x start.sh
 
-      - name: 🚀 SSH to Remote Server & Restart App
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: 45022
-          script: |
-            cd ${{ secrets.REMOTE_PATH }}
+#       - name: 📤 Copy Files via SCP
+#         uses: appleboy/scp-action@v0.1.4
+#         with:
+#           host: ${{ secrets.SSH_HOST }}
+#           username: ${{ secrets.SSH_USERNAME }}
+#           key: ${{ secrets.SSH_PRIVATE_KEY }}
+#           port: 45022
+#           source: ".next,public,package.json,package-lock.json,src,.env,start.sh"
+#           target: ${{ secrets.REMOTE_PATH }}
+
+#       - name: 🚀 Emergency Cleanup & Deploy
+#         uses: appleboy/ssh-action@v1.0.0
+#         with:
+#           host: ${{ secrets.SSH_HOST }}
+#           username: ${{ secrets.SSH_USERNAME }}
+#           key: ${{ secrets.SSH_PRIVATE_KEY }}
+#           port: 45022
+#           script: |
+#             echo "=== EMERGENCY CLEANUP ==="
             
-            echo "=== Installing dependencies ==="
-            npm install --production --legacy-peer-deps
+#             # Kill all PM2 processes
+#             pm2 kill || echo "PM2 not running"
             
-            echo "=== Finding Node.js path ==="
-            NODE_PATH=$(which node)
-            echo "Node.js path: $NODE_PATH"
+#             # Kill any Node processes for this app
+#             pkill -f "masjidattaqwa" || echo "No existing processes"
+#             pkill -f "next start" || echo "No Next processes"
             
-            echo "=== Stopping existing PM2 process ==="
-            pm2 stop masjidattaqwa-pbh || echo "Process not running"
-            pm2 delete masjidattaqwa-pbh || echo "Process not found"
+#             # Clear PM2 completely
+#             rm -rf ~/.pm2 || echo "PM2 cache already clean"
             
-            echo "=== Starting with direct node path ==="
-            pm2 start $NODE_PATH --name "masjidattaqwa-pbh" -- ./node_modules/.bin/next start
+#             # Clear npm cache
+#             npm cache clean --force || echo "Cache already clean"
             
-            pm2 save
-            pm2 list
+#             echo "=== MEMORY CHECK ==="
+#             free -h
+            
+#             cd ${{ secrets.REMOTE_PATH }}
+            
+#             echo "=== INSTALLING MINIMAL DEPENDENCIES ==="
+#             rm -rf node_modules
+#             npm install --production --legacy-peer-deps --no-audit --no-fund --silent
+            
+#             echo "=== STARTING APP (NO PM2) ==="
+#             chmod +x start.sh
+#             ./start.sh $(pwd)
+            
+#             sleep 5
+            
+#             echo "=== FINAL STATUS ==="
+#             free -h
+#             ps aux | grep -E "(node|next)" | grep -v grep
+            
+#             if [ -f app.pid ]; then
+#               echo "App PID: $(cat app.pid)"
+#               echo "App is running!"
+#             else
+#               echo "Failed to start app"
+#             fi
