@@ -211,10 +211,10 @@ export default function Hero() {
 
                 <div className="max-w-xl">
                     <h1 className="mb-4 text-4xl font-bold md:text-3xl md:mb-1 xl:text-5xl animate-fade-in-up">
-                        Selamat Datang di Masjid At-Taqwa
+                        Selamat Datang di Masjid At-Taqwa 
                     </h1>
                     <p className="mb-8 text-lg text-gray-700 md:mb-3 md:mt-5 animate-fade-in-up animation-delay-200">
-                        Pusat ibadah dan pembinaan umat yang nyaman dan representatif. Mari bersama-sama memakmurkan masjid dan
+                        Pusat ibadah dan pembinaan umat yang nyaman. Mari bersama-sama memakmurkan masjid dan
                         membangun umat yang bertaqwa.
                     </p>
                     <div className="flex flex-col gap-4 sm:flex-row animate-fade-in-up animation-delay-400">
