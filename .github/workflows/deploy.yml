@@ -43,11 +43,10 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 45022
-          source: ".next,public,package.json,package-lock.json"
+          source: ".next,public,package.json,package-lock.json,src"
           target: ${{ secrets.REMOTE_PATH }}
-          rm: true 
-          
-      - name: 🚀 SSH to Remote Server & Start App
+
+      - name: 🚀 SSH to Remote Server & Restart App
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -56,9 +55,6 @@ jobs:
           port: 45022
           script: |
             cd ${{ secrets.REMOTE_PATH }}
-            source /home/masjid29/nodevenv/public_html/masjid/22/bin/activate
-            npm install --legacy-peer-deps
             pm2 restart masjidattaqwa-pbh || \
               pm2 start npm --name "masjidattaqwa-pbh" -- run start
             pm2 save
-            pm2 logs

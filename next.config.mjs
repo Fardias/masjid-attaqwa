@@ -7,7 +7,7 @@
 // };
 const nextConfig = {
     // output: "export",
-    // output: "standalone",
+    output: "standalone",
     images: {
         unoptimized: true,
         remotePatterns: [
