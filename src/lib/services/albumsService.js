@@ -1,5 +1,6 @@
 import { supabase } from '../supabase/supabaseClient'
 
+// Get all albums
 export const getAllAlbums = async () => {
     const { data, error } = await supabase
         .from("albums")
