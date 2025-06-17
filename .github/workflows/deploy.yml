@@ -45,8 +45,8 @@ jobs:
           port: 45022
           source: ".next,public,package.json,package-lock.json"
           target: ${{ secrets.REMOTE_PATH }}
-          rm: true  # 🔥 ini akan hapus file lama yang tidak ada di GitHub
-
+          rm: true 
+          
       - name: 🚀 SSH to Remote Server & Start App
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -61,4 +61,4 @@ jobs:
             pm2 restart masjidattaqwa-pbh || \
               pm2 start npm --name "masjidattaqwa-pbh" -- run start
             pm2 save
-            pm2 logs --lines 20  # 🔍 Tambahkan ini untuk memastikan proses berhasil jalan
+            pm2 logs
