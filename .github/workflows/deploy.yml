@@ -53,6 +53,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 45022
+          debug: true
           script: |
             cd ${{ secrets.REMOTE_PATH }}
             npm install --omit=dev
