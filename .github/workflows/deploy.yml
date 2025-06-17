@@ -53,11 +53,10 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: 45022
-          debug: true
           script: |
             cd ${{ secrets.REMOTE_PATH }}
-            /home/masjid29/nodevenv/public_html/masjid/22/bin/npm install --legacy-peer-deps
-            /home/masjid29/nodevenv/public_html/masjid/22/lib/bin/pm2 restart masjidattaqwa-pbh || \
-              /home/masjid29/nodevenv/public_html/masjid/22/lib/bin/pm2 start /home/masjid29/nodevenv/public_html/masjid/22/bin/npm \
-              --name "masjidattaqwa-pbh" -- run start
-            /home/masjid29/nodevenv/public_html/masjid/22/lib/bin/pm2 save
+            source /home/masjid29/nodevenv/public_html/masjid/22/bin/activate
+            npm install --legacy-peer-deps
+            pm2 restart masjidattaqwa-pbh || \
+              pm2 start npm --name "masjidattaqwa-pbh" -- run start
+            pm2 save
