@@ -1,0 +1,45 @@
+name: 🚀 Deploy Next.js ke Jagoan Hosting via SSH
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build Next.js
+        run: npm run build
+
+      - name: Copy Files via SCP
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: ".next,public,package.json,package-lock.json"
+          target: ${{ secrets.REMOTE_PATH }}
+
+      - name: SSH to Remote Server
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ${{ secrets.REMOTE_PATH }}
+            npm install --omit=dev
+            pm2 restart app || pm2 start npm --name ""masjidattaqwa-pbh"" -- run start
