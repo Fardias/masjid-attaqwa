@@ -36,7 +36,7 @@ jobs:
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
 
-      - name: 📤 Copy Files via SCP
+      - name: 📤 Upload Files to Hosting via SCP
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -46,7 +46,7 @@ jobs:
           source: ".next,public,package.json,package-lock.json"
           target: ${{ secrets.REMOTE_PATH }}
 
-      - name: 🚀 SSH to Remote Server & Start App
+      - name: 🚀 SSH and Deploy with PM2
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -56,6 +56,8 @@ jobs:
           debug: true
           script: |
             cd ${{ secrets.REMOTE_PATH }}
-            npm install --omit=dev
-            pm2 restart masjidattaqwa-pbh || pm2 start npm --name "masjidattaqwa-pbh" -- run start
-            pm2 save
+            ~/nodevenv/public_html/masjid/22/bin/npm install --omit=dev
+            ~/nodevenv/public_html/masjid/22/lib/bin/pm2 restart masjidattaqwa-pbh || \
+              ~/nodevenv/public_html/masjid/22/lib/bin/pm2 start ~/nodevenv/public_html/masjid/22/bin/npm \
+              --name "masjidattaqwa-pbh" -- run start
+            ~/nodevenv/public_html/masjid/22/lib/bin/pm2 save
