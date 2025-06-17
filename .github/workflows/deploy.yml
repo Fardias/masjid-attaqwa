@@ -10,18 +10,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: 📥 Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: 🧱 Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
 
-      - name: Install Dependencies
+      - name: 📦 Install Dependencies
         run: npm install --legacy-peer-deps
 
-      - name: Build Next.js
+      - name: 🏗️ Build Next.js
         run: npm run build
         env:
           CLOUDINARY_API_SECRET: ${{ secrets.CLOUDINARY_API_SECRET }}
@@ -36,22 +36,25 @@ jobs:
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
 
-      - name: Copy Files via SCP
+      - name: 📤 Copy Files via SCP
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 45022
           source: ".next,public,package.json,package-lock.json"
           target: ${{ secrets.REMOTE_PATH }}
 
-      - name: SSH to Remote Server
+      - name: 🚀 SSH to Remote Server & Start App
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 45022
           script: |
             cd ${{ secrets.REMOTE_PATH }}
             npm install --omit=dev
-            pm2 restart app || pm2 start npm --name "masjidattaqwa-pbh" -- run start
+            pm2 restart masjidattaqwa-pbh || pm2 start npm --name "masjidattaqwa-pbh" -- run start
+            pm2 save
