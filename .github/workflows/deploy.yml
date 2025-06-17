@@ -56,7 +56,7 @@ jobs:
           debug: true
           script: |
             cd ${{ secrets.REMOTE_PATH }}
-            /home/masjid29/nodevenv/public_html/masjid/22/bin/npm install --omit=dev
+            /home/masjid29/nodevenv/public_html/masjid/22/bin/npm install --legacy-peer-deps
             /home/masjid29/nodevenv/public_html/masjid/22/lib/bin/pm2 restart masjidattaqwa-pbh || \
               /home/masjid29/nodevenv/public_html/masjid/22/lib/bin/pm2 start /home/masjid29/nodevenv/public_html/masjid/22/bin/npm \
               --name "masjidattaqwa-pbh" -- run start
