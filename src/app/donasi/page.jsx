@@ -1,12 +1,33 @@
 "use client"
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../components/ui/tabs"
 import { Button } from "../../components/ui/button"
 import { Separator } from "../../components/ui/separator"
 import { Landmark, Wallet, CreditCard, Copy, Download } from "lucide-react"
 import { toast, Toaster } from "sonner"
+import Script from "next/script"
 
 export default function DonationPage() {
+  const jsonLd = {
+    "@context": "https://schema.org", 
+    "@type": "DonateAction",
+    "name": "Donasi untuk Masjid At-Taqwa Puri Bintaro Hijau",
+    "description": "Donasi online untuk membantu pembangunan dan operasional Masjid At-Taqwa Puri Bintaro Hijau.",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://masjidattaqwa-pbh.com/donasi"
+    },
+    "recipient": {
+      "@type": "Mosque",
+      "name": "Masjid At-Taqwa Puri Bintaro Hijau",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "ID"
+      }
+    }
+  }
+
   const copyToClipboard = (text, bankName) => {
     if (!navigator.clipboard) {
       toast.error("Clipboard tidak didukung", {
@@ -33,7 +54,6 @@ export default function DonationPage() {
       });
   };
 
-
   const downloadQRCode = () => {
     const qrCode = document.getElementById("qr-code");
     if (!qrCode) {
@@ -44,10 +64,9 @@ export default function DonationPage() {
       return;
     }
 
-    // Create a temporary link element
     const link = document.createElement("a");
     link.href = qrCode.src;
-    link.download = "qris-masjid-at-taqwa.jpg"; // Set a more descriptive filename
+    link.download = "qris-masjid-at-taqwa-pbh.jpg";
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -59,9 +78,14 @@ export default function DonationPage() {
   };
 
   return (
-    <div className="container px-4 py-12 mx-auto">
-      {/* Add the Toaster component to render the toasts */}
+    <main className="container px-4 py-12 mx-auto">
       <Toaster position="top-center" richColors />
+
+      <Script
+        id="donation-json-ld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       <h1 className="mb-4 text-4xl font-bold text-center">Donasi Online</h1>
       <p className="max-w-2xl mx-auto mb-8 text-center text-gray-600">
@@ -73,55 +97,10 @@ export default function DonationPage() {
         <div className="lg:col-span-2">
           <Tabs defaultValue="qris" className="w-full">
             <TabsList className="grid w-full grid-cols-1">
-              {/* <TabsTrigger value="transfer" className="cursor-pointer">
-                Transfer Bank
-              </TabsTrigger> */}
               <TabsTrigger value="qris" className="cursor-pointer">
                 QRIS
               </TabsTrigger>
             </TabsList>
-
-            {/* <TabsContent value="transfer" className="mt-6">
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Landmark className="w-5 h-5 mr-2 text-amber-600 " />
-                    Transfer Bank
-                  </CardTitle>
-                  <CardDescription>Silakan transfer donasi ke rekening resmi Masjid At-Taqwa</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-
-                    <div className="p-4 rounded-lg bg-amber-50">
-                      <div className="flex items-center justify-between">
-                        <div>
-                          <p className="font-medium">Bank BNI</p>
-                          <p className="text-gray-600">No. Rekening: --</p>
-                          <p className="text-gray-600">Atas Nama: Masjid At-Taqwa</p>
-                        </div>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="flex items-center gap-1 cursor-pointer"
-                          onClick={() => copyToClipboard("0987654321", "BNI")}
-                        >
-                          <Copy className="w-4 h-4" />
-                          Salin
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-                <CardFooter className="flex flex-col items-start pt-6 border-t">
-                  <p className="mb-2 text-sm text-gray-500">
-                    Setelah melakukan transfer, mohon konfirmasi dengan mengirimkan bukti transfer ke nomor WhatsApp:
-                    0812-9023-188
-                  </p>
-                 
-                </CardFooter>
-              </Card>
-            </TabsContent> */}
 
             <TabsContent value="qris" className="mt-6">
               <Card>
@@ -140,7 +119,7 @@ export default function DonationPage() {
                       <img
                         id="qr-code"
                         src="images/qris.jpeg"
-                        alt="QRIS Code Masjid At-Taqwa"
+                        alt="QRIS Code Masjid At-Taqwa Puri Bintaro Hijau"
                         className="object-cover w-full h-full"
                       />
                     </div>
@@ -184,29 +163,12 @@ export default function DonationPage() {
                   </h3>
                   <p className="text-sm text-gray-600">Dana untuk kegiatan rutin dan operasional masjid</p>
                 </div>
-
-                {/* <div className="p-4 rounded-lg bg-amber-50/50">
-                  <h3 className="flex items-center mb-2 font-medium">
-                    <Wallet className="w-4 h-4 mr-2" />
-                    Santunan Yatim & Dhuafa
-                  </h3>
-                  <p className="text-sm text-gray-600">Dana untuk membantu anak yatim dan kaum dhuafa</p>
-                </div>
-
-                <div className="p-4 rounded-lg bg-amber-50/50">
-                  <h3 className="flex items-center mb-2 font-medium">
-                    <Wallet className="w-4 h-4 mr-2" />
-                    Pendidikan
-                  </h3>
-                  <p className="text-sm text-gray-600">Dana untuk kegiatan pendidikan di TPQ dan madrasah</p>
-                </div> */}
               </div>
-
               <Separator className="my-6" />
             </CardContent>
           </Card>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

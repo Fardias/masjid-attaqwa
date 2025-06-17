@@ -95,9 +95,9 @@ import AnnouncementList from "../../components/announcementList"
 
 export default function AnnouncementsPage() {
   return (
-    <div className="container px-4 py-12 mx-auto">
+    <main className="container px-4 py-12 mx-auto">
       <h1 className="mb-8 text-4xl font-bold text-center">Pengumuman</h1>
       <AnnouncementList />
-    </div>
+    </main>
   )
 }

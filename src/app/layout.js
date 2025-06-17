@@ -13,12 +13,12 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata = {
-  title: "Masjid At-Taqwa - Pusat Kegiatan Islami",
+  title: "Masjid At-Taqwa Puri Bintaro Hijau - Pusat Kegiatan Islami",
   description: "Masjid At-Taqwa adalah pusat kegiatan islami yang menyediakan berbagai program keagamaan, kajian, dan kegiatan sosial untuk masyarakat. Temukan jadwal sholat, kajian, dan informasi kegiatan masjid.",
   keywords: "masjid, at-taqwa, islam, kajian, sholat, kegiatan islami, masjid at-taqwa",
-  authors: [{ name: "Masjid At-Taqwa" }],
-  creator: "Masjid At-Taqwa",
-  publisher: "Masjid At-Taqwa",
+  authors: [{ name: "Masjid At-Taqwa Puri Bintaro Hijau" }],
+  creator: "Masjid At-Taqwa Puri Bintaro Hijau",
+  publisher: "Masjid At-Taqwa Puri Bintaro Hijau",
   formatDetection: {
     email: false,
     address: false,
@@ -30,9 +30,9 @@ export const metadata = {
   },
   openGraph: {
     title: 'Masjid At-Taqwa Puri Bintaro Hijau - Pusat Kegiatan Islami',
-    description: 'Masjid At-Taqwa adalah pusat kegiatan islami yang menyediakan berbagai program keagamaan, kajian, dan kegiatan sosial untuk masyarakat.',
+    description: 'Masjid At-Taqwa Puri Bintaro Hijau adalah pusat kegiatan islami yang menyediakan berbagai program keagamaan, kajian, dan kegiatan sosial untuk masyarakat.',
     url: 'https://masjidattaqwa-pbh.com/',
-    siteName: 'Masjid At-Taqwa pbh',
+    siteName: 'Masjid At-Taqwa Puri Bintaro Hijau',
     images: [
       {
         url: '/images/masjid-og.jpg',
@@ -46,8 +46,8 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Masjid At-Taqwa - Pusat Kegiatan Islami',
-    description: 'Masjid At-Taqwa adalah pusat kegiatan islami yang menyediakan berbagai program keagamaan, kajian, dan kegiatan sosial untuk masyarakat.',
+    title: 'Masjid At-Taqwa Puri Bintaro Hijau - Pusat Kegiatan Islami',
+    description: 'Masjid At-Taqwa Puri Bintaro Hijau adalah pusat kegiatan islami yang menyediakan berbagai program keagamaan, kajian, dan kegiatan sosial untuk masyarakat.',
     images: ['/images/masjid-og.jpg'],
   },
   robots: {
@@ -75,6 +75,8 @@ export default function RootLayout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="format-detection" content="telephone=no" />
         <link rel="icon" type="image/png" href="images/logo.png"/>
+        <link rel="canonical" href="https://masjidattaqwa-pbh.com/" />
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
       </head>
       <body className={`${outfit.variable} antialiased`}>
         <LayoutWrapper>{children}</LayoutWrapper>

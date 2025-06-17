@@ -1,7 +1,18 @@
 "use client"
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/ui/tabs"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "../../components/ui/tabs"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card"
 
 const pengurus = {
   dkm: {
@@ -28,8 +39,10 @@ const pengurus = {
 
 export default function ProfilePage() {
   return (
-    <div className="container px-4 py-12 mx-auto">
-      <h1 className="mb-8 text-4xl font-bold text-center">Profil Masjid At-Taqwa</h1>
+    <main className="container px-4 py-12 mx-auto">
+      <h1 className="mb-8 text-4xl font-bold text-center">
+        Profil Masjid At-Taqwa
+      </h1>
 
       <Tabs defaultValue="visi-misi" className="w-full">
         <TabsList className="grid w-full grid-cols-3">
@@ -38,95 +51,105 @@ export default function ProfilePage() {
           <TabsTrigger value="pengurus">Pengurus</TabsTrigger>
         </TabsList>
 
-        {/* Visi Misi */}
+        {/* === VISI MISI === */}
         <TabsContent value="visi-misi" className="mt-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Visi dan Misi</CardTitle>
-              <CardDescription>Tujuan dan arah Masjid At-Taqwa</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div>
-                  <h3 className="mb-4 text-2xl font-bold">Visi</h3>
-                  <p className="text-gray-700">
-                    Menjadikan Masjid At-Taqwa sebagai pusat ibadah, pendidikan, dan pemberdayaan umat yang berkualitas,
-                    serta menjadi masjid yang makmur, mandiri, dan bermanfaat bagi masyarakat sekitar.
-                  </p>
+          <section aria-labelledby="visi-title">
+            <Card>
+              <CardHeader>
+                <CardTitle id="visi-title">Visi dan Misi</CardTitle>
+                <CardDescription>
+                  Tujuan dan arah Masjid At-Taqwa
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <section>
+                    <h2 className="mb-4 text-2xl font-bold">Visi</h2>
+                    <p className="text-gray-700">
+                      Menjadikan Masjid At-Taqwa sebagai pusat ibadah,
+                      pendidikan, dan pemberdayaan umat yang berkualitas,
+                      serta menjadi masjid yang makmur, mandiri, dan bermanfaat bagi masyarakat sekitar.
+                    </p>
+                  </section>
+                  <section>
+                    <h2 className="mb-4 text-2xl font-bold">Misi</h2>
+                    <ul className="pl-6 space-y-2 text-gray-700 list-disc">
+                      <li>Menyelenggarakan kegiatan ibadah yang khusyuk dan istiqomah</li>
+                      <li>Mengembangkan pendidikan Islam yang komprehensif untuk semua kalangan</li>
+                      <li>Membangun kegiatan sosial kemasyarakatan yang bermanfaat</li>
+                      <li>Mengelola masjid secara profesional, transparan, dan akuntabel</li>
+                      <li>Membangun infrastruktur masjid yang nyaman dan representatif</li>
+                    </ul>
+                  </section>
                 </div>
-                <div>
-                  <h3 className="mb-4 text-2xl font-bold">Misi</h3>
-                  <ul className="pl-6 space-y-2 text-gray-700 list-disc">
-                    <li>Menyelenggarakan kegiatan ibadah yang khusyuk dan istiqomah</li>
-                    <li>Mengembangkan pendidikan Islam yang komprehensif untuk semua kalangan</li>
-                    <li>Membangun kegiatan sosial kemasyarakatan yang bermanfaat</li>
-                    <li>Mengelola masjid secara profesional, transparan, dan akuntabel</li>
-                    <li>Membangun infrastruktur masjid yang nyaman dan representatif</li>
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </section>
         </TabsContent>
 
-        {/* Sejarah */}
+        {/* === SEJARAH === */}
         <TabsContent value="sejarah" className="mt-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Sejarah Masjid At-Taqwa</CardTitle>
-              <CardDescription>Perjalanan berdirinya Masjid At-Taqwa</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700">Masukkan narasi sejarah di sini...</p>
-            </CardContent>
-          </Card>
+          <section aria-labelledby="sejarah-title">
+            <Card>
+              <CardHeader>
+                <CardTitle id="sejarah-title">Sejarah Masjid At-Taqwa</CardTitle>
+                <CardDescription>Perjalanan berdirinya Masjid At-Taqwa</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700">
+                  Masukkan narasi sejarah di sini...
+                </p>
+              </CardContent>
+            </Card>
+          </section>
         </TabsContent>
 
-        {/* Pengurus */}
+        {/* === PENGURUS === */}
         <TabsContent value="pengurus" className="mt-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>Struktur Pengurus</CardTitle>
-              {/* <CardDescription>Periode 2023–2028</CardDescription> */}
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-8">
-                <div>
-                  <h3 className="mb-3 text-xl font-bold">DKM At-Taqwa PBH</h3>
-                  <ul className="space-y-2 text-gray-700">
-                    <li><strong>Ketua:</strong> {pengurus.dkm.ketua}</li>
-                    <li><strong>Wakil Ketua:</strong> {pengurus.dkm.wakilKetua}</li>
-                    <li><strong>Sekretaris:</strong> {pengurus.dkm.sekretaris}</li>
-                    <li><strong>Wakil Sekretaris:</strong> {pengurus.dkm.wakilSekretaris}</li>
-                  </ul>
-                  <div className="grid grid-cols-1 gap-4 mt-4 text-gray-700 md:grid-cols-2">
-                    {Object.entries(pengurus.dkm.bidang).map(([bidang, anggota]) => (
-                      <div key={bidang}>
-                        <h4 className="font-semibold">{bidang}</h4>
-                        <ul className="pl-6 list-disc">
-                          {anggota.map((nama) => (
-                            <li key={nama}>{nama}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
+          <section aria-labelledby="pengurus-title">
+            <Card>
+              <CardHeader>
+                <CardTitle id="pengurus-title">Struktur Pengurus</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-8">
+                  <section>
+                    <h2 className="mb-3 text-xl font-bold">DKM At-Taqwa PBH</h2>
+                    <ul className="space-y-2 text-gray-700">
+                      <li><strong>Ketua:</strong> {pengurus.dkm.ketua}</li>
+                      <li><strong>Wakil Ketua:</strong> {pengurus.dkm.wakilKetua}</li>
+                      <li><strong>Sekretaris:</strong> {pengurus.dkm.sekretaris}</li>
+                      <li><strong>Wakil Sekretaris:</strong> {pengurus.dkm.wakilSekretaris}</li>
+                    </ul>
+                    <div className="grid grid-cols-1 gap-4 mt-4 text-gray-700 md:grid-cols-2">
+                      {Object.entries(pengurus.dkm.bidang).map(([bidang, anggota]) => (
+                        <div key={bidang}>
+                          <h3 className="font-semibold">{bidang}</h3>
+                          <ul className="pl-6 list-disc">
+                            {anggota.map((nama) => (
+                              <li key={nama}>{nama}</li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                    </div>
+                  </section>
+                  <section>
+                    <h2 className="mb-3 text-xl font-bold">Panitia Pembangunan</h2>
+                    <ul className="space-y-2 text-gray-700">
+                      <li><strong>Ketua:</strong> {pengurus.pembangunan.ketua}</li>
+                      <li><strong>Sekretaris:</strong> {pengurus.pembangunan.sekretaris}</li>
+                      <li><strong>Bendahara:</strong> {pengurus.pembangunan.bendahara}</li>
+                      <li><strong>Wakil Bendahara:</strong> {pengurus.pembangunan.wakilBendahara}</li>
+                      <li><strong>Perencanaan:</strong> {pengurus.pembangunan.perencanaan}</li>
+                    </ul>
+                  </section>
                 </div>
-                <div>
-                  <h3 className="mb-3 text-xl font-bold">Panitia Pembangunan</h3>
-                  <ul className="space-y-2 text-gray-700">
-                    <li><strong>Ketua:</strong> {pengurus.pembangunan.ketua}</li>
-                    <li><strong>Sekretaris:</strong> {pengurus.pembangunan.sekretaris}</li>
-                    <li><strong>Bendahara:</strong> {pengurus.pembangunan.bendahara}</li>
-                    <li><strong>Wakil Bendahara:</strong> {pengurus.pembangunan.wakilBendahara}</li>
-                    <li><strong>Perencanaan:</strong> {pengurus.pembangunan.perencanaan}</li>
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </section>
         </TabsContent>
       </Tabs>
-    </div>
+    </main>
   )
 }

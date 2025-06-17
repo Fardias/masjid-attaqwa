@@ -111,6 +111,31 @@ export default function ContactPage() {
   const getDirectionsUrl = () => {
     return "https://www.google.com/maps/dir/?api=1&destination=-6.2,106.816666&destination_place_id=Masjid+At-Taqwa"
   }
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": "Hubungi Masjid At-Taqwa Puri Bintaro Hijau",
+    "description": "Hubungi Masjid At-Taqwa untuk pertanyaan, kritik, atau saran.",
+    "url": "https://masjidattaqwa-bph.com/contact",
+    "mainEntity": {
+      "@type": "Mosque",
+      "name": "Masjid At-Taqwa Puri Bintaro Hijau",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Jl. Utama Puri Bintaro Hijau",
+        "addressLocality": "Pondok Aren",
+        "addressRegion": "Banten",
+        "postalCode": "15224",
+        "addressCountry": "ID"
+      },
+      "telephone": "+628129023188",
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "-6.252576",
+        "longitude": "106.708341"
+      }
+    }
+  }
 
   return (
     <div className="container px-4 py-12 mx-auto">
