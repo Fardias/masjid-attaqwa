@@ -54,4 +54,4 @@ jobs:
           script: |
             cd ${{ secrets.REMOTE_PATH }}
             npm install --omit=dev
-            pm2 restart app || pm2 start npm --name ""masjidattaqwa-pbh"" -- run start
+            pm2 restart app || pm2 start npm --name "masjidattaqwa-pbh" -- run start
